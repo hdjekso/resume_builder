@@ -1,11 +1,12 @@
 import React from "react";
 import  ReactDOM from "react-dom/client";
+import Dashboard from "./component/DashBoard";
 
 const el = document.getElementById('root');
 const root = ReactDOM.createRoot(el);
 
 const App = () => {
-    return <h1>Resume start page</h1>
+    return <Dashboard />;
 }
 
 root.render(<App />);
