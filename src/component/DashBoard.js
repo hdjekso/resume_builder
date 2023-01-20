@@ -70,7 +70,7 @@ export default function Dashboard() {
               color="text.secondary"
               paragraph
             >
-              Start building up your resume for for first job!
+              Start building up your resume for your first job!
             </Typography>
             <Stack
               sx={{ pt: 4 }}
