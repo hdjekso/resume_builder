@@ -15,6 +15,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Link from "@mui/material/Link";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
 
 function Copyright() {
   return (
@@ -33,7 +34,15 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const theme = createTheme();
 
+
+
 export default function Dashboard() {
+
+  const navigate= useNavigate();
+  const page_hist=()=>{
+    navigate('/profile');
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -78,7 +87,7 @@ export default function Dashboard() {
               spacing={2}
               justifyContent="center"
             >
-              <Button variant="contained">start</Button>
+              <Button variant="contained" onClick={page_hist}>start</Button>
               <Button variant="outlined">sign in</Button>
             </Stack>
           </Container>
