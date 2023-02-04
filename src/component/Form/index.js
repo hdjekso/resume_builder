@@ -24,7 +24,7 @@ const Form = () => {
     navigate("/");
   };
 
-  const steps = ["profile", "Education", "Skills", "Mini Project", "Social"];
+  const steps = ["Profile", "Skills and Coursework", "Projects and Work Experience"];
 
   const totalSteps = () => {
     return steps.length;
