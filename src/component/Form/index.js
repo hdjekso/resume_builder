@@ -76,8 +76,8 @@ const Form = () => {
     <React.Fragment>
       <Navbar />
       <Container>
-        <Box sx={{ my: 2 }}>
-        <Stepper nonLinear activeStep={activeStep}>
+        <Box sx={{ my: 3}}>
+        <Stepper nonLinear activeStep={activeStep} sx={{my: 3}}>
           {steps.map((label, index) => (
             <Step key={label} completed={completed[index]}>
               <StepButton color="inherit" onClick={handleStep(index)}>
@@ -94,7 +94,7 @@ const Form = () => {
               <Typography sx={{ mt: 2, mb: 1 }}>
                 You've filled up every section of the form
               </Typography>
-              <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+              <Box sx={{ display: "flex", flexDirection: "row", pt: 2}}>
                 <Box sx={{ flex: "1 1 auto" }} />
                 <Button onClick={handleReset}>Reset Form</Button>
               </Box>
@@ -104,7 +104,6 @@ const Form = () => {
               <ProfileSection />
               {/* think of a way to change the JSX form around by stepper  */}
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-                <Button onClick={handleClick}>Home</Button>
                 <Button
                   color="inherit"
                   disabled={activeStep === 0}
@@ -117,7 +116,7 @@ const Form = () => {
                 <Button onClick={handleNext} sx={{ mr: 1 }}>
                   Next
                 </Button>
-                {activeStep !== steps.length &&
+                {/*{activeStep !== steps.length &&
                   (completed[activeStep] ? (
                     <Typography
                       variant="caption"
@@ -131,7 +130,7 @@ const Form = () => {
                         ? "Finish"
                         : "Complete Step"}
                     </Button>
-                  ))}
+                      ))}*/}
               </Box>
             </React.Fragment>
           )}
