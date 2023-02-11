@@ -15,6 +15,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Link from "@mui/material/Link";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
 
 function Copyright() {
   return (
@@ -34,6 +35,12 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 const theme = createTheme();
 
 export default function Dashboard() {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/form");
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -62,7 +69,7 @@ export default function Dashboard() {
               color="text.primary"
               gutterBottom
             >
-                Build Up
+              Build Up
             </Typography>
             <Typography
               variant="h5"
@@ -78,12 +85,11 @@ export default function Dashboard() {
               spacing={2}
               justifyContent="center"
             >
-              <Button variant="contained">start</Button>
+              <Button variant="contained" onClick={handleClick}>start</Button>
               <Button variant="outlined">sign in</Button>
             </Stack>
           </Container>
         </Box>
-        
       </main>
       {/* Footer */}
       <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
