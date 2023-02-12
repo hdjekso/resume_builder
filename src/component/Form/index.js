@@ -13,6 +13,8 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import ProfileSection from "./ProfileSection";
+import WorkExperienceSection from "./WorkExperienceSection";
+import SkillSection from "./SkillSection"
 
 const Form = () => {
   const [completed, setCompleted] = useState({});
@@ -60,6 +62,19 @@ const Form = () => {
     setActiveStep(step);
   };
 
+  const setStepSection = (step) => {
+    switch(step){
+      case 0:
+        return <ProfileSection />;
+      case 1:
+        return <SkillSection />;
+      case 2:
+        return <WorkExperienceSection />;
+      default:
+        return "error/unknown step";
+    };
+  }
+
   const handleComplete = () => {
     const newCompleted = completed;
     newCompleted[activeStep] = true;
@@ -101,7 +116,8 @@ const Form = () => {
             </React.Fragment>
           ) : (
             <React.Fragment>
-              <ProfileSection />
+              {/* <ProfileSection /> */}
+              {setStepSection(activeStep)}
               {/* think of a way to change the JSX form around by stepper  */}
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 <Button
