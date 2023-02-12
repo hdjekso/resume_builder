@@ -1,0 +1,25 @@
+button {
+    background: none;
+    outline: none;
+    cursor: pointer;
+    font-weight: 500;
+    border-radius: 2px;
+    padding: 5px 10px;
+  }
+  .add-btn {
+    font-size: 1.5em;
+    font-weight: bold;
+    align-self: flex-start;
+    display: flex;
+    align-items: center;
+    margin-top: 0rem;
+    color: rgb(0, 208, 255);
+    border: 1px solid rgb(0, 208, 255);
+    border-radius: 10%;
+  }
+  
+  .remove-btn {
+    color: red;
+    text-decoration: underline;
+    border: none;
+  }

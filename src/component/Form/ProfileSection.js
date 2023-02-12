@@ -15,6 +15,7 @@ import {
   Grid,
   TextField,
 } from "@mui/material";
+import "./ProfileSection.css"
 
 const ProfileSection = () => {
 
@@ -78,17 +79,17 @@ const ProfileSection = () => {
             <Grid item md={12} xs={12}>
               <TextField sx={{width: '66%', backgroundColor: "#ffffff"}} label="Additional link (optional)" variant="outlined" />
               {linkFields.length > 1 && linkFields.length - 1 === index && 
-                <button
+                <button className="remove-btn"
                 onClick = {() => handleRemoveLink(index)}
                 >remove</button>
               }
             </Grid>
             {linkFields.length - 1 === index && linkFields.length < 3 && 
             (
-              <Grid item md={12} xs={12}>   
-                <button
+              <Grid item md={12} xs={12} mt={0}>   
+                <button className="add-btn"
                 onClick={() => handleAddLink(index)}
-                >Add</button>
+                >+ Add</button>
               </Grid>    
             )}
             
