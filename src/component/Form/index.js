@@ -14,7 +14,9 @@ import {
 import { useState } from "react";
 import ProfileSection from "./ProfileSection";
 import ResumePDF from "../ResumePDF";
-import { PDFDownloadLink } from "@react-pdf/renderer";
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 const Form = () => {
   const [completed, setCompleted] = useState({});
@@ -71,6 +73,30 @@ const Form = () => {
     newCompleted[activeStep] = true;
     setCompleted(newCompleted);
     handleNext();
+  };
+
+  const docDefinition = {
+    content: [
+      // if you don't need styles, you can use a simple string to define a paragraph
+      "This is a standard paragraph, using default style",
+
+      // using a { text: '...' } object lets you set styling properties
+      { text: "This paragraph will have a bigger font", fontSize: 15 },
+
+      // if you set the value of text to an array instead of a string, you'll be able
+      // to style any part individually
+      {
+        text: [
+          "This paragraph is defined as an array of elements to make it possible to ",
+          { text: "restyle part of it and make it bigger ", fontSize: 15 },
+          "than the rest.",
+        ],
+      },
+    ],
+  };
+  const handleDownloadResume = () => {
+    const pdfGenerator = pdfMake.createPdf(docDefinition);
+    pdfGenerator.download();
   };
 
   const handleReset = () => {
@@ -144,15 +170,7 @@ const Form = () => {
         </Box>
       </Container>
       <div>
-        <PDFDownloadLink document={<ResumePDF />} fileName="Resume">
-          {({ loading }) =>
-            loading ? (
-              <button> Loading Document...</button>
-            ) : (
-              <button>Download Resume</button>
-            )
-          }
-        </PDFDownloadLink>
+        <Button onClick={handleDownloadResume}>Hello</Button>
       </div>
     </React.Fragment>
   );
