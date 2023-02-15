@@ -26,8 +26,7 @@ const ResumePDF = () => {
   };
 
   const handleDownloadResume = () => {
-    const pdfGenerator = pdfMake.createPdf(docDefinition);
-    pdfGenerator.download();
+    pdfMake.createPdf(docDefinition).download("Resume.pdf");
   };
   return (
     <div>
