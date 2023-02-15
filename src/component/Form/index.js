@@ -145,7 +145,7 @@ const Form = () => {
           </div>
         </Box>
       </Container>
-      <ResumePDF></ResumePDF>
+      <ResumePDF />
     </React.Fragment>
   );
 };
