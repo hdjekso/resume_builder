@@ -15,8 +15,24 @@ import {
   Grid,
   TextField,
 } from "@mui/material";
+import "./ProfileSection.css"
 
 const ProfileSection = () => {
+
+  const [linkFields, setLinkFields] = useState([{link: '0'}]);
+  console.log(linkFields);
+
+  const handleAddLink = (index) => {
+    setLinkFields([...linkFields, {link: index + 1}])
+  }
+
+  const handleRemoveLink = (index) => {
+    const list = [...linkFields];
+    list.splice(index, 1);
+    console.log(list);
+    setLinkFields(list);
+  }
+
   return (
     <form autoComplete="off" noValidate md={6}>
       <Card 
@@ -25,7 +41,7 @@ const ProfileSection = () => {
 			borderColor: 'grey.500',
 			backgroundColor: "#f1ffff"}}
 		style={{ 
-			minHeight: "80vh", 
+			minHeight: "78vh", 
 			overflow: "auto",
 			minWidth:"45vw" }}
 		>
@@ -53,14 +69,36 @@ const ProfileSection = () => {
             <TextField sx={{backgroundColor: "#ffffff"}} fullWidth label="GPA (optional)" variant="outlined" />
           </Grid>
         </Grid>
-        <Grid container spacing={4} mt={1} mb={10} paddingRight={3} paddingLeft={3}>
+        <Grid container spacing={4} mt={1} paddingRight={3} paddingLeft={3}>
           <Grid item md={12} xs={12}>
             <TextField sx={{width: '66%', backgroundColor: "#ffffff" }} required label="Email" variant="outlined" />
           </Grid>
-          <Grid item md={12} xs={12}>
-            <TextField sx={{width: '66%', backgroundColor: "#ffffff"}} label="Link 1 (optional)" variant="outlined" />
-          </Grid>  
         </Grid>
+        {linkFields.map((singleLink, index) => (
+          <Grid container spacing={4} mt={1} paddingRight={3} paddingLeft={3} key={index}>
+            <Grid item md={12} xs={12}>
+              <TextField sx={{width: '66%', backgroundColor: "#ffffff"}} label="Additional link (optional)" variant="outlined" />
+              {linkFields.length > 1 && linkFields.length - 1 === index && 
+                <button className="remove-btn"
+                onClick = {() => handleRemoveLink(index)}
+                >remove</button>
+              }
+            </Grid>
+            {linkFields.length - 1 === index && linkFields.length < 3 && 
+            (
+              <Grid item md={12} xs={12} mt={0}>   
+                <button className="add-btn"
+                onClick={() => handleAddLink(index)}
+                >+ Add</button>
+              </Grid>    
+            )}
+            
+          </Grid>
+        ))}
+        <Grid container mb={10}>  
+        </Grid> 
+        
+
       </Card>
     </form>
   );
