@@ -28,6 +28,7 @@ const ResumePDF = () => {
   const handleDownloadResume = () => {
     pdfMake.createPdf(docDefinition).download("Resume.pdf");
   };
+
   return (
     <div>
       <Button onClick={handleDownloadResume}>Download Resume</Button>
