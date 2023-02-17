@@ -89,8 +89,11 @@ const ProfileSection = () => {
               />
             </LocalizationProvider>
           </Grid>
-          <Grid item md={8} xs={12}>
+          <Grid item md={4} xs={12}>
             <TextField sx={{backgroundColor: "#ffffff"}} required fullWidth label="Major" variant="outlined" />
+          </Grid>
+          <Grid item md={4} xs={12}>
+            <TextField sx={{backgroundColor: "#ffffff"}} required fullWidth label="Degree" variant="outlined" />
           </Grid>
           <Grid item md={3} xs={12}>
             <TextField sx={{backgroundColor: "#ffffff"}} label="GPA (optional)" fullWidth variant="outlined" />
