@@ -15,6 +15,13 @@ import {
   Grid,
   TextField,
 } from "@mui/material";
+import dayjs from 'dayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import "./ProfileSection.css"
 
 const ProfileSection = () => {
@@ -33,12 +40,18 @@ const ProfileSection = () => {
     setLinkFields(list);
   }
 
+  const [value, setValue] = React.useState(dayjs('2023-06-13T21:11:54'));
+
+  const handleChange = (newValue) => {
+    setValue(newValue);
+  };
+
   return (
     <form autoComplete="off" noValidate md={6}>
       <Card 
 	  	sx={{
 			border: 1, 
-			borderColor: 'grey.500',
+			borderColor: 'grey.500', 
 			backgroundColor: "#f1ffff"}}
 		style={{ 
 			minHeight: "78vh", 
@@ -65,8 +78,22 @@ const ProfileSection = () => {
           <Grid item md={8} xs={12}>
             <TextField sx={{backgroundColor: "#ffffff"}} required fullWidth label="College/ University" variant="outlined" />
           </Grid>
-          <Grid item md={4} xs={12}>
-            <TextField sx={{backgroundColor: "#ffffff"}} fullWidth label="GPA (optional)" variant="outlined" />
+          <Grid item md={3} xs={12}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DesktopDatePicker
+              label="Expected Graduation date"
+              inputFormat="MM/DD/YYYY"
+              value={value}
+              onChange={handleChange}
+              renderInput={(params) => <TextField sx={{backgroundColor: "#ffffff"}} required fullWidth {...params} />}
+              />
+            </LocalizationProvider>
+          </Grid>
+          <Grid item md={8} xs={12}>
+            <TextField sx={{backgroundColor: "#ffffff"}} required fullWidth label="Major" variant="outlined" />
+          </Grid>
+          <Grid item md={3} xs={12}>
+            <TextField sx={{backgroundColor: "#ffffff"}} label="GPA (optional)" fullWidth variant="outlined" />
           </Grid>
         </Grid>
         <Grid container spacing={4} mt={1} paddingRight={3} paddingLeft={3}>
@@ -87,7 +114,8 @@ const ProfileSection = () => {
             {linkFields.length - 1 === index && linkFields.length < 3 && 
             (
               <Grid item md={12} xs={12} mt={0}>   
-                <button className="add-btn"
+                <button 
+                className="add-btn"
                 onClick={() => handleAddLink(index)}
                 >+ Add</button>
               </Grid>    
