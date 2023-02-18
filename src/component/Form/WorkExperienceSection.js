@@ -149,7 +149,7 @@ const WorkExperienceSection = () => {
                 >remove</button>
               }
             </Grid>
-            {linkFields.length - 1 === index && linkFields.length < 3 && 
+            {linkFields.length - 1 === index && linkFields.length < 5 && 
             (
               <Grid item md={12} xs={12} mt={0}>   
                 <button 
