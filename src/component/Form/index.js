@@ -26,7 +26,7 @@ const Form = () => {
     navigate("/");
   };
 
-  const steps = ["Profile", "Skills and Coursework", "Projects and Work Experience"];
+  const steps = ["Profile", "Skills, Coursework, and Work Experience", "Projects and Awards"];
 
   const totalSteps = () => {
     return steps.length;
