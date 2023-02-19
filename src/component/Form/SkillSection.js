@@ -26,7 +26,7 @@ import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import "./SkillSection.css";
+// import "./SkillSection.css";
 
 const SkillSection = () => {
 
