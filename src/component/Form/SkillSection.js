@@ -63,6 +63,7 @@ const SkillSection = () => {
     const list = [...workFields];
     list.splice(index, 1);
     console.log(list);
+    setWorkCounter_(workCounter_ - 1);
     setWorkFields(list);
   }
 
