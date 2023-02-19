@@ -45,21 +45,28 @@ const SkillSection = () => {
 
   let workCounter = 1;
 
-  //everything below is from page 1
-  const [linkFields, setLinkFields] = useState([{link: '0'}]);
-  console.log(linkFields);
+  //add/ remove buttons
+  const [workFields, setWorkFields] = useState([{work: '0'}]);
+  const [workCounter_, setWorkCounter_] = useState(1);
 
-  const handleAddLink = (index) => {
-    setLinkFields([...linkFields, {link: index + 1}])
+  const handleAddWork = (index) => {
+    /*const workCopy = [...workFields];
+    console.log(workCopy);
+    workCopy.push(workCopy[workCopy.length - 1] + 1);
+    console.log(workCopy);
+    setWorkCounter_(workCopy);*/
+    setWorkCounter_(workCounter_ + 1);
+    setWorkFields([...workFields, {work: index + 1}]);
   }
 
-  const handleRemoveLink = (index) => {
-    const list = [...linkFields];
+  const handleRemoveWork = (index) => {
+    const list = [...workFields];
     list.splice(index, 1);
     console.log(list);
-    setLinkFields(list);
+    setWorkFields(list);
   }
 
+  //date pickers
   const [startDate, setStartDate] = React.useState(dayjs('2023-06-13T21:11:54'));
 
   const handleStartDateChange = (newDate) => {
@@ -102,7 +109,6 @@ const SkillSection = () => {
             <Typography variant="h5" component="div" 
             sx={{ mb: 0.5,
                   fontWeight: 'bold',
-                  textDecoration: "underline",
                   color: "#00adb5",}}>
                   Skills
             </Typography> 
@@ -113,7 +119,6 @@ const SkillSection = () => {
             <Typography variant="h5" component="div" 
               sx={{ mb: 0.5,
                     fontWeight: 'bold',
-                    textDecoration: "underline",
                     color: "#00adb5",}}>
                     Coursework
             </Typography> 
@@ -122,53 +127,75 @@ const SkillSection = () => {
         </Grid>
         <Typography variant="h5" component="div" 
           mt={8} paddingRight={3} paddingLeft={3}
-          sx={{ mb: 0.5,
+          sx={{
             fontWeight: 'bold',
-            textDecoration: "underline",
             color: "#00adb5",}}>
             Work Experience
         </Typography>
-        <Grid container spacing={4} mt={1} paddingRight={3} paddingLeft={3}>
-          <Grid item md={12} xs={12}>
+        {workFields.map((singleWork, index) => (
+          <Grid container spacing={4} mt={0} paddingRight={3} paddingLeft={3}>
+            <Grid item md={7} xs={7}>
               <Typography variant="h6" component="div" 
                 sx={{ mb: 0.5,
-                  color: "#4da8bf",}}>
-                  Work Expeience {workCounter}
+                  color: "#4da8bf",
+                  textDecoration: "underline",
+                  display: 'inline'}}>
+                  Work Expeience {workCounter_}
               </Typography>
-              <TextField sx={{width: '66%', backgroundColor: "#ffffff"}} required label="Company name" variant="outlined" /> 
+            </Grid>
+            <Grid item md={4} xs={4}>
+              {workFields.length > 1 && workFields.length - 1 === index && 
+                <button className="remove-btn" sx={{ display: 'inline'}}
+                onClick = {() => handleRemoveWork(index)}
+                >remove</button>
+              }
+            </Grid>
+            <Grid item md={12} xs={12} mt={0}>
+              <TextField sx={{width: '66%', backgroundColor: "#ffffff"}} mt = {0} required label="Company name" variant="outlined" /> 
+            </Grid>
+            <Grid item md={12} xs={12}>
+              <TextField sx={{backgroundColor: "#ffffff", width: '33%'}} required label="Job title" variant="outlined" />
+            </Grid>
+            <Grid item md={3} xs={12}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DesktopDatePicker
+                label="Start date"
+                inputFormat="MM/DD/YYYY"
+                value={startDate}
+                onChange={handleStartDateChange}
+                renderInput={(params) => <TextField sx={{backgroundColor: "#ffffff"}} required fullWidth {...params} />}
+                />
+              </LocalizationProvider>
+              <FormGroup>
+                <FormControlLabel control={<Checkbox onChange={handleCheckChange}/>} label="This is an ongoing job" />
+              </FormGroup>
+            </Grid>
+            <Grid item md={3} xs={12}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DesktopDatePicker disabled={btnStatus}
+                label="End date"
+                inputFormat="MM/DD/YYYY"
+                value={endDate}
+                onChange={handleEndDateChange}
+                renderInput={(params) => <TextField sx={{backgroundColor: "#ffffff"}} required fullWidth {...params} />}
+                />
+              </LocalizationProvider>
+            </Grid>
+            <Grid item md={8} xs={12}>
+              <TextField  sx={{backgroundColor: "#ffffff"}} required fullWidth label="Job Description" variant="outlined" multiline rows={4}/>
+            </Grid>
+            {workFields.length - 1 === index && workFields.length < 3 && 
+            (
+              <Grid item md={12} xs={12} mt={0}>   
+                <button 
+                className="add-btn"
+                onClick={() => handleAddWork(index)}
+                >+ Add</button>
+              </Grid>
+            )}
+            <Grid item md={8} xs={12} mb={4}></Grid>
           </Grid>
-          <Grid item md={12} xs={12}>
-            <TextField sx={{backgroundColor: "#ffffff", width: '33%'}} required label="Job title" variant="outlined" />
-          </Grid>
-          <Grid item md={3} xs={12}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DesktopDatePicker
-              label="Start date"
-              inputFormat="MM/DD/YYYY"
-              value={startDate}
-              onChange={handleStartDateChange}
-              renderInput={(params) => <TextField sx={{backgroundColor: "#ffffff"}} required fullWidth {...params} />}
-              />
-            </LocalizationProvider>
-            <FormGroup>
-              <FormControlLabel control={<Checkbox onChange={handleCheckChange}/>} label="This is an ongoing job" />
-            </FormGroup>
-          </Grid>
-          <Grid item md={3} xs={12}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DesktopDatePicker disabled={btnStatus}
-              label="End date"
-              inputFormat="MM/DD/YYYY"
-              value={endDate}
-              onChange={handleEndDateChange}
-              renderInput={(params) => <TextField sx={{backgroundColor: "#ffffff"}} required fullWidth {...params} />}
-              />
-            </LocalizationProvider>
-          </Grid>
-          <Grid item md={8} xs={12}>
-            <TextField sx={{backgroundColor: "#ffffff"}} required fullWidth label="Job Description" variant="outlined" multiline rows={4}/>
-          </Grid>
-        </Grid>
+        ))}
         <Grid container mb={10}>  
         </Grid> 
         
