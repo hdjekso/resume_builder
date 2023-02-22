@@ -29,6 +29,7 @@ const ResumePDF = () => {
         },
       ],
     });
+
     var detailsArray = [];
     data.jobDetails.forEach((element) => {
       detailsArray.push(element);
