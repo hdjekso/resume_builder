@@ -61,6 +61,19 @@ const ResumePDF = () => {
       },
 
       {
+        canvas: [
+          {
+            type: "line",
+            x1: 0,
+            y1: 0,
+            x2: 515,
+            y2: 0,
+            lineWidth: 1,
+          },
+        ],
+      },
+
+      {
         columns: [
           {
             text: [
@@ -82,6 +95,19 @@ const ResumePDF = () => {
       },
 
       {
+        canvas: [
+          {
+            type: "line",
+            x1: 0,
+            y1: 0,
+            x2: 515,
+            y2: 0,
+            lineWidth: 1,
+          },
+        ],
+      },
+
+      {
         text: [{ text: "Technical Skills\t" }, { text: "A B C D" }],
         style: "body",
       },
@@ -90,9 +116,21 @@ const ResumePDF = () => {
         text: "\nEXPERIENCE",
         style: "header",
       },
-      experienceData,
 
-      //{ columns: [], style: "body" },
+      {
+        canvas: [
+          {
+            type: "line",
+            x1: 0,
+            y1: 0,
+            x2: 515,
+            y2: 0,
+            lineWidth: 1,
+          },
+        ],
+      },
+
+      experienceData,
     ],
     styles: {
       name: {
@@ -103,7 +141,6 @@ const ResumePDF = () => {
       header: {
         fontsize: 14,
         bold: true,
-        decoration: "underline",
       },
       body: {
         fontSize: 12,
