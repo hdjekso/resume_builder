@@ -15,6 +15,10 @@ import { useState } from "react";
 import ProfileSection from "./ProfileSection";
 import WorkExperienceSection from "./WorkExperienceSection";
 import SkillSection from "./SkillSection"
+import ResumePDF from "../ResumePDF";
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 const Form = () => {
   const [completed, setCompleted] = useState({});
@@ -153,6 +157,7 @@ const Form = () => {
         </div>
         </Box>
       </Container>
+      <ResumePDF />
     </React.Fragment>
   );
 };
