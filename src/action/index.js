@@ -1,6 +1,11 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
+import dayjs from "dayjs";
 
+import { getDefaultMiddleware } from "@reduxjs/toolkit";
 // for the profile page for :
+const customizedMiddleware = getDefaultMiddleware({
+  serializableCheck: false,
+});
 
 const firstnameSlice = createSlice({
   name: "firstname",
@@ -117,6 +122,21 @@ const emailSlice = createSlice({
   },
 });
 
+const current = new Date();
+
+const dateSlice = createSlice({
+  name: "date",
+  initialState: dayjs(
+    `${current.getMonth() + 1}/${current.getDate()}/${current.getFullYear()}`
+  ),
+  reducers: {
+    changedate(state, action) {
+      state = action.payload;
+      return state;
+    },
+  },
+});
+
 // for the skill page:
 
 const skillSlice = createSlice({
@@ -170,6 +190,7 @@ const store = configureStore({
     degree: degreeSlice.reducer,
     gpa: gpaSlice.reducer,
     email: emailSlice.reducer,
+    date: dateSlice.reducer,
     links: linkSlice.reducer,
     skills: skillSlice.reducer,
     courseworks: courseWorkSlice.reducer,
@@ -188,6 +209,7 @@ export const { changeCollege } = collegeSlice.actions;
 export const { changeGpa } = gpaSlice.actions;
 export const { changeMajor } = majorSlice.actions;
 export const { changeDegree } = degreeSlice.actions;
+export const { changedate } = dateSlice.actions;
 
 export const { addskill, removeskill } = skillSlice.actions;
 export const { addcoursework, removecoursework } = courseWorkSlice.actions;
