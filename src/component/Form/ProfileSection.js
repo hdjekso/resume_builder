@@ -35,17 +35,28 @@ import {
   changeDegree,
   addLink,
   removeLink,
+  changedate,
 } from "../../action";
 import { useDispatch, useSelector } from "react-redux";
 
-
 const ProfileSection = () => {
-  // const [links, setlinks] = useState([{ link: "0" }]);
-  const [value, setValue] = React.useState(dayjs("2023-06-13T21:11:54"));
+  // const current = new Date();
+  // const date = `${
+  //   current.getMonth() + 1
+  // }/${current.getDate()}/${current.getFullYear()}`;
 
-  const [addlink,setAddlink] = React.useState('');
+  // console.log(date);
+  // const [links, setlinks] = useState([{ link: "0" }]);
+
+
+  const [addlink, setAddlink] = React.useState("");
 
   const dispatch = useDispatch();
+
+  const date = useSelector((state) => {
+    return state.date;
+  });
+  const [value, setValue] = React.useState(dayjs(date));
 
   const firstname = useSelector((state) => {
     return state.firstname;
@@ -53,7 +64,6 @@ const ProfileSection = () => {
   const middlename = useSelector((state) => {
     return state.middlename;
   });
-
   const lastname = useSelector((state) => {
     return state.lastname;
   });
@@ -94,9 +104,8 @@ const ProfileSection = () => {
 
   const handleClick = () => {
     dispatch(addLink(addlink));
-    setAddlink('');
-
-  }
+    setAddlink("");
+  };
 
   const firstNameHandle = (newValue) => {
     dispatch(changeFirstName(newValue.target.value));
@@ -126,7 +135,10 @@ const ProfileSection = () => {
   const gpaHandle = (newValue) => {
     dispatch(changeGpa(newValue.target.value));
   };
-
+  const dateHandle = (newValue) => {
+    dispatch(changedate(newValue));
+    console.log(date)
+  }
   return (
     <form autoComplete="off" noValidate md={6}>
       <Card
@@ -212,7 +224,10 @@ const ProfileSection = () => {
               <DesktopDatePicker
                 label="Expected Graduation date"
                 inputFormat="MM/DD/YYYY"
-                value={value}
+                value={dayjs(date)}
+                onChange={(newValue) => {
+                  dateHandle(newValue.$d)
+                }}
                 renderInput={(params) => (
                   <TextField
                     sx={{ backgroundColor: "#ffffff" }}
@@ -302,7 +317,8 @@ const ProfileSection = () => {
             //   endAdornment: <Button onClick={console.log('hello')}> add </Button>,
             // }}
           />
-          <Button onClick={handleClick}>add</Button>
+          {links.length < 3 ? <Button onClick={handleClick}>add</Button> : ""}
+
           {/* {links.length < 3 && <Button onClick={(input)=>console.log(input.target.value)}>add</Button>} */}
         </Grid>
 
