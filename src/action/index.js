@@ -1,5 +1,5 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
-import dayjs from "dayjs";
+
 
 import { getDefaultMiddleware } from "@reduxjs/toolkit";
 // for the profile page for :
@@ -80,10 +80,10 @@ const linkSlice = createSlice({
 
 const majorSlice = createSlice({
   name: "major",
-  initialState: [],
+  initialState: "",
   reducers: {
     changeMajor(state, action) {
-      state.push(action.payload);
+      state = action.payload;
       return state;
     },
   },
@@ -126,12 +126,15 @@ const current = new Date();
 
 const dateSlice = createSlice({
   name: "date",
-  initialState: dayjs(
-    `${current.getMonth() + 1}/${current.getDate()}/${current.getFullYear()}`
-  ),
+  initialState: `${
+    current.getMonth() + 1
+  }/${current.getDate()}/${current.getFullYear()}`,
   reducers: {
     changedate(state, action) {
-      state = action.payload;
+      state = `${action.payload.$M + 1}/${action.payload.$D}/${
+        action.payload.$y
+      }`;
+      // `${action.payload.$m}/${action.payload.$d}/${action.payload.$y}`
       return state;
     },
   },
