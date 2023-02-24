@@ -14,15 +14,15 @@ const firstnameSlice = createSlice({
 });
 
 const middlenameSlice = createSlice({
-    name:'middlename',
-    initialState:"",
-    reducers:{
-        changeMiddleName(state,action) {
-            state = action.payload;
-            return state;
-        }
-    }
-})
+  name: "middlename",
+  initialState: "",
+  reducers: {
+    changeMiddleName(state, action) {
+      state = action.payload;
+      return state;
+    },
+  },
+});
 
 const lastnameSlice = createSlice({
   name: "lastname",
@@ -61,8 +61,13 @@ const linkSlice = createSlice({
   name: "link",
   initialState: [],
   reducers: {
-    changeLink(state, action) {
+    addLink(state, action) {
       state.push(action.payload);
+      return state;
+    },
+    removeLink(state, action) {
+      const index = state.indexOf(action.payload);
+      state.splice(index, 1);
       return state;
     },
   },
@@ -101,8 +106,6 @@ const gpaSlice = createSlice({
   },
 });
 
-
-
 const emailSlice = createSlice({
   name: "email",
   initialState: "",
@@ -116,6 +119,46 @@ const emailSlice = createSlice({
 
 // for the skill page:
 
+const skillSlice = createSlice({
+  name: "skill",
+  initialState: [],
+  reducers: {
+    addskill(state, action) {
+      state = action.payload;
+      return state;
+    },
+    removeskill(state, action) {
+      const index = state.indexOf(action.payload);
+      state.splice(index, 1);
+      return state;
+    },
+  },
+});
+
+const courseWorkSlice = createSlice({
+  name: "coursework",
+  initialState: [],
+  reducers: {
+    addcoursework(state, action) {
+      state = action.payload;
+      return state;
+    },
+    removecoursework(state, action) {
+      const index = state.indexOf(action.payload);
+      state.splice(index, 1);
+      return state;
+    },
+  },
+});
+
+const workexperienceSlcie = createSlice({
+  name: "workexperience",
+  initialState: [],
+  reducers: {
+    //
+  },
+});
+
 const store = configureStore({
   reducer: {
     firstname: firstnameSlice.reducer,
@@ -127,7 +170,10 @@ const store = configureStore({
     degree: degreeSlice.reducer,
     gpa: gpaSlice.reducer,
     email: emailSlice.reducer,
-    link: linkSlice.reducer,
+    links: linkSlice.reducer,
+    skills: skillSlice.reducer,
+    courseworks: courseWorkSlice.reducer,
+    workexperiences: workexperienceSlcie.reducer,
   },
 });
 
@@ -137,8 +183,11 @@ export const { changeMiddleName } = middlenameSlice.actions;
 export const { changeLastName } = lastnameSlice.actions;
 export const { changeAddress } = addressSlice.actions;
 export const { changeEmail } = emailSlice.actions;
-export const { changeLink } = linkSlice.actions;
+export const { addLink, removeLink } = linkSlice.actions;
 export const { changeCollege } = collegeSlice.actions;
 export const { changeGpa } = gpaSlice.actions;
 export const { changeMajor } = majorSlice.actions;
 export const { changeDegree } = degreeSlice.actions;
+
+export const { addskill, removeskill } = skillSlice.actions;
+export const { addcoursework, removecoursework } = courseWorkSlice.actions;

@@ -31,15 +31,19 @@ import {
   changeCollege,
   changeEmail,
   changeGpa,
-  changeLink,
   changeMajor,
   changeDegree,
+  addLink,
+  removeLink,
 } from "../../action";
 import { useDispatch, useSelector } from "react-redux";
 
+
 const ProfileSection = () => {
-  const [linkFields, setLinkFields] = useState([{ link: "0" }]);
+  // const [links, setlinks] = useState([{ link: "0" }]);
   const [value, setValue] = React.useState(dayjs("2023-06-13T21:11:54"));
+
+  const [addlink,setAddlink] = React.useState('');
 
   const dispatch = useDispatch();
 
@@ -71,26 +75,35 @@ const ProfileSection = () => {
   const gpa = useSelector((state) => {
     return state.gpa;
   });
-  const link = useSelector((state) => {
-    return state.link;
+  const links = useSelector((state) => {
+    return state.links;
   });
 
-  const handleAddLink = (index) => {
-    setLinkFields([...linkFields, { link: index + 1 }]);
+  const handleAddLink = (link) => {
+    console.log(link);
+    // setlinks([...links, { link: index + 1 }]);
+    dispatch(addLink(link));
   };
 
-  const handleRemoveLink = (index) => {
-    const list = [...linkFields];
-    list.splice(index, 1);
-    setLinkFields(list);
+  const handleRemoveLink = (link) => {
+    dispatch(removeLink(link));
+
+    // list.splice(index, 1);
+    // setlinks(list);
   };
+
+  const handleClick = () => {
+    dispatch(addLink(addlink));
+    setAddlink('');
+
+  }
 
   const firstNameHandle = (newValue) => {
     dispatch(changeFirstName(newValue.target.value));
   };
   const middleNameHandle = (newValue) => {
     dispatch(changeMiddleName(newValue.target.value));
-    console.log(newValue.target.value)
+    console.log(newValue.target.value);
   };
   const lastNameHandle = (newValue) => {
     dispatch(changeLastName(newValue.target.value));
@@ -112,9 +125,6 @@ const ProfileSection = () => {
   };
   const gpaHandle = (newValue) => {
     dispatch(changeGpa(newValue.target.value));
-  };
-  const linkHandle = (newValue) => {
-    dispatch(changeLink(newValue.target.value));
   };
 
   return (
@@ -259,7 +269,44 @@ const ProfileSection = () => {
             />
           </Grid>
         </Grid>
-        {linkFields.map((singleLink, index) => (
+        {links.map((link) => (
+          <Grid
+            container
+            spacing={4}
+            mt={1}
+            paddingRight={3}
+            paddingLeft={3}
+            key={link}
+          >
+            <Grid item md={8} xs={12}>
+              {/* <TextField
+                sx={{ width: "66%", backgroundColor: "#ffffff" }}
+                label="Additional link (optional)"
+                variant="outlined"
+                value={link}
+              /> */}
+              <p>{link}</p>
+              <Button onClick={(link) => handleRemoveLink(link)}>remove</Button>
+            </Grid>
+          </Grid>
+        ))}
+
+        <Grid item mt={5} paddingRight={3} paddingLeft={3}>
+          <TextField
+            sx={{ width: "66%", backgroundColor: "#ffffff" }}
+            label="Additional link (optional)"
+            variant="outlined"
+            onChange={(input) => setAddlink(input.target.value)}
+            value={addlink}
+            // InputProps={{
+            //   endAdornment: <Button onClick={console.log('hello')}> add </Button>,
+            // }}
+          />
+          <Button onClick={handleClick}>add</Button>
+          {/* {links.length < 3 && <Button onClick={(input)=>console.log(input.target.value)}>add</Button>} */}
+        </Grid>
+
+        {/* {links.map((link, index) => (
           <Grid
             container
             spacing={4}
@@ -273,121 +320,33 @@ const ProfileSection = () => {
                 sx={{ width: "66%", backgroundColor: "#ffffff" }}
                 label="Additional link (optional)"
                 variant="outlined"
+                value={link[0]}
               />
-              {linkFields.length > 1 && linkFields.length - 1 === index && (
+              {links.length > 1 && links.length - 1 === index && (
                 <button
                   className="remove-btn"
-                  onClick={() => handleRemoveLink(index)}
+                  onClick={() => handleRemoveLink(link)}
                 >
                   remove
                 </button>
               )}
             </Grid>
-            {linkFields.length - 1 === index && linkFields.length < 3 && (
+            {links.length - 1 === index && links.length < 3 && (
               <Grid item md={12} xs={12} mt={0}>
                 <button
                   className="add-btn"
-                  onClick={() => handleAddLink(index)}
+                  onClick={() => handleAddLink(link)}
                 >
                   + Add
                 </button>
               </Grid>
             )}
           </Grid>
-        ))}
-        <Grid container mb={10}></Grid>
+        ))} */}
+        {/* <Grid container mb={10}></Grid> */}
       </Card>
     </form>
   );
 };
-
-{
-  /*const theme = createTheme({
-    typography:{
-        fontFamily:[
-            "Swansea"
-        ]
-    },
-    background:{
-        primary:{
-            light: '#c3fdff',
-            main: '#90caf9',
-            dark: '#5d99c6',
-            contrastText: '#fff',
-            // default: "#90caf9"
-        },
-
-    },
-    spacing:8
-});
-
-const ProfileSection_old = () => {
-  const navigate= useNavigate();
-  const page_back=()=>{
-    navigate(-1);
-  }
-  
-  return (
-      <Box
-          sx={{
-              backgroundColor:"#CCF2F2",
-              height:100,
-			  width: '100%'
-          }}
-          style={{ 
-              minHeight: "97vh", 
-              overflow: "auto",
-              minWidth:"90vw" }}
-      >
-          <Box
-              sx={{
-                  backgroundColor:"#ffffff",
-              }}
-              style={{ 
-                  minHeight: "85vh", 
-                  overflow: "auto",
-                  maxWidth:"80vw",
-                  margin:"auto",
-                  marginTop:"10px"
-              }}
-          >
-              <ThemeProvider theme={theme}>
-
-				<Grid container mt={2} rowSpacing={7} columnSpacing={{ xs: 1, sm: 2, md: 4}} paddingRight={3} paddingLeft={3}>
-					<Grid item md={4} xs={12}>
-						<TextField required fullWidth label="First Name" variant="outlined" />
-					</Grid>
-					<Grid item md={4} xs={12}>
-						<TextField fullWidth label="Middle Name (optional)" variant="outlined" />
-					</Grid>
-					<Grid item md={4} xs={12}>
-						<TextField required fullWidth label="Last Name" variant="outlined"/>
-					</Grid>
-
-					<Grid item md={12} xs={12}>
-						<TextField required fullWidth label="Address" variant="outlined" multiline rows={3}/>
-					</Grid>
-
-					<Grid item md={8} xs={12}>
-						<TextField required fullWidth label="College/ University" variant="outlined" />
-					</Grid>
-					<Grid item md={4} xs={12}>
-						<TextField fullWidth label="GPA (optional)" variant="outlined" />
-					</Grid>
-				</Grid>
-				<Grid container spacing={4} mt={1} mb={10} paddingRight={3} paddingLeft={3}>
-				<Grid item md={12} xs={12}>
-					<TextField sx={{width: '66%' }} required label="Email" variant="outlined" />
-				</Grid>
-				<Grid item md={12} xs={12}>
-					<TextField sx={{width: '66%' }} label="Link 1 (optional)" variant="outlined" />
-				</Grid>  
-				</Grid>
-			</ThemeProvider>
-          </Box>
-      </Box>
-  );
-}*/
-}
 
 export default ProfileSection;

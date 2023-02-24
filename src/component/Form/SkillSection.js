@@ -1,17 +1,13 @@
 import { from } from "form-data";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useDebugValue } from "react";
 import AppBar from "@mui/material/AppBar";
 import { useNavigate } from "react-router-dom";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {
-  Box,
-  Button,
   Card,
-  CardContent,
   CardHeader,
-  Divider,
   Grid,
   TextField,
 } from "@mui/material";
@@ -27,23 +23,36 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 // import "./SkillSection.css";
+import { useDispatch, useSelector } from "react-redux";
+import { addskill, removeskill, addcoursework,removecoursework } from "../../action";
+import { ConnectingAirportsOutlined } from "@mui/icons-material";
 
 const SkillSection = () => {
+  const dispatch = useDispatch();
 
-  const [skillChips, setSkillChips] = React.useState([])
-  const [cwkChips, setCwkChips] = React.useState([])
+  // const [skillChips, setSkillChips] = React.useState([])
+  const skills = useSelector((state)=>{
+    return state.skills;
+  });
 
-  const handleSkillChange = (newChips) => {
-    setSkillChips(newChips);
-    console.log(skillChips);
+  const courseworks = useSelector((state)=>{
+    return state.courseworks;
+  })
+  // const [cwkChips, setCwkChips] = React.useState([])
+
+  const addskillhandle = (skill) => {
+    dispatch(addskill(skill));
+  };
+
+  const addcourseworkhandle = (coursework) => {
+    dispatch(addcoursework(coursework));
   }
+  // const handleCwkChange = (newChips) => {
+  //   setCwkChips(newChips);
+  //   console.log(cwkChips);
+  // }
 
-  const handleCwkChange = (newChips) => {
-    setCwkChips(newChips);
-    console.log(cwkChips);
-  }
 
-  let workCounter = 1;
 
   //add/ remove buttons
   const [workFields, setWorkFields] = useState([{work: '0'}]);
@@ -113,7 +122,7 @@ const SkillSection = () => {
                   color: "#00adb5",}}>
                   Skills
             </Typography> 
-            <MuiChipsInput value={skillChips} onChange={handleSkillChange} sx={{width: '66%', backgroundColor: "#ffffff" }} required />
+            <MuiChipsInput value={skills} onChange={addskillhandle} sx={{width: '66%', backgroundColor: "#ffffff" }} required />
           </Grid>
 
           <Grid item md={12} xs={12}>
@@ -123,7 +132,7 @@ const SkillSection = () => {
                     color: "#00adb5",}}>
                     Coursework
             </Typography> 
-            <MuiChipsInput value={cwkChips} onChange={handleCwkChange} sx={{width: '66%', backgroundColor: "#ffffff" }} required />
+            <MuiChipsInput value={courseworks} onChange={addcourseworkhandle} sx={{width: '66%', backgroundColor: "#ffffff" }} required />
           </Grid>
         </Grid>
         <Typography variant="h5" component="div" 
