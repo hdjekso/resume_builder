@@ -182,6 +182,129 @@ const workexperienceSlcie = createSlice({
   },
 });
 
+
+
+//work page
+
+const projectnameSlice = createSlice({
+  name: "projectname",
+  initialState: "",
+  reducers: {
+    changeProjectName(state, action) {
+      state = action.payload;
+      return state;
+    },
+  },
+});
+
+const projectlinkSlice = createSlice({
+  name: "projectlink",
+  initialState: "",
+  reducers: {
+    changeProjectLink(state, action) {
+      state = action.payload;
+      return state;
+    },
+  },
+});
+
+const projectdateSlice = createSlice({
+  name: "projectdate",
+  initialState: `${
+    current.getMonth() + 1
+  }/${current.getDate()}/${current.getFullYear()}`,
+  reducers: {
+    changeProjectDate(state, action) {
+      state = `${action.payload.$M + 1}/${action.payload.$D}/${
+        action.payload.$y
+      }`;
+      // `${action.payload.$m}/${action.payload.$d}/${action.payload.$y}`
+      return state;
+    },
+  },
+});
+
+const projectdescriptionSlice = createSlice({
+  name: "projectsdescription",
+  initialState: "",
+  reducers: {
+    changeProjectDescription(state, action) {
+      state = action.payload;
+      return state;
+    },
+  },
+});
+
+const projectbtnSlice = createSlice({
+  name: "projectbtn",
+  initialState: [],
+  reducers: {
+    addProjectLink(state, action) {
+      state.push(action.payload);
+      return state;
+    },
+    removeProjectLink(state, action) {
+      const index = state.indexOf(action.payload);
+      state.splice(index, 1);
+      return state;
+    },
+  },
+});
+
+const awardnameSlice = createSlice({
+  name: "awardname",
+  initialState: "",
+  reducers: {
+    changeAwardName(state, action) {
+      state = action.payload;
+      return state;
+    },
+  },
+});
+
+const awarddateSlice = createSlice({
+  name: "awarddate",
+  initialState: `${
+    current.getMonth() + 1
+  }/${current.getDate()}/${current.getFullYear()}`,
+  reducers: {
+    changeAwardDate(state, action) {
+      state = `${action.payload.$M + 1}/${action.payload.$D}/${
+        action.payload.$y
+      }`;
+      // `${action.payload.$m}/${action.payload.$d}/${action.payload.$y}`
+      return state;
+    },
+  },
+});
+
+const awardsummarySlice = createSlice({
+  name: "awardsummary",
+  initialState: "",
+  reducers: {
+    changeAwardSummary(state, action) {
+      state = action.payload;
+      return state;
+    },
+  },
+});
+
+const awardbtnSlice = createSlice({
+  name: "awardbtn",
+  initialState: [],
+  reducers: {
+    addAwardLink(state, action) {
+      state.push(action.payload);
+      return state;
+    },
+    removeAwardLink(state, action) {
+      const index = state.indexOf(action.payload);
+      state.splice(index, 1);
+      return state;
+    },
+  },
+});
+
 const store = configureStore({
   reducer: {
     firstname: firstnameSlice.reducer,
@@ -198,6 +321,15 @@ const store = configureStore({
     skills: skillSlice.reducer,
     courseworks: courseWorkSlice.reducer,
     workexperiences: workexperienceSlcie.reducer,
+    projectname: projectnameSlice.reducer,
+    projectlink: projectlinkSlice.reducer,
+    projectdate: projectdateSlice.reducer,
+    projectdescription: projectdescriptionSlice.reducer,
+    projectbtn: projectbtnSlice.reducer,
+    awardname: awardnameSlice.reducer,
+    awarddate: awarddateSlice.reducer,
+    awardsummary: awardsummarySlice.reducer,
+    awardbtnSlice: awardbtnSlice.reducer
   },
 });
 
@@ -216,3 +348,14 @@ export const { changedate } = dateSlice.actions;
 
 export const { addskill, removeskill } = skillSlice.actions;
 export const { addcoursework, removecoursework } = courseWorkSlice.actions;
+
+export const { changeProjectName } = projectnameSlice.actions;
+export const { changeProjectLink } = projectlinkSlice.actions;
+export const { changeProjectDate } = projectdateSlice.actions;
+export const { changeProjectDescription } = projectdescriptionSlice.actions;
+export const { addProjectLink, removeProjectLink } = projectbtnSlice.actions;
+export const { changeAwardName } = awardnameSlice.actions;
+export const { changeAwardDate } = awarddateSlice.actions;
+export const { changeAwardSummary } = awardsummarySlice.actions;
+export const { addAwardLink, removeAwardLink} = awardbtnSlice.actions;
+
