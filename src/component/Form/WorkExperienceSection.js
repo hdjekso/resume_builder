@@ -105,11 +105,20 @@ const WorkExperienceSection = () => {
           </Grid>
           
         </Grid> */}
+        {/* <CardHeader subheader="Projects" /> */}
+        
+        <Typography
+          variant="h5"
+          component="div"
+          sx={{ mb: 0.5, fontWeight: "bold", color: "#5484D7", ml:3, mb:-3}}
+        >
+          Projects
+        </Typography>
         {linkFields.map((singleLink, index) => (
           <Grid container spacing={4} mt={1} paddingRight={3} paddingLeft={3} key={index}>
             <Grid item md={12} xs={12}>
               
-              <Grid container rowSpacing={7} columnSpacing={{ xs: 1, sm: 2, md: 4 }} paddingRight={3} paddingLeft={3}>
+              <Grid container rowSpacing={7} columnSpacing={{ xs: 1, sm: 2, md: 4 }} >
                 <Grid item md={8} xs={12}>
                   <TextField sx={{backgroundColor: "#ffffff"}} required fullWidth label="Project Name" variant="outlined" />           
                 </Grid>
@@ -161,8 +170,15 @@ const WorkExperienceSection = () => {
             
           </Grid>
         ))}
-
-      <CardHeader subheader="Awards/Certifications" />
+      <br></br>
+      {/* <CardHeader subheader="Awards/Certifications" /> */}
+      <Typography
+        variant="h5"
+        component="div"
+        sx={{ mb: 0.5, fontWeight: "bold", color: "#5484D7", ml:3, mb:-3}}
+      >
+        Awards & Certifications
+      </Typography>
         {award_link.map((element,index) => (
           <Grid container spacing={4} mt={1} paddingRight={3} paddingLeft={3} key={index}>
             <Grid container item  rowSpacing={5} columnSpacing={{ xs: 1, sm: 2, md: 12 }}>
