@@ -77,6 +77,7 @@ const ProfileSection = () => {
   // };
 
   const handleRemoveLink = (link) => {
+    
     dispatch(removeLink(link));
 
     // list.splice(index, 1);
