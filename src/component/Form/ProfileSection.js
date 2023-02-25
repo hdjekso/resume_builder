@@ -157,6 +157,15 @@ const ProfileSection = () => {
         }}
       >
         <CardHeader subheader="Please fill in your information: " />
+        <Typography
+          variant="h5"
+          component="div"
+          paddingRight={3}
+          paddingLeft={3}
+          sx={{ mb: 1.5, fontWeight: "bold", color: "#5484D7" }}
+          >
+          Profile
+        </Typography>
         <Grid
           container
           rowSpacing={7}
@@ -296,21 +305,27 @@ const ProfileSection = () => {
             paddingLeft={3}
             key={link}
           >
-            <Grid item md={8} xs={12}>
+            <Grid item md={7.8} xs={12}>
               {/* <TextField
                 sx={{ width: "66%", backgroundColor: "#ffffff" }}
                 label="Additional link (optional)"
                 variant="outlined"
                 value={link}
               /> */}
-              <p>{link}</p>
+              <Typography
+                variant="h7"
+                component="p"
+                width="40%"
+                >{link}</Typography>
+            </Grid>
+            <Grid item md={4} xs={12}>
               <Button onClick={(link) => handleRemoveLink(link)}>remove</Button>
             </Grid>
           </Grid>
         ))}
 
         <Grid item mt={5} paddingRight={3} paddingLeft={3}>
-          <TextField
+          {links.length < 3 && <TextField
             sx={{ width: "66%", backgroundColor: "#ffffff" }}
             label="Additional link (optional)"
             variant="outlined"
@@ -319,7 +334,7 @@ const ProfileSection = () => {
             // InputProps={{
             //   endAdornment: <Button onClick={console.log('hello')}> add </Button>,
             // }}
-          />
+          />}
           {links.length < 3 ? <Button onClick={handleClick}>add</Button> : ""}
 
           {/* {links.length < 3 && <Button onClick={(input)=>console.log(input.target.value)}>add</Button>} */}

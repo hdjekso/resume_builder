@@ -92,12 +92,18 @@ const SkillSection = () => {
   const [btnStatus, setBtnStatus] = useState(false);
   //status of the end date picker
 
+  const [haveExperience, setHaveExperience] = useState(true);
+
   const handleCheckChange = () => {
     if (btnStatus === false) {
       setBtnStatus(true);
     } else {
       setBtnStatus(false);
     }
+  };
+
+  const handleWorkExperienceChange = () => {
+    setHaveExperience((haveExperience + 1) % 2);
   };
 
   return (
@@ -126,7 +132,7 @@ const SkillSection = () => {
             <Typography
               variant="h5"
               component="div"
-              sx={{ mb: 0.5, fontWeight: "bold", color: "#00adb5" }}
+              sx={{ mb: 0.5, fontWeight: "bold", color: "#5484D7" }}
             >
               Skills
             </Typography>
@@ -142,7 +148,7 @@ const SkillSection = () => {
             <Typography
               variant="h5"
               component="div"
-              sx={{ mb: 0.5, fontWeight: "bold", color: "#00adb5" }}
+              sx={{ mb: 0.5, fontWeight: "bold", color: "#5484D7" }}
             >
               Coursework
             </Typography>
@@ -162,12 +168,16 @@ const SkillSection = () => {
           paddingLeft={3}
           sx={{
             fontWeight: "bold",
-            color: "#00adb5",
+            color: "#5484D7",
           }}
         >
           Work Experience
         </Typography>
-        {workFields.map((singleWork, index) => (
+        <FormGroup>
+          <FormControlLabel control={<Checkbox style={{ marginLeft: 35, padding: 5 }} defaultChecked />} label={<Typography variant="h7" color="textSecondary">I have work experience</Typography>} 
+            onChange={handleWorkExperienceChange}/>
+        </FormGroup>
+        {haveExperience ? workFields.map((singleWork, index) => (
           <Grid container spacing={4} mt={0} paddingRight={3} paddingLeft={3}>
             <Grid item md={7} xs={7}>
               <Typography
@@ -175,7 +185,7 @@ const SkillSection = () => {
                 component="div"
                 sx={{
                   mb: 0.5,
-                  color: "#4da8bf",
+                  color: "#8EB8FF",
                   textDecoration: "underline",
                   display: "inline",
                 }}
@@ -277,7 +287,7 @@ const SkillSection = () => {
             )}
             <Grid item md={8} xs={12} mb={4}></Grid>
           </Grid>
-        ))}
+        )) : ""}
         <Grid container mb={10}></Grid>
       </Card>
     </form>
