@@ -86,7 +86,7 @@ const ResumePDF = () => {
       {
         text: [
           { text: degree + ", " },
-          { text: "CS", bold: true },
+          { text: major, bold: true },
           { text: ",\n" },
           { text: college },
         ],
@@ -97,7 +97,7 @@ const ResumePDF = () => {
         text: [
           { text: "Expected Graduation Date: " + date },
           { text: "\n" },
-          { text: "GPA: " + gpa + " / 4.000" },
+          { text: gpa !== "" ? "GPA: " + gpa + " / 4.000" : "" },
         ],
         width: "*",
         alignment: "right",
