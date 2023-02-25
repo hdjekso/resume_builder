@@ -194,16 +194,16 @@ const WorkExperienceSection = () => {
                 <Grid item md={4} xs={12}>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DesktopDatePicker
-                        label="End date"
+                        label="Date"
                         inputFormat="MM/YYYY"
                         value={value}
                         onChange={handleChange}
-                        renderInput={(params) => <TextField sx={{backgroundColor: "#ffffff"}} required fullWidth onChange={handleAwardDate} {...params} />}
+                        renderInput={(params) => <TextField sx={{backgroundColor: "#ffffff"}} fullWidth onChange={handleAwardDate} {...params} />}
                       />
                   </LocalizationProvider>
                 </Grid>
                 <Grid item md={12} xs={12}>
-                  <TextField sx={{backgroundColor: "#ffffff"}} required fullWidth label="Award Summary" variant="outlined" onChange={handleAwardSum} helperText="Emphasis on skill, what qualities/effort/skills you used to achieve the Award " multiline rows={2} />
+                  <TextField sx={{backgroundColor: "#ffffff"}} fullWidth label="Award Summary" variant="outlined" onChange={handleAwardSum} helperText="Emphasis on skill, what qualities/effort/skills you used to achieve the Award " multiline rows={2} />
                 </Grid>
               </Grid>
               {award_link.length > 1 && award_link.length - 1 === index && 
