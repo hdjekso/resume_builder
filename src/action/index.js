@@ -1,12 +1,6 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 
 
-import { getDefaultMiddleware } from "@reduxjs/toolkit";
-// for the profile page for :
-const customizedMiddleware = getDefaultMiddleware({
-  serializableCheck: false,
-});
-
 const firstnameSlice = createSlice({
   name: "firstname",
   initialState: "",
@@ -178,7 +172,15 @@ const workexperienceSlcie = createSlice({
   name: "workexperience",
   initialState: [],
   reducers: {
-    //
+    addWorkexperience(state,action){
+       state.push(action.payload);
+      return state;
+    },
+    removeWorkExperience(state, action) {
+      const index = state.indexOf(action.payload);
+      state.splice(index, 1);
+      return state;
+    },
   },
 });
 
@@ -214,5 +216,7 @@ export const { changeMajor } = majorSlice.actions;
 export const { changeDegree } = degreeSlice.actions;
 export const { changedate } = dateSlice.actions;
 
+
 export const { addskill, removeskill } = skillSlice.actions;
 export const { addcoursework, removecoursework } = courseWorkSlice.actions;
+export const {addWorkexperience,removeWorkExperience} = workexperienceSlcie.actions;
