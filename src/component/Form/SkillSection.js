@@ -225,7 +225,7 @@ const SkillSection = () => {
                       display: "inline",
                     }}
                   >
-                    Work Expeience (INDEX)
+                    Work Expeience {index + 1}
                   </Typography>
                 </Grid>
                 <Grid item md={4} xs={4}>
