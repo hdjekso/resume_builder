@@ -26,7 +26,15 @@ button {
   }  
   
   .remove-btn {
-    color: red;
-    text-decoration: underline;
+    color: #4175ce;
+    font-size: 14px;
+    font-family: Arial;
+    text-decoration: none;
     border: none;
+    border-radius: 5%;
   }
+
+  .remove-btn:hover {
+    background-color: #edf9fd;
+
+  } 

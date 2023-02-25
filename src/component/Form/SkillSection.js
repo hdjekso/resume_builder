@@ -17,7 +17,7 @@ import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-// import "./SkillSection.css";
+import "./SkillSection.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addskill,
@@ -26,6 +26,7 @@ import {
   removecoursework,
 } from "../../action";
 import { ConnectingAirportsOutlined } from "@mui/icons-material";
+import { Divider } from '@mui/material';
 
 const SkillSection = () => {
   const dispatch = useDispatch();
@@ -39,6 +40,22 @@ const SkillSection = () => {
     return state.courseworks;
   });
   // const [cwkChips, setCwkChips] = React.useState([])
+  
+  const [companyName, setCompanyName] = React.useState("Company Name");
+  const [jobTitle, setJobTitle] = React.useState("Job Title");
+  const [jobDesc, setJobDesc] = React.useState("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis magna mollis, commodo nibh vel, placerat magna. Donec auctor porta urna in molestie. Praesent feugiat sit amet ligula id ullamcorper. Aenean egestas lacinia blandit. In ex arcu, tincidunt a semper vel, blandit eu ipsum. Donec vitae orci ex. Nunc volutpat.");
+
+  const handleCompanyName = (newName) => {
+    setCompanyName(newName);
+  }
+
+  const handleJobTitle = (newTitle) => {
+    setJobTitle(newTitle);
+  }
+
+  const handleJobDesc = (newDesc) => {
+    setJobDesc(newDesc);
+  }
 
   const addskillhandle = (skill) => {
     dispatch(addskill(skill));
@@ -56,14 +73,9 @@ const SkillSection = () => {
   const [workFields, setWorkFields] = useState([{ work: "0" }]);
   const [workCounter_, setWorkCounter_] = useState(1);
 
-  const handleAddWork = (index) => {
-    /*const workCopy = [...workFields];
-    console.log(workCopy);
-    workCopy.push(workCopy[workCopy.length - 1] + 1);
-    console.log(workCopy);
-    setWorkCounter_(workCopy);*/
+  const handleAddWork = () => {
     setWorkCounter_(workCounter_ + 1);
-    setWorkFields([...workFields, { work: index + 1 }]);
+    setWorkFields([...workFields, { work: workCounter_ + 1 }]);
   };
 
   const handleRemoveWork = (index) => {
@@ -177,7 +189,60 @@ const SkillSection = () => {
           <FormControlLabel control={<Checkbox style={{ marginLeft: 35, padding: 5 }} defaultChecked />} label={<Typography variant="h7" color="textSecondary">I have work experience</Typography>} 
             onChange={handleWorkExperienceChange}/>
         </FormGroup>
-        {haveExperience ? workFields.map((singleWork, index) => (
+
+        {haveExperience ? workFields.map((index) => (
+          <Grid container spacing={4} mt={0} paddingRight={3} paddingLeft={3}>
+            <Grid item md={12} xs={12}>
+              <Typography
+                variant="h6"
+                component="div"
+                sx={{
+                  mb: 0.5,
+                  color: "#2d2d2d",
+                  textDecoration: "underline",
+                  display: "inline",  
+                }}
+              >
+                Work Experience {workCounter_}
+              </Typography>
+            </Grid>
+            <Grid item md={6.3} xs={12} mt={0}>
+              <Typography
+                sx={{ mb: 0, fontWeight: "bold", color: "#101010", fontSize: 22, fontFamily: 'Serif'}}
+              >
+                {companyName}</Typography>
+              <Typography
+                sx={{ mb: 0.5, color: "#4b4b4b", fontSize: 18, fontFamily: 'Serif', fontStyle: 'Italic'}}
+              >
+                {jobTitle}</Typography>
+            </Grid>
+            <Grid item md={2} xs={12}>
+              <Typography
+                sx={{ mt: 0.5, mb: 0.5, color: "#4b4b4b", fontSize: 16}}>
+                  {startDate.format('MM/YYYY')} - {endDate.format('MM/YYYY')}
+              </Typography>
+            </Grid>
+            <Grid item md={3} xs={4}>
+              {workFields.length >= 1 &&(
+                <button
+                  className="remove-btn"
+                  onClick={() => handleRemoveWork(index)}
+                >
+                  REMOVE
+                </button>
+              )}
+            </Grid>
+            <Grid item md={8.3} xs={12}>
+              <Typography
+                variant="body"
+                sx={{ mt: 0.5, mb: 0.5, color: "#4b4b4b", fontSize: 16}}>
+                  {jobDesc}
+              </Typography>
+            </Grid>
+          </Grid>
+        )) : ""}
+
+        {haveExperience ?
           <Grid container spacing={4} mt={0} paddingRight={3} paddingLeft={3}>
             <Grid item md={7} xs={7}>
               <Typography
@@ -190,19 +255,8 @@ const SkillSection = () => {
                   display: "inline",
                 }}
               >
-                Work Experience {workCounter_}
+                Work Experience {workCounter_ + 1}
               </Typography>
-            </Grid>
-            <Grid item md={4} xs={4}>
-              {workFields.length > 1 && workFields.length - 1 === index && (
-                <button
-                  className="remove-btn"
-                  sx={{ display: "inline" }}
-                  onClick={() => handleRemoveWork(index)}
-                >
-                  remove
-                </button>
-              )}
             </Grid>
             <Grid item md={12} xs={12} mt={0}>
               <TextField
@@ -211,6 +265,7 @@ const SkillSection = () => {
                 required
                 label="Company name"
                 variant="outlined"
+                onChange={handleCompanyName}
               />
             </Grid>
             <Grid item md={12} xs={12}>
@@ -219,13 +274,14 @@ const SkillSection = () => {
                 required
                 label="Job title"
                 variant="outlined"
+                onChange={handleJobTitle}
               />
             </Grid>
             <Grid item md={3} xs={12}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DesktopDatePicker
                   label="Start date"
-                  inputFormat="MM/DD/YYYY"
+                  inputFormat="MM/YYYY"
                   value={startDate}
                   onChange={handleStartDateChange}
                   renderInput={(params) => (
@@ -250,7 +306,7 @@ const SkillSection = () => {
                 <DesktopDatePicker
                   disabled={btnStatus}
                   label="End date"
-                  inputFormat="MM/DD/YYYY"
+                  inputFormat="MM/YYYY"
                   value={endDate}
                   onChange={handleEndDateChange}
                   renderInput={(params) => (
@@ -271,15 +327,16 @@ const SkillSection = () => {
                 fullWidth
                 label="Job Description"
                 variant="outlined"
+                onChange={handleJobDesc}
                 multiline
                 rows={4}
               />
             </Grid>
-            {workFields.length - 1 === index && workFields.length < 3 && (
+            {workFields.length < 3 && (
               <Grid item md={12} xs={12} mt={0}>
                 <button
                   className="add-btn"
-                  onClick={() => handleAddWork(index)}
+                  onClick={() => handleAddWork()}
                 >
                   + Add
                 </button>
@@ -287,7 +344,7 @@ const SkillSection = () => {
             )}
             <Grid item md={8} xs={12} mb={4}></Grid>
           </Grid>
-        )) : ""}
+        : ""}
         <Grid container mb={10}></Grid>
       </Card>
     </form>
