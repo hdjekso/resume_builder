@@ -18,6 +18,7 @@ import {
   addcoursework,
   removecoursework,
   addWorkexperience,
+  removeWorkExperience,
 } from "../../action";
 
 // skill section:
@@ -55,9 +56,6 @@ const SkillSection = () => {
   const workexperiences = useSelector((state) => {
     return state.workexperiences;
   });
-
-  // console.log(workexperiences[0].companyName);
-  // event handlers:
 
   const addskillhandle = (skill) => {
     dispatch(addskill(skill));
@@ -118,6 +116,11 @@ const SkillSection = () => {
         "at least one of the following input for the workexperience section is empty"
       );
     }
+  };
+
+  const removeWorkExperienceHandler = (work) => {
+
+    dispatch(removeWorkExperience(work));
   };
 
   //status of the end date picker
@@ -199,115 +202,128 @@ const SkillSection = () => {
           }}
         >
           Work Experience
-
           {/* this is the work experience listing part  */}
-
         </Typography>
 
-        {workexperiences ? workexperiences.map((singleWork, index) => (
-        <Grid container spacing={4} mt={0} paddingRight={3} paddingLeft={3}>
-          <Grid item md={7} xs={7}>
-            <Typography
-              variant="h6"
-              component="div"
-              sx={{
-                mb: 0.5,
-                color: "#4da8bf",
-                textDecoration: "underline",
-                display: "inline",
-              }}
-            >
-              Work Expeience (INDEX)
-            </Typography>
-          </Grid>
-          <Grid item md={4} xs={4}>
-            {/* {workFields.length > 1 && workFields.length - 1 === index && ( */}
-            <button className="remove-btn" sx={{ display: "inline" }}>
-              {/* NEED TO BE ABLE TO CHANGE REMOVE IT FROM THE WORK EXPERIENCE SECTION */}
-              REMOVE
-            </button>
-            {/* )} */}
-          </Grid>
-          <Grid item md={12} xs={12} mt={0}>
-            <TextField
-              sx={{ width: "66%", backgroundColor: "#ffffff" }}
-              mt={0}
-              required
-              label="Company name"
-              variant="outlined"
-              onChange={handleCompanyName}
-              value={companyName}
-            />
-          </Grid>
-          <Grid item md={12} xs={12}>
-            <TextField
-              sx={{ backgroundColor: "#ffffff", width: "33%" }}
-              required
-              label="Job title"
-              variant="outlined"
-              onChange={handleJobTitle}
-              value={jobTitle}
-            />
-          </Grid>
-          <Grid item md={3} xs={12}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DesktopDatePicker
-                label="Start date"
-                inputFormat="MM/DD/YYYY"
-                value={startDate}
-                onChange={handleStartDateChange}
-                renderInput={(params) => (
+        {workexperiences
+          ? workexperiences.map((work, index) => (
+              <Grid
+                container
+                spacing={4}
+                mt={0}
+                paddingRight={3}
+                paddingLeft={3}
+              >
+                <Grid item md={7} xs={7}>
+                  <Typography
+                    variant="h6"
+                    component="div"
+                    sx={{
+                      mb: 0.5,
+                      color: "#4da8bf",
+                      textDecoration: "underline",
+                      display: "inline",
+                    }}
+                  >
+                    Work Expeience (INDEX)
+                  </Typography>
+                </Grid>
+                <Grid item md={4} xs={4}>
+                  {/* {workFields.length > 1 && workFields.length - 1 === index && ( */}
+                  <button
+                    className="remove-btn"
+                    sx={{ display: "inline" }}
+                    onClick={(work) => removeWorkExperienceHandler(work)}
+                  >
+                    {/* NEED TO BE ABLE TO CHANGE REMOVE IT FROM THE WORK EXPERIENCE SECTION */}
+                    REMOVE
+                  </button>
+                  {/* )} */}
+                </Grid>
+
+                <Grid item md={12} xs={12} mt={0}>
+                  <TextField
+                    sx={{ width: "66%", backgroundColor: "#ffffff" }}
+                    mt={0}
+                    required
+                    label="Company name"
+                    variant="outlined"
+                    // onChange={(input)=>console.log(input.target.value)}
+                    value={work.companyName}
+                    key={work}
+                  />
+                </Grid>
+
+                <Grid item md={12} xs={12}>
+                  <TextField
+                    sx={{ backgroundColor: "#ffffff", width: "33%" }}
+                    required
+                    label="Job title"
+                    variant="outlined"
+                    // onChange={handleJobTitle}
+                    value={work.jobTitle}
+                  />
+                </Grid>
+                <Grid item md={3} xs={12}>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DesktopDatePicker
+                      label="Start date"
+                      inputFormat="MM/DD/YYYY"
+                      value={work.startDate}
+                      // onChange={handleStartDateChange}
+                      renderInput={(params) => (
+                        <TextField
+                          sx={{ backgroundColor: "#ffffff" }}
+                          required
+                          fullWidth
+                          {...params}
+                        />
+                      )}
+                    />
+                  </LocalizationProvider>
+                  <FormGroup>
+                    <FormControlLabel
+                      control={<Checkbox onChange={handleCheckChange} />}
+                      label="This is an ongoing job"
+                    />
+                  </FormGroup>
+                </Grid>
+                <Grid item md={3} xs={12}>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DesktopDatePicker
+                      disabled={btnStatus}
+                      label="End date"
+                      inputFormat="MM/DD/YYYY"
+                      value={work.endDate}
+                      // onChange={handleEndDateChange}
+                      renderInput={(params) => (
+                        <TextField
+                          sx={{ backgroundColor: "#ffffff" }}
+                          required
+                          fullWidth
+                          {...params}
+                        />
+                      )}
+                    />
+                  </LocalizationProvider>
+                </Grid>
+                <Grid item md={8} xs={12}>
                   <TextField
                     sx={{ backgroundColor: "#ffffff" }}
                     required
                     fullWidth
-                    {...params}
+                    label="Job Description"
+                    variant="outlined"
+                    multiline
+                    rows={4}
+                    // onChange={handleJobDescription}
+                    value={work.jobDescription}
                   />
-                )}
-              />
-            </LocalizationProvider>
-            <FormGroup>
-              <FormControlLabel
-                control={<Checkbox onChange={handleCheckChange} />}
-                label="This is an ongoing job"
-              />
-            </FormGroup>
-          </Grid>
-          <Grid item md={3} xs={12}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DesktopDatePicker
-                disabled={btnStatus}
-                label="End date"
-                inputFormat="MM/DD/YYYY"
-                value={endDate}
-                onChange={handleEndDateChange}
-                renderInput={(params) => (
-                  <TextField
-                    sx={{ backgroundColor: "#ffffff" }}
-                    required
-                    fullWidth
-                    {...params}
-                  />
-                )}
-              />
-            </LocalizationProvider>
-          </Grid>
-          <Grid item md={8} xs={12}>
-            <TextField
-              sx={{ backgroundColor: "#ffffff" }}
-              required
-              fullWidth
-              label="Job Description"
-              variant="outlined"
-              multiline
-              rows={4}
-              onChange={handleJobDescription}
-              value={jobDescription}
-            />
-          </Grid>
-          <Grid item md={8} xs={12} mb={4}></Grid>
-        </Grid>
-        )) : null}
+                </Grid>
+                <Grid item md={8} xs={12} mb={4}></Grid>
+              </Grid>
+            ))
+          : null}
 
         {/* DO NEW INPUT OF WORK EXPERIENCE AND STORE IT OVER HERE */}
 
@@ -328,10 +344,6 @@ const SkillSection = () => {
             </Typography>
           </Grid>
           <Grid item md={4} xs={4}>
-            {/* {workFields.length > 1 && workFields.length - 1 === index && ( */}
-            <button className="remove-btn" sx={{ display: "inline" }}>
-              remove
-            </button>
             {/* )} */}
           </Grid>
           <Grid item md={12} xs={12} mt={0}>
@@ -420,7 +432,7 @@ const SkillSection = () => {
           {/* )} */}
           <Grid item md={8} xs={12} mb={4}></Grid>
         </Grid>
-        {/* ))} */}
+
         <Grid container mb={10}></Grid>
       </Card>
     </form>

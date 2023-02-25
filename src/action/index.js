@@ -134,7 +134,7 @@ const dateSlice = createSlice({
   },
 });
 
-// for the skill page:
+// FOR THE SKILL SECTION PAGE :
 
 const skillSlice = createSlice({
   name: "skill",
@@ -181,6 +181,10 @@ const workexperienceSlcie = createSlice({
       state.splice(index, 1);
       return state;
     },
+    // changevarible(state,action){
+    //   const index = state.indexOf(action.payload);
+    //   state[index] = 
+    // },
   },
 });
 
