@@ -48,7 +48,6 @@ const ProfileSection = () => {
   // console.log(date);
   // const [links, setlinks] = useState([{ link: "0" }]);
 
-
   const [addlink, setAddlink] = React.useState("");
 
   const dispatch = useDispatch();
@@ -79,6 +78,9 @@ const ProfileSection = () => {
   const major = useSelector((state) => {
     return state.major;
   });
+
+  console.log(major);
+
   const degree = useSelector((state) => {
     return state.degree;
   });
@@ -137,8 +139,9 @@ const ProfileSection = () => {
   };
   const dateHandle = (newValue) => {
     dispatch(changedate(newValue));
-    console.log(date)
-  }
+  };
+  console.log(date);
+
   return (
     <form autoComplete="off" noValidate md={6}>
       <Card
@@ -224,9 +227,9 @@ const ProfileSection = () => {
               <DesktopDatePicker
                 label="Expected Graduation date"
                 inputFormat="MM/DD/YYYY"
-                value={dayjs(date)}
+                value={date}
                 onChange={(newValue) => {
-                  dateHandle(newValue.$d)
+                  dateHandle(newValue);
                 }}
                 renderInput={(params) => (
                   <TextField
