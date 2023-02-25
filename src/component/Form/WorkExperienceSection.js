@@ -136,22 +136,11 @@ const WorkExperienceSection = () => {
                       />
                     </LocalizationProvider>
                 </Grid>
-            {/* <Grid item md={2} xs={6}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DesktopDatePicker
-                  label="End date"
-                  inputFormat="MM/YYYY"
-                  value={value}
-                  onChange={handleChange}
-                  renderInput={(params) => <TextField sx={{backgroundColor: "#ffffff"}} required fullWidth {...params} />}
-                  />
-                </LocalizationProvider>
-            </Grid> */}
                 <Grid item md={12} xs={12}>
                   <TextField sx={{backgroundColor: "#ffffff"}} required fullWidth label="Project Description" helperText="TIPS: ~3-4 bullet point, start w/ Action verbs, numbers if possible, highlight/emphasize skills" variant="outlined" multiline rows={5} />
                 </Grid>
           
-          </Grid>
+              </Grid>
               {linkFields.length > 1 && linkFields.length - 1 === index && 
                 <button className="remove-btn"
                 onClick = {() => handleRemoveLink(index)}
@@ -181,23 +170,25 @@ const WorkExperienceSection = () => {
       </Typography>
         {award_link.map((element,index) => (
           <Grid container spacing={4} mt={1} paddingRight={3} paddingLeft={3} key={index}>
-            <Grid container item  rowSpacing={5} columnSpacing={{ xs: 1, sm: 2, md: 12 }}>
-              <Grid item md={8.5} xs={12}>
-                <TextField sx={{backgroundColor: "#ffffff"}} fullWidth label="Award Title" variant="outlined"  rows={1} />
-              </Grid>
-              <Grid item md={3.5} xs={12}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DesktopDatePicker
-                      label="End date"
-                      inputFormat="MM/YYYY"
-                      value={value}
-                      onChange={handleChange}
-                      renderInput={(params) => <TextField sx={{backgroundColor: "#ffffff"}} required fullWidth {...params} />}
-                    />
-                </LocalizationProvider>
-              </Grid>
-              <Grid item md={12} xs={12}>
-                <TextField sx={{backgroundColor: "#ffffff"}} required fullWidth label="Award Summary" variant="outlined" helperText="Emphasis on skill, what qualities/effort/skill did you use to achieve the Award " multiline rows={2} />
+            <Grid item md={12} xs={12}>
+              <Grid container item  rowSpacing={5} columnSpacing={{ xs: 1, sm: 2, md: 12 }}>
+                <Grid item md={8.5} xs={12}>
+                  <TextField sx={{backgroundColor: "#ffffff"}} fullWidth label="Award Title" variant="outlined"  rows={1} />
+                </Grid>
+                <Grid item md={3.5} xs={12}>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DesktopDatePicker
+                        label="End date"
+                        inputFormat="MM/YYYY"
+                        value={value}
+                        onChange={handleChange}
+                        renderInput={(params) => <TextField sx={{backgroundColor: "#ffffff"}} required fullWidth {...params} />}
+                      />
+                  </LocalizationProvider>
+                </Grid>
+                <Grid item md={12} xs={12}>
+                  <TextField sx={{backgroundColor: "#ffffff"}} required fullWidth label="Award Summary" variant="outlined" helperText="Emphasis on skill, what qualities/effort/skill did you use to achieve the Award " multiline rows={2} />
+                </Grid>
               </Grid>
               {award_link.length > 1 && award_link.length - 1 === index && 
                 <button className="remove-btn"
