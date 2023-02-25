@@ -70,7 +70,7 @@ const WorkExperienceSection = () => {
         minWidth:"45vw" 
       }}
     >
-      <CardHeader subheader="Project & Awards" />
+      <CardHeader subheader="Projects & Awards" />
         {/* <Grid container rowSpacing={7} columnSpacing={{ xs: 1, sm: 2, md: 4 }} paddingRight={3} paddingLeft={3}>
           <Grid item md={4} xs={12}>
             <TextField sx={{backgroundColor: "#ffffff"}} required fullWidth label="Company" variant="outlined" />           
