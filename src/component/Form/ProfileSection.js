@@ -1,27 +1,12 @@
-import { from } from "form-data";
 import React, { useState, useEffect } from "react";
-import AppBar from "@mui/material/AppBar";
-import { useNavigate } from "react-router-dom";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  Divider,
-  Grid,
-  TextField,
-} from "@mui/material";
-import dayjs from "dayjs";
+
+import { Button, Card, CardHeader, Grid, TextField } from "@mui/material";
+
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { TimePicker } from "@mui/x-date-pickers/TimePicker";
-import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
-import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
+
 import "./ProfileSection.css";
 import {
   changeFirstName,
@@ -40,13 +25,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 
 const ProfileSection = () => {
-  // const current = new Date();
-  // const date = `${
-  //   current.getMonth() + 1
-  // }/${current.getDate()}/${current.getFullYear()}`;
-
-  // console.log(date);
-  // const [links, setlinks] = useState([{ link: "0" }]);
+ 
 
   const [addlink, setAddlink] = React.useState("");
 
@@ -55,7 +34,7 @@ const ProfileSection = () => {
   const date = useSelector((state) => {
     return state.date;
   });
-  const [value, setValue] = React.useState(dayjs(date));
+
 
   const firstname = useSelector((state) => {
     return state.firstname;
@@ -91,11 +70,11 @@ const ProfileSection = () => {
     return state.links;
   });
 
-  const handleAddLink = (link) => {
-    console.log(link);
-    // setlinks([...links, { link: index + 1 }]);
-    dispatch(addLink(link));
-  };
+  // const handleAddLink = (link) => {
+  //   console.log(link);
+  //   // setlinks([...links, { link: index + 1 }]);
+  //   dispatch(addLink(link));
+  // };
 
   const handleRemoveLink = (link) => {
     dispatch(removeLink(link));
