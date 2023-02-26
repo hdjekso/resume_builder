@@ -188,6 +188,39 @@ const workexperienceSlcie = createSlice({
   },
 });
 
+// Project Section and Award:
+const projectSlice = createSlice({
+  name: "project",
+  initialState: [],
+  reducers: {
+    addProject(state, action) {
+      state.push(action.payload);
+      return state;
+    },
+    removeProject(state, action) {
+      const index = state.indexOf(action.payload);
+      state.splice(index, 1);
+      return state;
+    },
+  },
+});
+
+const awardSLcie = createSlice({
+  name: "award",
+  initialState: [],
+  reducers: {
+    addAward(state, action) {
+      state.push(action.payload);
+      return state;
+    },
+    removeAward(state, action) {
+      const index = state.indexOf(action.payload);
+      state.splice(index, 1);
+      return state;
+    },
+  },
+});
+
 const store = configureStore({
   reducer: {
     firstname: firstnameSlice.reducer,
@@ -204,6 +237,8 @@ const store = configureStore({
     skills: skillSlice.reducer,
     courseworks: courseWorkSlice.reducer,
     workexperiences: workexperienceSlcie.reducer,
+    projects:projectSlice.reducer,
+    awards:awardSLcie.reducer
   },
 });
 
@@ -224,3 +259,6 @@ export const { changedate } = dateSlice.actions;
 export const { addskill, removeskill } = skillSlice.actions;
 export const { addcoursework, removecoursework } = courseWorkSlice.actions;
 export const {addWorkexperience,removeWorkExperience} = workexperienceSlcie.actions;
+
+export const {addAward,removeAward} = awardSLcie.actions;
+export const {addProject, removeProject} = projectSlice.actions;

@@ -340,7 +340,7 @@ const SkillSection = () => {
                 display: "inline",
               }}
             >
-              Work Expeience
+              Work Expeience (optional)
             </Typography>
           </Grid>
           <Grid item md={4} xs={4}>
