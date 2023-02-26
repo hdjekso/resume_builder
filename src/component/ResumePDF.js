@@ -147,6 +147,7 @@ const ResumePDF = () => {
       ],
     };
   };
+  /*
   let expData = {
     jobTitle: "JOB TITLE",
     jobDate: "JOB DATE",
@@ -154,7 +155,7 @@ const ResumePDF = () => {
     jobLocation: "CITY, STATE",
     jobDetails: ["BP 1", "BP 2", "BP 3"],
   };
-
+*/
   let experienceData = [];
 
   const workExperienceText = () => {
@@ -163,11 +164,10 @@ const ResumePDF = () => {
       experienceData.push({
         columns: [
           {
-            text:
-              workexperiences[0].jobTitle +
-              "\n" +
-              workexperiences[0].companyName +
-              "\n",
+            text: [
+              { text: workexperiences[i].jobTitle + "\n", bold: true },
+              { text: workexperiences[i].companyName + "\n" },
+            ],
             width: "*",
             alignment: "left",
           },
@@ -182,12 +182,15 @@ const ResumePDF = () => {
           },
         ],
       });
+      /*
       let detailsArray = [];
       expData.jobDetails.forEach((element) => {
         detailsArray.push(element);
       });
-
-      experienceData.push({ ul: [{ ul: detailsArray }] });
+      */
+      experienceData.push({
+        ul: [{ ul: [{ text: workexperiences[i].jobDescription }] }],
+      });
       experienceData.push({ text: "\n" });
     }
 
