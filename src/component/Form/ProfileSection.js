@@ -22,6 +22,7 @@ import {
   removeLink,
   changedate,
 } from "../../action";
+import Typography from "@mui/material/Typography";
 import { useDispatch, useSelector } from "react-redux";
 
 const ProfileSection = () => {
