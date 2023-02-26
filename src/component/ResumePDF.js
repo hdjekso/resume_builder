@@ -62,9 +62,6 @@ const ResumePDF = () => {
     return state.workexperiences;
   });
 
-  const workexperiencesJobTitle = workexperiences.map(
-    (workexperience) => workexperience.jobTitle
-  );
   const fullNameText = () => {
     return (
       firstname + " " + middlename + (middlename === "" ? "" : " ") + lastname
