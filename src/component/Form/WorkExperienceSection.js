@@ -352,6 +352,70 @@ const WorkExperienceSection = () => {
 
       <CardHeader subheader="Awards/Certifications" />
 
+      {/* THE CURRENT GRID IS THE SHOW THE VALUE THAT WAS STORED INIDE THE AWARD LIST */}
+      {awards
+        ? awards.map((award, index) => (
+            <Grid container spacing={4} mt={1} paddingRight={3} paddingLeft={3}>
+              <Grid
+                container
+                item
+                rowSpacing={5}
+                columnSpacing={{ xs: 1, sm: 2, md: 12 }}
+              >
+                <Grid item md={8.5} xs={12}>
+                  <TextField
+                    sx={{ backgroundColor: "#ffffff" }}
+                    fullWidth
+                    label="Award Title"
+                    variant="outlined"
+                    rows={1}
+                    value={award.awardTitle}
+                    // onChange={awardTitleHandler}
+                  />
+                </Grid>
+                <Grid item md={3.5} xs={12}>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DesktopDatePicker
+                      label="End date"
+                      inputFormat="MM/DD/YYYY"
+                      value={award.date}
+                      // onChange={dateHandler}
+                      renderInput={(params) => (
+                        <TextField
+                          sx={{ backgroundColor: "#ffffff" }}
+                          required
+                          fullWidth
+                          {...params}
+                        />
+                      )}
+                    />
+                  </LocalizationProvider>
+                </Grid>
+                <Grid item md={12} xs={12}>
+                  <TextField
+                    sx={{ backgroundColor: "#ffffff" }}
+                    required
+                    fullWidth
+                    label="Award Summary"
+                    variant="outlined"
+                    helperText="Emphasis on skill, what qualities/effort/skill did you use to achieve the Award "
+                    multiline
+                    value={award.awardSummary}
+                    // onChange={awardSummaryHandler}
+                    rows={2}
+                  />
+                </Grid>
+
+                <button className="remove-btn"
+                onClick={(award)=>awardRemoveHandler(award)}>remove</button>
+                {/* } */}
+              </Grid>
+              <Grid item md={12} xs={12} mt={0}>
+              </Grid>
+            </Grid>
+          ))
+        : null}
+
       {/* THE CURRENT INPUT IS FOR USE TO INPUT THEIR AWARD AND STORE IT INTO REDUX, NOT FOR SHOWING AND LISTING  */}
       {/* AWARD PART: */}
 
