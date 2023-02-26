@@ -212,6 +212,7 @@ const SkillSection = () => {
                 mt={0}
                 paddingRight={3}
                 paddingLeft={3}
+                key={index}
               >
                 <Grid item md={7} xs={7}>
                   <Typography

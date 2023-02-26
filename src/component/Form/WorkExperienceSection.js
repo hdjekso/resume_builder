@@ -47,9 +47,16 @@ const WorkExperienceSection = () => {
     return state.projects;
   });
 
-  const award = useSelector((state) => {
+  const awards = useSelector((state) => {
     return state.awards;
   });
+
+  if (projects) {
+    console.log(projects[0]);
+  }
+  if (awards) {
+    console.log(awards[0]);
+  }
 
   // start creating handlers for each hook:
 
@@ -105,6 +112,10 @@ const WorkExperienceSection = () => {
     }
   };
 
+  const projectRemoveHandler = (project) => {
+    dispatch(removeProject(project));
+  };
+
   const awardAddHandler = (e) => {
     e.preventDefault();
     if (awardTitle && awardSummary && date) {
@@ -121,6 +132,10 @@ const WorkExperienceSection = () => {
         "at least one of the input value is empty, please fill in thg input value before adding new award"
       );
     }
+  };
+
+  const awardRemoveHandler = (award) => {
+    dispatch(removeAward(award));
   };
 
   return (
@@ -140,99 +155,102 @@ const WorkExperienceSection = () => {
 
       {/* THE FOLLWING GRID IS TO LIST ALL USER'S AWARD AND EDIT, IT IS NOT FOR CREATING
        THREFORE NO 'ADD' BUTTON NEEDED, ONLY 'REMVOE' BUTTON REQUIRE */}
-
-      <Grid container spacing={4} mt={1} paddingRight={3} paddingLeft={3}>
-        <Grid item md={12} xs={12}>
-          <Grid
-            container
-            rowSpacing={7}
-            columnSpacing={{ xs: 1, sm: 2, md: 4 }}
-            paddingRight={3}
-            paddingLeft={3}
-          >
-            <Grid item md={8} xs={12}>
-              <TextField
-                sx={{ backgroundColor: "#ffffff" }}
-                required
-                fullWidth
-                label="Project Name"
-                variant="outlined"
-                onChange={ProjectNameHandler}
-                value={projectName}
-              />
-            </Grid>
-            <Grid item md={2} xs={12}>
-              <TextField
-                sx={{ backgroundColor: "#ffffff" }}
-                fullWidth
-                label="Link"
-                variant="outlined"
-                value={link}
-                onChange={linkHanlder}
-              />
-            </Grid>
-            <Grid item md={2} xs={6}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DesktopDatePicker
-                  label="Start date"
-                  inputFormat="MM/DD/YYYY"
-                  value={startDate}
-                  onChange={startDateHandler}
-                  renderInput={(params) => (
+      {projects
+        ? projects.map((project, index) => (
+            <Grid container spacing={4} mt={1} paddingRight={3} paddingLeft={3}>
+              <Grid item md={12} xs={12}>
+                <Grid
+                  container
+                  rowSpacing={7}
+                  columnSpacing={{ xs: 1, sm: 2, md: 4 }}
+                  paddingRight={3}
+                  paddingLeft={3}
+                >
+                  <Grid item md={8} xs={12}>
                     <TextField
                       sx={{ backgroundColor: "#ffffff" }}
                       required
                       fullWidth
-                      {...params}
+                      label="Project Name"
+                      variant="outlined"
+                      // onChange={ProjectNameHandler}
+                      value={project.projectName}
                     />
-                  )}
-                />
-              </LocalizationProvider>
-            </Grid>
-            <Grid item md={2} xs={6}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DesktopDatePicker
-                  label="End date"
-                  inputFormat="MM/DD/YYYY"
-                  value={endDate}
-                  onChange={endDateHandler}
-                  renderInput={(params) => (
+                  </Grid>
+                  <Grid item md={2} xs={12}>
+                    <TextField
+                      sx={{ backgroundColor: "#ffffff" }}
+                      fullWidth
+                      label="Link"
+                      variant="outlined"
+                      value={project.link}
+                      // onChange={linkHanlder}
+                    />
+                  </Grid>
+                  <Grid item md={2} xs={6}>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DesktopDatePicker
+                        label="Start date"
+                        inputFormat="MM/DD/YYYY"
+                        value={project.startDate}
+                        // onChange={startDateHandler}
+                        renderInput={(params) => (
+                          <TextField
+                            sx={{ backgroundColor: "#ffffff" }}
+                            required
+                            fullWidth
+                            {...params}
+                          />
+                        )}
+                      />
+                    </LocalizationProvider>
+                  </Grid>
+                  <Grid item md={2} xs={6}>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DesktopDatePicker
+                        label="End date"
+                        inputFormat="MM/DD/YYYY"
+                        value={project.endDate}
+                        // onChange={endDateHandler}
+                        renderInput={(params) => (
+                          <TextField
+                            sx={{ backgroundColor: "#ffffff" }}
+                            required
+                            fullWidth
+                            {...params}
+                          />
+                        )}
+                      />
+                    </LocalizationProvider>
+                  </Grid>
+                  <Grid item md={12} xs={12}>
                     <TextField
                       sx={{ backgroundColor: "#ffffff" }}
                       required
                       fullWidth
-                      {...params}
+                      label="Project Description"
+                      helperText="TIPS: ~3-4 bullet point, start w/ Action verbs, numbers if possible, highlight/emphasize skills"
+                      variant="outlined"
+                      multiline
+                      rows={5}
+                      value={project.projectDescrption}
+                      // onChange={projectDescrptionHandler}
                     />
-                  )}
-                />
-              </LocalizationProvider>
-            </Grid>
-            <Grid item md={12} xs={12}>
-              <TextField
-                sx={{ backgroundColor: "#ffffff" }}
-                required
-                fullWidth
-                label="Project Description"
-                helperText="TIPS: ~3-4 bullet point, start w/ Action verbs, numbers if possible, highlight/emphasize skills"
-                variant="outlined"
-                multiline
-                rows={5}
-                value={projectDescrption}
-                onChange={projectDescrptionHandler}
-              />
-            </Grid>
-          </Grid>
-        </Grid>
+                  </Grid>
+                  <button
+                    className="remove-btn"
+                    onClick={(project) => projectRemoveHandler(project)}
+                  >
+                    remove
+                  </button>
+                </Grid>
+              </Grid>
 
-        <Grid item md={12} xs={12} mt={0}>
-          <button className="add-btn" onClick={projectAddHandler}>
-            + Add
-          </button>
-        </Grid>
-        {/* )} */}
-      </Grid>
-
-      {/* ))} */}
+              <Grid item md={12} xs={12} mt={0}></Grid>
+              {/* )} */}
+            </Grid>
+          ))
+        : null}
 
       <CardHeader subheader="Awards/Certifications" />
 
