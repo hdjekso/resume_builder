@@ -119,7 +119,6 @@ const SkillSection = () => {
   };
 
   const removeWorkExperienceHandler = (work) => {
-
     dispatch(removeWorkExperience(work));
   };
 
@@ -219,6 +218,7 @@ const SkillSection = () => {
                 mt={0}
                 paddingRight={3}
                 paddingLeft={3}
+                key={index}
               >
                 <Grid item md={7} xs={7}>
                   <Typography
@@ -346,7 +346,7 @@ const SkillSection = () => {
                 display: "inline",
               }}
             >
-              Work Expeience
+              Work Expeience (optional)
             </Typography>
           </Grid>
           <Grid item md={4} xs={4}>
