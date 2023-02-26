@@ -62,6 +62,9 @@ const ResumePDF = () => {
     return state.workexperiences;
   });
 
+  const workexperiencesJobTitle = workexperiences.map(
+    (workexperience) => workexperience.jobTitle
+  );
   const fullNameText = () => {
     return (
       firstname + " " + middlename + (middlename === "" ? "" : " ") + lastname
@@ -164,9 +167,9 @@ const ResumePDF = () => {
         columns: [
           {
             text:
-              workexperiences[i].jobTitle +
+              workexperiences[0].jobTitle +
               "\n" +
-              workexperiences[i].companyName +
+              workexperiences[0].companyName +
               "\n",
             width: "*",
             alignment: "left",
@@ -182,14 +185,15 @@ const ResumePDF = () => {
           },
         ],
       });
-    }
-    let detailsArray = [];
-    expData.jobDetails.forEach((element) => {
-      detailsArray.push(element);
-    });
+      let detailsArray = [];
+      expData.jobDetails.forEach((element) => {
+        detailsArray.push(element);
+      });
 
-    experienceData.push({ ul: [{ ul: detailsArray }] });
-    experienceData.push({ text: "\n" });
+      experienceData.push({ ul: [{ ul: detailsArray }] });
+      experienceData.push({ text: "\n" });
+    }
+
     return experienceData;
   };
   /*
