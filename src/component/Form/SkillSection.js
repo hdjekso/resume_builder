@@ -119,7 +119,6 @@ const SkillSection = () => {
   };
 
   const removeWorkExperienceHandler = (work) => {
-
     dispatch(removeWorkExperience(work));
   };
 
