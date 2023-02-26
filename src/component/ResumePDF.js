@@ -58,6 +58,10 @@ const ResumePDF = () => {
     return state.skills;
   });
 
+  const workexperiences = useSelector((state) => {
+    return state.workexperiences;
+  });
+
   const fullNameText = () => {
     return (
       firstname + " " + middlename + (middlename === "" ? "" : " ") + lastname
@@ -143,6 +147,7 @@ const ResumePDF = () => {
       ],
     };
   };
+  /*
   let expData = {
     jobTitle: "JOB TITLE",
     jobDate: "JOB DATE",
@@ -150,9 +155,48 @@ const ResumePDF = () => {
     jobLocation: "CITY, STATE",
     jobDetails: ["BP 1", "BP 2", "BP 3"],
   };
-
+*/
   let experienceData = [];
 
+  const workExperienceText = () => {
+    for (let i = 0; i < workexperiences.length; i++) {
+      console.log("Hello!");
+      experienceData.push({
+        columns: [
+          {
+            text: [
+              { text: workexperiences[i].jobTitle + "\n", bold: true },
+              { text: workexperiences[i].companyName + "\n" },
+            ],
+            width: "*",
+            alignment: "left",
+          },
+          {
+            text:
+              workexperiences[i].startDate +
+              " - " +
+              workexperiences[i].endDate +
+              "\n",
+            width: "*",
+            alignment: "right",
+          },
+        ],
+      });
+      /*
+      let detailsArray = [];
+      expData.jobDetails.forEach((element) => {
+        detailsArray.push(element);
+      });
+      */
+      experienceData.push({
+        ul: [{ ul: [{ text: workexperiences[i].jobDescription }] }],
+      });
+      experienceData.push({ text: "\n" });
+    }
+
+    return experienceData;
+  };
+  /*
   function addExperience(data) {
     experienceData.push({
       columns: [
@@ -180,7 +224,7 @@ const ResumePDF = () => {
 
   addExperience(expData);
   addExperience(expData);
-
+*/
   const docDefinition = {
     content: [
       {
@@ -231,7 +275,7 @@ const ResumePDF = () => {
 
       separator(),
 
-      experienceData,
+      workExperienceText(),
     ],
     styles: {
       name: {
