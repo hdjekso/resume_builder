@@ -155,6 +155,7 @@ const WorkExperienceSection = () => {
 
       {/* THE FOLLWING GRID IS TO LIST ALL USER'S AWARD AND EDIT, IT IS NOT FOR CREATING
        THREFORE NO 'ADD' BUTTON NEEDED, ONLY 'REMVOE' BUTTON REQUIRE */}
+       
       {projects
         ? projects.map((project, index) => (
             <Grid container spacing={4} mt={1} paddingRight={3} paddingLeft={3}>
