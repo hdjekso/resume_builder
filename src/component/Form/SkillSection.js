@@ -127,8 +127,15 @@ const SkillSection = () => {
   const handleCheckChange = () => {
     if (btnStatus === false) {
       setBtnStatus(true);
+      setEndDate('present');
+      console.log(endDate);
     } else {
       setBtnStatus(false);
+      setEndDate(
+        `${
+          current.getMonth() + 1
+        }/${current.getDate()}/${current.getFullYear()}`
+      );
     }
   };
 
