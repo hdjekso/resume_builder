@@ -40,6 +40,17 @@ const SkillSection = () => {
   const [jobDescription, setJobDescription] = useState("");
   const [btnStatus, setBtnStatus] = useState(false);
 
+  //error checking (input validation)
+  const [containsBP, setContainsBP] = useState(true);
+  const [skillsFilled, setSkillsFilled] = useState(true);
+  const [cwkFilled, setCwkFilled] = useState(true);
+  const [error_, setError] = useState(false);
+
+  const errorCheck = () => {
+    const inputValid = containsBP && skillsFilled && cwkFilled;
+    setError(!inputValid);
+  }
+
   // skill section:
 
   const skills = useSelector((state) => {
@@ -82,12 +93,23 @@ const SkillSection = () => {
   };
 
   const handleJobDescription = (input) => {
+    const desc = input.target.value
+    let firstCharIsBP = false;
+    //let correctBPFormat = true;
+    //let index = desc.indexOf('-');
+
+    if (desc.length === 1){
+      firstCharIsBP = desc.charAt(0) === '-';
+      setContainsBP(firstCharIsBP);
+      console.log(containsBP);
+    }
+    errorCheck();
     setJobDescription(input.target.value);
   };
 
   const handleAddWorkExperience = (e) => {
     e.preventDefault();
-    if (companyName && jobTitle && jobDescription && startDate && endDate) {
+    if (companyName && jobTitle && jobDescription && startDate && endDate && containsBP) {
       dispatch(
         addWorkexperience({
           companyName,
@@ -97,6 +119,7 @@ const SkillSection = () => {
           endDate,
         })
       );
+      console.log(jobDescription);
       setComanyName("");
       setJobDescription("");
       setStartDate(
@@ -111,7 +134,7 @@ const SkillSection = () => {
       );
       setJobTitle("");
       setBtnStatus(false);
-    } else {
+    } else if (containsBP){
       alert(
         "at least one of the following input for the workexperience section is empty"
       );
@@ -168,11 +191,13 @@ const SkillSection = () => {
             >
               Skills
             </Typography>
-            <MuiChipsInput
+            <MuiChipsInput error
               value={skills}
               onChange={addskillhandle}
               sx={{ width: "66%", backgroundColor: "#ffffff" }}
               required
+              error={!skillsFilled}
+              helperText={!skillsFilled ? "Input Required" : ''}
             />
           </Grid>
 
@@ -184,11 +209,13 @@ const SkillSection = () => {
             >
               Coursework
             </Typography>
-            <MuiChipsInput
+            <MuiChipsInput error
               value={courseworks}
               onChange={addcourseworkhandle}
               sx={{ width: "66%", backgroundColor: "#ffffff" }}
               required
+              error={!cwkFilled}
+              helperText={!cwkFilled ? "Input Required" : ''}
             />
           </Grid>
         </Grid>
@@ -231,7 +258,7 @@ const SkillSection = () => {
                       display: "inline",
                     }}
                   >
-                    Work Expeience {index + 1}
+                    Work Experience {index + 1}
                   </Typography>
                 </Grid>
                 <Grid item md={4} xs={4}>
@@ -417,7 +444,7 @@ const SkillSection = () => {
             </LocalizationProvider>
           </Grid>
           <Grid item md={8} xs={12}>
-            <TextField
+            <TextField error
               sx={{ backgroundColor: "#ffffff" }}
               required
               fullWidth
@@ -427,6 +454,9 @@ const SkillSection = () => {
               rows={4}
               onChange={handleJobDescription}
               value={jobDescription}
+              error={!containsBP}
+              helperText={!containsBP ? "Invalid input format: Please use bullet points (-) to describe your job, and start each bullet point on a new line": "Please describe your job in 3-4 bullet points, and start each bullet point on a new line"}
+
             />
           </Grid>
           {/* {workFields.length - 1 === index && workFields.length < 3 && ( */}
