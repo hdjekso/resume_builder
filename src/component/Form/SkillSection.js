@@ -267,9 +267,13 @@ const SkillSection = () => {
         >
           Work Experience
           {/* this is the work experience listing part  */}
+          <FormGroup>
+            <FormControlLabel control={<Checkbox style={{padding: 5, marginLeft: 10}} defaultChecked />} label={<Typography variant="h7" color="textSecondary" sx={{ mb: 0.5, fontSize: 14, fontFamily: 'Serif'}}>I have work experience</Typography>} 
+              onChange={handleWorkExperienceChange}/>
+          </FormGroup>
         </Typography>
 
-        {workexperiences
+        {(haveExperience && workexperiences)
           ? workexperiences.map((work, index) => (
               <Grid
                 container
@@ -392,115 +396,115 @@ const SkillSection = () => {
 
         {/* DO NEW INPUT OF WORK EXPERIENCE AND STORE IT OVER HERE */}
 
-        {/* {workFields.map((singleWork, index) => ( */}
-        <Grid container spacing={4} mt={0} paddingRight={3} paddingLeft={3}>
-          <Grid item md={7} xs={7}>
-            <Typography
-              variant="h6"
-              component="div"
-              sx={{
-                mb: 0.5,
-                color: "#4da8bf",
-                textDecoration: "underline",
-                display: "inline",
-              }}
-            >
-              Work Experience (optional)
-            </Typography>
-          </Grid>
-          <Grid item md={4} xs={4}>
+        {haveExperience ? 
+          <Grid container spacing={4} mt={0} paddingRight={3} paddingLeft={3}>
+            <Grid item md={7} xs={7}>
+              <Typography
+                variant="h6"
+                component="div"
+                sx={{
+                  mb: 0.5,
+                  color: "#4da8bf",
+                  textDecoration: "underline",
+                  display: "inline",
+                }}
+              >
+                Work Experience (optional)
+              </Typography>
+            </Grid>
+            <Grid item md={4} xs={4}>
+              {/* )} */}
+            </Grid>
+            <Grid item md={12} xs={12} mt={0}>
+              <TextField
+                sx={{ width: "66%", backgroundColor: "#ffffff" }}
+                mt={0}
+                required
+                label="Company name"
+                variant="outlined"
+                onChange={handleCompanyName}
+                value={companyName}
+              />
+            </Grid>
+            <Grid item md={12} xs={12}>
+              <TextField
+                sx={{ backgroundColor: "#ffffff", width: "33%" }}
+                required
+                label="Job title"
+                variant="outlined"
+                onChange={handleJobTitle}
+                value={jobTitle}
+              />
+            </Grid>
+            <Grid item md={3} xs={12}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DesktopDatePicker
+                  label="Start date"
+                  inputFormat="MM/DD/YYYY"
+                  value={startDate}
+                  onChange={handleStartDateChange}
+                  renderInput={(params) => (
+                    <TextField
+                      sx={{ backgroundColor: "#ffffff" }}
+                      required
+                      fullWidth
+                      {...params}
+                    />
+                  )}
+                />
+              </LocalizationProvider>
+              <FormGroup>
+                <FormControlLabel
+                  control={<Checkbox onChange={handleCheckChange} />}
+                  label="This is an ongoing job"
+                />
+              </FormGroup>
+            </Grid>
+            <Grid item md={3} xs={12}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DesktopDatePicker
+                  disabled={btnStatus}
+                  label="End date"
+                  inputFormat="MM/DD/YYYY"
+                  value={endDate}
+                  onChange={handleEndDateChange}
+                  renderInput={(params) => (
+                    <TextField
+                      sx={{ backgroundColor: "#ffffff" }}
+                      required
+                      fullWidth
+                      {...params}
+                    />
+                  )}
+                />
+              </LocalizationProvider>
+            </Grid>
+            <Grid item md={8} xs={12}>
+              <TextField error
+                sx={{ backgroundColor: "#ffffff" }}
+                required
+                fullWidth
+                label="Job Description"
+                variant="outlined"
+                multiline
+                rows={4}
+                onChange={handleJobDescription}
+                value={jobDescription}
+                error={!containsBP}
+                helperText={!containsBP ? "Invalid input format: Please use bullet points (-) to describe your job, and start each bullet point on a new line": "Please describe your job in 3-4 bullet points, and start each bullet point on a new line"}
+
+              />
+            </Grid>
+            {/* {workFields.length - 1 === index && workFields.length < 3 && ( */}
+            <Grid item md={12} xs={12} mt={0}>
+              <button className="add-btn" onClick={handleAddWorkExperience}>
+                + Add
+              </button>
+            </Grid>
             {/* )} */}
+            <Grid item md={8} xs={12} mb={4}></Grid>
           </Grid>
-          <Grid item md={12} xs={12} mt={0}>
-            <TextField
-              sx={{ width: "66%", backgroundColor: "#ffffff" }}
-              mt={0}
-              required
-              label="Company name"
-              variant="outlined"
-              onChange={handleCompanyName}
-              value={companyName}
-            />
-          </Grid>
-          <Grid item md={12} xs={12}>
-            <TextField
-              sx={{ backgroundColor: "#ffffff", width: "33%" }}
-              required
-              label="Job title"
-              variant="outlined"
-              onChange={handleJobTitle}
-              value={jobTitle}
-            />
-          </Grid>
-          <Grid item md={3} xs={12}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DesktopDatePicker
-                label="Start date"
-                inputFormat="MM/DD/YYYY"
-                value={startDate}
-                onChange={handleStartDateChange}
-                renderInput={(params) => (
-                  <TextField
-                    sx={{ backgroundColor: "#ffffff" }}
-                    required
-                    fullWidth
-                    {...params}
-                  />
-                )}
-              />
-            </LocalizationProvider>
-            <FormGroup>
-              <FormControlLabel
-                control={<Checkbox onChange={handleCheckChange} />}
-                label="This is an ongoing job"
-              />
-            </FormGroup>
-          </Grid>
-          <Grid item md={3} xs={12}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DesktopDatePicker
-                disabled={btnStatus}
-                label="End date"
-                inputFormat="MM/DD/YYYY"
-                value={endDate}
-                onChange={handleEndDateChange}
-                renderInput={(params) => (
-                  <TextField
-                    sx={{ backgroundColor: "#ffffff" }}
-                    required
-                    fullWidth
-                    {...params}
-                  />
-                )}
-              />
-            </LocalizationProvider>
-          </Grid>
-          <Grid item md={8} xs={12}>
-            <TextField error
-              sx={{ backgroundColor: "#ffffff" }}
-              required
-              fullWidth
-              label="Job Description"
-              variant="outlined"
-              multiline
-              rows={4}
-              onChange={handleJobDescription}
-              value={jobDescription}
-              error={!containsBP}
-              helperText={!containsBP ? "Invalid input format: Please use bullet points (-) to describe your job, and start each bullet point on a new line": "Please describe your job in 3-4 bullet points, and start each bullet point on a new line"}
-
-            />
-          </Grid>
-          {/* {workFields.length - 1 === index && workFields.length < 3 && ( */}
-          <Grid item md={12} xs={12} mt={0}>
-            <button className="add-btn" onClick={handleAddWorkExperience}>
-              + Add
-            </button>
-          </Grid>
-          {/* )} */}
-          <Grid item md={8} xs={12} mb={4}></Grid>
-        </Grid>
-
+        : ''}
         <Grid container mb={10}></Grid>
       </Card>
     </form>
