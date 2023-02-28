@@ -25,7 +25,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 const Form = () => {
   const [completed, setCompleted] = useState({});
   const [activeStep, setActiveStep] = useState(0);
-  const numbers = ['0','1','2','3','4','5','6','7','8','9','.'];
+  const numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."];
 
   // FROM THE PROFILE SECTION:
 
@@ -137,8 +137,8 @@ const Form = () => {
       console.log("validating profile");
       flag = ValidateProfileDetails();
       console.log(flag);
-      //   } else if (action == "Skills, Coursework, and Work Experience") {
-      //     flag = validateEducationDetails();
+    } else if (action == "Skills, Coursework, and Work Experience") {
+      flag = ValidateWorkExperience();
       //   } else if (action == "Projects and Awards") {
       //     flag = validateProjectDetails();
     }
@@ -170,12 +170,12 @@ const Form = () => {
       alert("please enter a valid email");
       return false;
     }
-    gpa.forEach((number)=>{
-      if(!numbers.includes(number)){
+    gpa.forEach((number) => {
+      if (!numbers.includes(number)) {
         alert("please enter a valid gpa");
         return false;
       }
-    })
+    });
   };
 
   const ValidateWorkExperience = () => {
