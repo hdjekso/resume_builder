@@ -62,6 +62,14 @@ const ResumePDF = () => {
     return state.workexperiences;
   });
 
+  const projects = useSelector((state) => {
+    return state.projects;
+  });
+
+  const awards = useSelector((state) => {
+    return state.awards;
+  });
+
   const fullNameText = () => {
     return (
       firstname + " " + middlename + (middlename === "" ? "" : " ") + lastname
