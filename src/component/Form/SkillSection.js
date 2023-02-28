@@ -138,7 +138,7 @@ const SkillSection = () => {
         }/${current.getDate()}/${current.getFullYear()}`
       );
       setJobTitle("");
-      setBtnStatus(false);
+      setBtnStatus(true);
     } else if (containsBP){
       alert(
         "At least one of the requried input values in your work experience is empty.Please fill in the required inputs before adding another work experience."
