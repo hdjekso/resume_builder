@@ -15,6 +15,7 @@ import {
 import dayjs from "dayjs";
 import { addProject, removeProject, addAward, removeAward } from "../../action";
 import { useSelector, useDispatch } from "react-redux";
+import Typography from "@mui/material/Typography";
 
 const WorkExperienceSection = () => {
   const dispatch = useDispatch();
@@ -155,7 +156,13 @@ const WorkExperienceSection = () => {
 
       {/* THE FOLLWING GRID IS TO LIST ALL USER'S AWARD AND EDIT, IT IS NOT FOR CREATING
        THREFORE NO 'ADD' BUTTON NEEDED, ONLY 'REMVOE' BUTTON REQUIRE */}
-       
+      <Typography
+        variant="h5"
+        component="div"
+        sx={{ mb: 0.5, fontWeight: "bold", color: "#5484D7", ml:3, mb:-3}}
+      >
+        Projects
+      </Typography>
       {projects
         ? projects.map((project, index) => (
             <Grid container spacing={4} mt={1} paddingRight={3} paddingLeft={3}>
@@ -191,8 +198,8 @@ const WorkExperienceSection = () => {
                   <Grid item md={2} xs={6}>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DesktopDatePicker
-                        label="Start date"
-                        inputFormat="MM/DD/YYYY"
+                        label="Date"
+                        inputFormat="MM/YYYY"
                         value={project.startDate}
                         // onChange={startDateHandler}
                         renderInput={(params) => (
@@ -206,7 +213,7 @@ const WorkExperienceSection = () => {
                       />
                     </LocalizationProvider>
                   </Grid>
-                  <Grid item md={2} xs={6}>
+                  {/* <Grid item md={2} xs={6}>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DesktopDatePicker
                         label="End date"
@@ -223,7 +230,7 @@ const WorkExperienceSection = () => {
                         )}
                       />
                     </LocalizationProvider>
-                  </Grid>
+                  </Grid> */}
                   <Grid item md={12} xs={12}>
                     <TextField
                       sx={{ backgroundColor: "#ffffff" }}
@@ -253,8 +260,6 @@ const WorkExperienceSection = () => {
           ))
         : null}
 
-      <CardHeader subheader="Awards/Certifications" />
-
       {/* THE CURRENT INPUT IS FOR USER'S INPUT, NOT FOR THE SHOW AND EDITING LIST */}
       {/* PROJECT PART */}
 
@@ -264,8 +269,8 @@ const WorkExperienceSection = () => {
             container
             rowSpacing={7}
             columnSpacing={{ xs: 1, sm: 2, md: 4 }}
-            paddingRight={3}
-            paddingLeft={3}
+            // paddingRight={3}
+            // paddingLeft={3}
           >
             <Grid item md={8} xs={12}>
               <TextField
@@ -291,8 +296,8 @@ const WorkExperienceSection = () => {
             <Grid item md={2} xs={6}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DesktopDatePicker
-                  label="Start date"
-                  inputFormat="MM/DD/YYYY"
+                  label="Date"
+                  inputFormat="MM/YYYY"
                   value={startDate}
                   onChange={startDateHandler}
                   renderInput={(params) => (
@@ -306,7 +311,7 @@ const WorkExperienceSection = () => {
                 />
               </LocalizationProvider>
             </Grid>
-            <Grid item md={2} xs={6}>
+            {/* <Grid item md={2} xs={6}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DesktopDatePicker
                   label="End date"
@@ -323,7 +328,7 @@ const WorkExperienceSection = () => {
                   )}
                 />
               </LocalizationProvider>
-            </Grid>
+            </Grid> */}
             <Grid item md={12} xs={12}>
               <TextField
                 sx={{ backgroundColor: "#ffffff" }}
@@ -349,9 +354,17 @@ const WorkExperienceSection = () => {
         {/* )} */}
       </Grid>
 
+      <br></br> 
       {/* ))} */}
+      
 
-      <CardHeader subheader="Awards/Certifications" />
+      <Typography
+        variant="h5"
+        component="div"
+        sx={{ mb: 0.5, fontWeight: "bold", color: "#5484D7", ml:3, mb:-3}}
+      >
+        Awards & Certifications
+      </Typography>
 
       {/* THE CURRENT GRID IS THE SHOW THE VALUE THAT WAS STORED INIDE THE AWARD LIST */}
       {awards
@@ -378,7 +391,7 @@ const WorkExperienceSection = () => {
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DesktopDatePicker
                       label="End date"
-                      inputFormat="MM/DD/YYYY"
+                      inputFormat="MM/YYYY"
                       value={award.date}
                       // onChange={dateHandler}
                       renderInput={(params) => (
@@ -442,7 +455,7 @@ const WorkExperienceSection = () => {
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DesktopDatePicker
                 label="End date"
-                inputFormat="MM/DD/YYYY"
+                inputFormat="MM/YYYY"
                 value={date}
                 onChange={dateHandler}
                 renderInput={(params) => (
