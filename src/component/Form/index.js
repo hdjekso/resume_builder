@@ -146,7 +146,7 @@ const Form = () => {
       const newCompleted = completed;
       newCompleted[activeStep] = true;
       setCompleted(newCompleted);
-      console.log('yes')
+      console.log("yes");
       handleNext();
     }
   };
@@ -178,7 +178,7 @@ const Form = () => {
     if (skills.length == 0 || courseworks.length == 0) {
       alert("at least one input is empty for the work experience section");
       return false;
-    };
+    }
     console.log(firstname);
     return true;
   };
@@ -230,11 +230,16 @@ const Form = () => {
                     Back
                   </Button>
                   <Box sx={{ flex: "1 1 auto" }} />
-                  <Button onClick={handleComplete} sx={{ mr: 1 }}>
-                    Save and Next
-                  </Button>
+                  {/*  */}
+                  {completedSteps() === totalSteps() - 1 && projects.length > 0 && awards.length > 0 ? (
+                    <ResumePDF />
+                  ) : (
+                    <Button onClick={handleComplete} sx={{ mr: 1 }}>
+                      Save and Next
+                    </Button>
+                  )}
 
-                  {activeStep !== steps.length &&
+                  {/* {activeStep !== steps.length &&
                   (completed[activeStep] ? (
                     <Typography
                       variant="caption"
@@ -248,15 +253,15 @@ const Form = () => {
                         ? "Finish"
                         : "Complete Step"}
                     </Button>
-                      ))}
-                      
+                      ))} */}
                 </Box>
               </React.Fragment>
             )}
           </div>
         </Box>
       </Container>
-      <ResumePDF />
+
+      {/* this is the download button */}
     </React.Fragment>
   );
 };
