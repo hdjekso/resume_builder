@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
 const ResumePDF = () => {
   const firstname = useSelector((state) => {
     return state.firstname;
@@ -59,6 +60,14 @@ const ResumePDF = () => {
 
   const workexperiences = useSelector((state) => {
     return state.workexperiences;
+  });
+
+  const projects = useSelector((state) => {
+    return state.projects;
+  });
+
+  const awards = useSelector((state) => {
+    return state.awards;
   });
 
   const fullNameText = () => {
@@ -174,7 +183,9 @@ const ResumePDF = () => {
             text:
               workexperiences[i].startDate +
               " - " +
-              workexperiences[i].endDate +
+              (workexperiences[i] !== ""
+                ? workexperiences[i].endDate
+                : "Present") +
               "\n",
             width: "*",
             alignment: "right",
@@ -187,8 +198,9 @@ const ResumePDF = () => {
         detailsArray.push(element);
       });
       */
+      let detailsArray = workexperiences[i].jobDescription.split("\n");
       experienceData.push({
-        ul: [{ ul: [{ text: workexperiences[i].jobDescription }] }],
+        ul: [{ ul: detailsArray }],
       });
       experienceData.push({ text: "\n" });
     }
