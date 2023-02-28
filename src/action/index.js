@@ -1,6 +1,5 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 
-
 const firstnameSlice = createSlice({
   name: "firstname",
   initialState: "",
@@ -172,8 +171,8 @@ const workexperienceSlcie = createSlice({
   name: "workexperience",
   initialState: [],
   reducers: {
-    addWorkexperience(state,action){
-       state.push(action.payload);
+    addWorkexperience(state, action) {
+      state.push(action.payload);
       return state;
     },
     removeWorkExperience(state, action) {
@@ -181,9 +180,23 @@ const workexperienceSlcie = createSlice({
       state.splice(index, 1);
       return state;
     },
+    editWorkExperience(state, action) {
+      //  console.log(action.payload);
+      state[action.payload[0]].companyName = action.payload[1];
+      return state;
+    },
+    eidtJobTitle(state, action) {
+      state[action.payload[0]].jobTitle = action.payload[1];
+      return state;
+    },
+    editJobDescription(state, action) {
+      state[action.payload[0]].jobDescription = action.payload[1];
+      return state;
+    },
+
     // changevarible(state,action){
     //   const index = state.indexOf(action.payload);
-    //   state[index] = 
+    //   state[index] =
     // },
   },
 });
@@ -237,8 +250,8 @@ const store = configureStore({
     skills: skillSlice.reducer,
     courseworks: courseWorkSlice.reducer,
     workexperiences: workexperienceSlcie.reducer,
-    projects:projectSlice.reducer,
-    awards:awardSLcie.reducer
+    projects: projectSlice.reducer,
+    awards: awardSLcie.reducer,
   },
 });
 
@@ -255,10 +268,10 @@ export const { changeMajor } = majorSlice.actions;
 export const { changeDegree } = degreeSlice.actions;
 export const { changedate } = dateSlice.actions;
 
-
 export const { addskill, removeskill } = skillSlice.actions;
 export const { addcoursework, removecoursework } = courseWorkSlice.actions;
-export const {addWorkexperience,removeWorkExperience} = workexperienceSlcie.actions;
+export const { addWorkexperience, removeWorkExperience, editWorkExperience ,eidtJobTitle, editJobDescription} =
+  workexperienceSlcie.actions;
 
-export const {addAward,removeAward} = awardSLcie.actions;
-export const {addProject, removeProject} = projectSlice.actions;
+export const { addAward, removeAward } = awardSLcie.actions;
+export const { addProject, removeProject } = projectSlice.actions;

@@ -134,10 +134,9 @@ const Form = () => {
     const action = steps[activeStep];
 
     if (action == "Profile") {
-      console.log("validating profile");
       flag = ValidateProfileDetails();
-      console.log(flag);
     } else if (action == "Skills, Coursework, and Work Experience") {
+      // console.log('work experience page')
       flag = ValidateWorkExperience();
       //   } else if (action == "Projects and Awards") {
       //     flag = validateProjectDetails();
@@ -147,6 +146,7 @@ const Form = () => {
       const newCompleted = completed;
       newCompleted[activeStep] = true;
       setCompleted(newCompleted);
+      console.log('yes')
       handleNext();
     }
   };
@@ -170,19 +170,17 @@ const Form = () => {
       alert("please enter a valid email");
       return false;
     }
-    gpa.forEach((number) => {
-      if (!numbers.includes(number)) {
-        alert("please enter a valid gpa");
-        return false;
-      }
-    });
+    return true;
   };
 
   const ValidateWorkExperience = () => {
     // REDO CODE:
-    if (!skills || !courseworks) {
+    if (skills.length == 0 || courseworks.length == 0) {
       alert("at least one input is empty for the work experience section");
-    }
+      return false;
+    };
+    console.log(firstname);
+    return true;
   };
 
   const handleReset = () => {

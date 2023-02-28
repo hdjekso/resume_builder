@@ -52,12 +52,12 @@ const WorkExperienceSection = () => {
     return state.awards;
   });
 
-  if (projects) {
-    console.log(projects[0]);
-  }
-  if (awards) {
-    console.log(awards[0]);
-  }
+  // if (projects) {
+  //   console.log(projects[0]);
+  // }
+  // if (awards) {
+  //   console.log(awards[0]);
+  // }
 
   // start creating handlers for each hook:
 
@@ -181,7 +181,6 @@ const WorkExperienceSection = () => {
                       fullWidth
                       label="Project Name"
                       variant="outlined"
-                      // onChange={ProjectNameHandler}
                       value={project.projectName}
                     />
                   </Grid>
