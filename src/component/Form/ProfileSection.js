@@ -58,7 +58,6 @@ const ProfileSection = () => {
     return state.major;
   });
 
-  console.log(major);
 
   const degree = useSelector((state) => {
     return state.degree;
@@ -94,7 +93,7 @@ const ProfileSection = () => {
   };
   const middleNameHandle = (newValue) => {
     dispatch(changeMiddleName(newValue.target.value));
-    console.log(newValue.target.value);
+    // console.log(newValue.target.value);
   };
   const lastNameHandle = (newValue) => {
     dispatch(changeLastName(newValue.target.value));
@@ -120,7 +119,6 @@ const ProfileSection = () => {
   const dateHandle = (newValue) => {
     dispatch(changedate(newValue));
   };
-  console.log(date);
 
   return (
     <form autoComplete="off" noValidate md={6}>

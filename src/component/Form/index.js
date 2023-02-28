@@ -14,17 +14,66 @@ import {
 import { useState } from "react";
 import ProfileSection from "./ProfileSection";
 import WorkExperienceSection from "./WorkExperienceSection";
-import SkillSection from "./SkillSection"
+import SkillSection from "./SkillSection";
 import ResumePDF from "../ResumePDF";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import { useSelector } from "react-redux";
+import { useSelect } from "@mui/base";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
-
 
 const Form = () => {
   const [completed, setCompleted] = useState({});
   const [activeStep, setActiveStep] = useState(0);
+  const numbers = ['0','1','2','3','4','5','6','7','8','9','.'];
+
+  // FROM THE PROFILE SECTION:
+
+  const firstname = useSelector((state) => {
+    return state.firstname;
+  });
+  const lastname = useSelector((state) => {
+    return state.lastname;
+  });
+  const gpa = useSelector((state) => {
+    return state.gpa;
+  });
+  const address = useSelector((state) => {
+    return state.address;
+  });
+  const degree = useSelector((state) => {
+    return state.degree;
+  });
+  const major = useSelector((state) => {
+    return state.major;
+  });
+  const college = useSelector((state) => {
+    return state.college;
+  });
+  const email = useSelector((state) => {
+    return state.email;
+  });
+
+  console.log(firstname);
+
+  // FROM THE WORK EXPERIENCE SECTION:
+  const skills = useSelector((state) => {
+    return state.skills;
+  });
+  const courseworks = useSelector((state) => {
+    return state.courseworks;
+  });
+  const workexperiences = useSelector((state) => {
+    return state.workexperiences;
+  });
+
+  //  FROM THE AWARD AND PROJECT SECTION:
+  const projects = useSelector((state) => {
+    return state.projects;
+  });
+  const awards = useSelector((state) => {
+    return state.awards;
+  });
 
   const steps = [
     "Profile",
@@ -80,10 +129,60 @@ const Form = () => {
   };
 
   const handleComplete = () => {
-    const newCompleted = completed;
-    newCompleted[activeStep] = true;
-    setCompleted(newCompleted);
-    handleNext();
+    let flag = true;
+    console.log(activeStep);
+    const action = steps[activeStep];
+
+    if (action == "Profile") {
+      console.log("validating profile");
+      flag = ValidateProfileDetails();
+      console.log(flag);
+      //   } else if (action == "Skills, Coursework, and Work Experience") {
+      //     flag = validateEducationDetails();
+      //   } else if (action == "Projects and Awards") {
+      //     flag = validateProjectDetails();
+    }
+
+    if (flag) {
+      const newCompleted = completed;
+      newCompleted[activeStep] = true;
+      setCompleted(newCompleted);
+      handleNext();
+    }
+  };
+
+  const ValidateProfileDetails = () => {
+    // REDO CODE:
+    if (
+      !firstname ||
+      !lastname ||
+      !address ||
+      !email ||
+      !gpa ||
+      !degree ||
+      !major ||
+      !college
+    ) {
+      alert("at least one input is empty for the profile section");
+      return false;
+    }
+    if (!email.includes("@")) {
+      alert("please enter a valid email");
+      return false;
+    }
+    gpa.forEach((number)=>{
+      if(!numbers.includes(number)){
+        alert("please enter a valid gpa");
+        return false;
+      }
+    })
+  };
+
+  const ValidateWorkExperience = () => {
+    // REDO CODE:
+    if (!skills || !courseworks) {
+      alert("at least one input is empty for the work experience section");
+    }
   };
 
   const handleReset = () => {
@@ -133,8 +232,8 @@ const Form = () => {
                     Back
                   </Button>
                   <Box sx={{ flex: "1 1 auto" }} />
-                  <Button onClick={handleNext} sx={{ mr: 1 }}>
-                    Next
+                  <Button onClick={handleComplete} sx={{ mr: 1 }}>
+                    Save and Next
                   </Button>
                   {/*{activeStep !== steps.length &&
                   (completed[activeStep] ? (
