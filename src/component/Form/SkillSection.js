@@ -142,7 +142,7 @@ const SkillSection = () => {
           current.getMonth() + 1
         }/${current.getDate()}/${current.getFullYear()}`
       );
-      setOngoing("");
+
       setJobTitle("");
       setBtnStatus(false);
     } else {
@@ -179,7 +179,6 @@ const SkillSection = () => {
   //status of the end date picker
 
   const handleCheckChange = (value) => {
-    console.log(value.target.value);
     if (btnStatus === false) {
       setBtnStatus(true);
       // console.log(endDate);
