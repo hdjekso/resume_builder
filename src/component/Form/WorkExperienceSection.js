@@ -33,7 +33,7 @@ const WorkExperienceSection = () => {
     `${current.getMonth() + 1}/${current.getDate()}/${current.getFullYear()}`
   );
 
-  const [projectDescrption, setProjectDescription] = useState("");
+  const [projectDescription, setProjectDescription] = useState("");
 
   // for the award section:
   const [awardTitle, setAwardTitle] = useState("");
@@ -77,8 +77,15 @@ const WorkExperienceSection = () => {
     setEndDate(`${newDate.$M + 1}/${newDate.$D}/${newDate.$y}`);
   };
 
-  const projectDescrptionHandler = (input) => {
+  const projectDescriptionHandler = (input) => {
+    const desc = input.target.value;
+    if (desc.length >= 1){
+      setProjectContainsBP(desc.charAt(0) === '-');
+    }
     setProjectDescription(input.target.value);
+    /*if (!error_){
+      setProjectDescription(input.target.value);
+    }*/
   };
 
   // award part :
@@ -92,23 +99,30 @@ const WorkExperienceSection = () => {
   };
 
   const awardSummaryHandler = (input) => {
+    const desc = input.target.value;
+    if (desc.length >= 1){
+      setAwardContainsBP(desc.charAt(0) === '-');
+    }
     setAwardSummary(input.target.value);
+    /*if (!error_){
+      setAwardSummary(input.target.value);
+    }*/
   };
 
   // setup add button to use dispatch in order to add to the storage:
 
   const projectAddHandler = (e) => {
     e.preventDefault();
-    if (projectDescrption && projectName && link && startDate && endDate) {
+    if (projectDescription && projectName && link && startDate && endDate && projectContainsBP) {
       dispatch(
-        addProject({ projectDescrption, projectName, link, startDate, endDate })
+        addProject({ projectDescription, projectName, link, startDate, endDate })
       );
       setProjectName("");
       setProjectDescription("");
       setLink("");
-    } else {
+    } else if (projectContainsBP){
       alert(
-        "at least one of the input value is empty, please fill in thg input value before adding new project"
+        "At least one of the requried input values in your project is empty. Please fill in the required inputs before adding another project."
       );
     }
   };
@@ -119,7 +133,7 @@ const WorkExperienceSection = () => {
 
   const awardAddHandler = (e) => {
     e.preventDefault();
-    if (awardTitle && awardSummary && date) {
+    if (awardTitle && awardSummary && date  && awardContainsBP) {
       dispatch(addAward({ awardTitle, awardSummary, date }));
       setAwardSummary("");
       setAwardTitle("");
@@ -128,9 +142,9 @@ const WorkExperienceSection = () => {
           current.getMonth() + 1
         }/${current.getDate()}/${current.getFullYear()}`
       );
-    } else {
+    } else if (awardContainsBP){
       alert(
-        "at least one of the input value is empty, please fill in thg input value before adding new award"
+        "At least one of the requried input values in your award/ certification is empty. Please fill in the required inputs before adding another award/certification."
       );
     }
   };
@@ -138,6 +152,18 @@ const WorkExperienceSection = () => {
   const awardRemoveHandler = (award) => {
     dispatch(removeAward(award));
   };
+
+  //description error checking
+  const [projectContainsBP, setProjectContainsBP] = useState(true);
+  const [awardContainsBP, setAwardContainsBP] = useState(true);
+  const [error_, setError] = useState(false);
+  //const projectHelperTxt = "Please describe your project in 3-4 bullet points, and start each bullet point on a new line\nTIPS: start w/ Action verbs, use quantitative statements if possible, and highlight/emphasize skills";
+
+  //checks if all descs have BPs
+  const errorCheck = () => {
+    const inputValid = projectContainsBP && awardContainsBP;
+    setError(!inputValid);
+  }
 
   return (
     <Card
@@ -152,7 +178,7 @@ const WorkExperienceSection = () => {
         minWidth: "45vw",
       }}
     >
-      <CardHeader subheader="Project & Awards" />
+      <CardHeader subheader="Please fill in your information: " />
 
       {/* THE FOLLWING GRID IS TO LIST ALL USER'S AWARD AND EDIT, IT IS NOT FOR CREATING
        THREFORE NO 'ADD' BUTTON NEEDED, ONLY 'REMVOE' BUTTON REQUIRE */}
@@ -165,7 +191,7 @@ const WorkExperienceSection = () => {
       </Typography>
       {projects
         ? projects.map((project, index) => (
-            <Grid container spacing={4} mt={1} paddingRight={3} paddingLeft={3}>
+            <Grid container spacing={4} mt={1} mb={-6}>
               <Grid item md={12} xs={12}>
                 <Grid
                   container
@@ -235,21 +261,23 @@ const WorkExperienceSection = () => {
                       sx={{ backgroundColor: "#ffffff" }}
                       required
                       fullWidth
-                      label="Project Description"
-                      helperText="TIPS: ~3-4 bullet point, start w/ Action verbs, numbers if possible, highlight/emphasize skills"
+                      label="Project Description"                      
                       variant="outlined"
                       multiline
                       rows={5}
-                      value={project.projectDescrption}
+                      value={project.projectDescription}
                       // onChange={projectDescrptionHandler}
                     />
+                    <button
+                      className="remove-btn"
+                      onClick={(project) => projectRemoveHandler(project)}
+                    >
+                      REMOVE
+                    </button>
                   </Grid>
-                  <button
-                    className="remove-btn"
-                    onClick={(project) => projectRemoveHandler(project)}
-                  >
-                    remove
-                  </button>
+                  <Grid item>
+                    
+                  </Grid>
                 </Grid>
               </Grid>
 
@@ -329,17 +357,18 @@ const WorkExperienceSection = () => {
               </LocalizationProvider>
             </Grid> */}
             <Grid item md={12} xs={12}>
-              <TextField
+              <TextField error
                 sx={{ backgroundColor: "#ffffff" }}
                 required
                 fullWidth
                 label="Project Description"
-                helperText="TIPS: ~3-4 bullet point, start w/ Action verbs, numbers if possible, highlight/emphasize skills"
+                helperText={!projectContainsBP ? "Invalid input format: Please use bullet points (-) to describe your project, and start each bullet point on a new line": "Please describe your project in 3-4 bullet points, and start each bullet point on a new line. TIPS: start w/ Action verbs, use quantitative statements if possible, and highlight/emphasize skills"}
                 variant="outlined"
                 multiline
                 rows={5}
-                value={projectDescrption}
-                onChange={projectDescrptionHandler}
+                error={!projectContainsBP}
+                value={projectDescription}
+                onChange={projectDescriptionHandler}
               />
             </Grid>
           </Grid>
@@ -360,7 +389,7 @@ const WorkExperienceSection = () => {
       <Typography
         variant="h5"
         component="div"
-        sx={{ mb: 0.5, fontWeight: "bold", color: "#5484D7", ml:3, mb:-3}}
+        sx={{ mb: 0.5, fontWeight: "bold", color: "#5484D7", ml:3, mt: 8, mb:-3}}
       >
         Awards & Certifications
       </Typography>
@@ -411,15 +440,14 @@ const WorkExperienceSection = () => {
                     fullWidth
                     label="Award Summary"
                     variant="outlined"
-                    helperText="Emphasis on skill, what qualities/effort/skill did you use to achieve the Award "
                     multiline
                     value={award.awardSummary}
                     // onChange={awardSummaryHandler}
-                    rows={2}
+                    rows={3}
                   />
                 </Grid>
 
-                <button className="remove-btn"
+                <button className="remove-btn" sx={{ml: 10}}
                 onClick={(award)=>awardRemoveHandler(award)}>remove</button>
                 {/* } */}
               </Grid>
@@ -432,7 +460,7 @@ const WorkExperienceSection = () => {
       {/* THE CURRENT INPUT IS FOR USE TO INPUT THEIR AWARD AND STORE IT INTO REDUX, NOT FOR SHOWING AND LISTING  */}
       {/* AWARD PART: */}
 
-      <Grid container spacing={4} mt={1} paddingRight={3} paddingLeft={3}>
+      <Grid container spacing={4} mt={1} mb={5} paddingRight={3} paddingLeft={3}>
         <Grid
           container
           item
@@ -469,24 +497,25 @@ const WorkExperienceSection = () => {
             </LocalizationProvider>
           </Grid>
           <Grid item md={12} xs={12}>
-            <TextField
+            <TextField error
+              error = {!awardContainsBP}
               sx={{ backgroundColor: "#ffffff" }}
               required
               fullWidth
               label="Award Summary"
               variant="outlined"
-              helperText="Emphasis on skill, what qualities/effort/skill did you use to achieve the Award "
+              helperText={!awardContainsBP ? "Invalid input format: Please use bullet points (-) to describe your project, and start each bullet point on a new line": "Using 2-3 bullet points, please describe your the nature of your award, and the skills/ effort involved in attaining. Start each bullet point on a new line."}
               multiline
               value={awardSummary}
               onChange={awardSummaryHandler}
-              rows={2}
+              rows={3}
             />
           </Grid>
 
           <button className="remove-btn">remove</button>
           {/* } */}
         </Grid>
-        <Grid item md={12} xs={12} mt={0}>
+        <Grid item md={12} xs={12} mt={-4}>
           <button className="add-btn" onClick={awardAddHandler}>
             + Add
           </button>

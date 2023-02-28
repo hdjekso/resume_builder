@@ -100,13 +100,16 @@ const SkillSection = () => {
     //let correctBPFormat = true;
     //let index = desc.indexOf('-');
 
-    if (desc.length === 1){
+    if (desc.length >= 1){
       firstCharIsBP = desc.charAt(0) === '-';
       setContainsBP(firstCharIsBP);
       console.log(containsBP);
     }
     errorCheck();
     setJobDescription(input.target.value);
+    /*if (!error_){
+      setJobDescription(input.target.value);
+    }*/
   };
 
   const handleAddWorkExperience = (e) => {
@@ -138,7 +141,7 @@ const SkillSection = () => {
       setBtnStatus(false);
     } else if (containsBP){
       alert(
-        "at least one of the following input for the workexperience section is empty"
+        "At least one of the requried input values in your work experience is empty.Please fill in the required inputs before adding another work experience."
       );
     }
   };
@@ -201,7 +204,7 @@ const SkillSection = () => {
         style={{
           minHeight: "78vh",
           overflow: "auto",
-          minWidth: "45vw",
+          minWidth: "40vw",
         }}
       >
         <CardHeader subheader="Please fill in your information: " />
@@ -402,7 +405,7 @@ const SkillSection = () => {
                 display: "inline",
               }}
             >
-              Work Expeience (optional)
+              Work Experience (optional)
             </Typography>
           </Grid>
           <Grid item md={4} xs={4}>

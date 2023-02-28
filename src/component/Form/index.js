@@ -133,9 +133,9 @@ const Form = () => {
     console.log(activeStep);
     const action = steps[activeStep];
 
-    if (action == "Profile") {
+    if (action === "Profile") {
       flag = ValidateProfileDetails();
-    } else if (action == "Skills, Coursework, and Work Experience") {
+    } else if (action === "Skills, Coursework, and Work Experience") {
       // console.log('work experience page')
       flag = ValidateWorkExperience();
       //   } else if (action == "Projects and Awards") {
@@ -175,7 +175,7 @@ const Form = () => {
 
   const ValidateWorkExperience = () => {
     // REDO CODE:
-    if (skills.length == 0 || courseworks.length == 0) {
+    if (skills.length === 0 || courseworks.length === 0) {
       alert("at least one input is empty for the work experience section");
       return false;
     };
