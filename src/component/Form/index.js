@@ -54,8 +54,6 @@ const Form = () => {
     return state.email;
   });
 
-  console.log(firstname);
-
   // FROM THE WORK EXPERIENCE SECTION:
   const skills = useSelector((state) => {
     return state.skills;
@@ -182,6 +180,8 @@ const Form = () => {
     console.log(firstname);
     return true;
   };
+
+  // const validateProjectDetails
 
   const handleReset = () => {
     setActiveStep(0);

@@ -193,6 +193,10 @@ const workexperienceSlcie = createSlice({
       state[action.payload[0]].jobDescription = action.payload[1];
       return state;
     },
+    editbutton(state,action){
+      state[action.payload].btnStatus = !state[action.payload].btnStatus;
+      return state;
+    }
 
     // changevarible(state,action){
     //   const index = state.indexOf(action.payload);
@@ -270,7 +274,7 @@ export const { changedate } = dateSlice.actions;
 
 export const { addskill, removeskill } = skillSlice.actions;
 export const { addcoursework, removecoursework } = courseWorkSlice.actions;
-export const { addWorkexperience, removeWorkExperience, editWorkExperience ,eidtJobTitle, editJobDescription} =
+export const { addWorkexperience, removeWorkExperience, editWorkExperience ,eidtJobTitle, editJobDescription, editbutton} =
   workexperienceSlcie.actions;
 
 export const { addAward, removeAward } = awardSLcie.actions;
