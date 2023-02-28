@@ -19,6 +19,8 @@ import {
   removecoursework,
   addWorkexperience,
   removeWorkExperience,
+  editWorkExperience,
+  editJobTitle,
 } from "../../action";
 
 // skill section:
@@ -122,12 +124,32 @@ const SkillSection = () => {
     dispatch(removeWorkExperience(work));
   };
 
+  // EDIT WORK EXPERIENCE SECTION:
+
+  const editCompanyName = (index) => (event) => {
+    const { value } = event.target;
+    console.log(value);
+    dispatch(editWorkExperience([index, value]));
+  };
+
+  const editJobTitle = (index) => (event) => {
+    const { value } = event.target;
+    console.log(value);
+    dispatch(editJobTitle([index, value]));
+  };
+
+   const editJobDescription = (index) => (event) => {
+     const { value } = event.target;
+     console.log(value);
+     dispatch(editJobDescription([index, value]));
+   };
+
   //status of the end date picker
 
   const handleCheckChange = () => {
     if (btnStatus === false) {
       setBtnStatus(true);
-      setEndDate('present');
+      setEndDate("present");
       // console.log(endDate);
     } else {
       setBtnStatus(false);
@@ -255,7 +277,7 @@ const SkillSection = () => {
                     required
                     label="Company name"
                     variant="outlined"
-                    // onChange={(input)=>console.log(input.target.value)}
+                    onChange={editCompanyName(index)}
                     value={work.companyName}
                     key={work}
                   />
@@ -267,7 +289,7 @@ const SkillSection = () => {
                     required
                     label="Job title"
                     variant="outlined"
-                    // onChange={handleJobTitle}
+                    onChange={editJobTitle(index)}
                     value={work.jobTitle}
                   />
                 </Grid>

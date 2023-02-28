@@ -174,7 +174,6 @@ const WorkExperienceSection = () => {
                       fullWidth
                       label="Project Name"
                       variant="outlined"
-                      // onChange={ProjectNameHandler}
                       value={project.projectName}
                     />
                   </Grid>
