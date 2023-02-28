@@ -153,7 +153,7 @@ const SkillSection = () => {
     if (btnStatus === false) {
       setBtnStatus(true);
       setEndDate('present');
-      console.log(endDate);
+      // console.log(endDate);
     } else {
       setBtnStatus(false);
       setEndDate(
