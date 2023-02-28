@@ -13,7 +13,19 @@ import {
   TextField,
 } from "@mui/material";
 import dayjs from "dayjs";
-import { addProject, removeProject, addAward, removeAward } from "../../action";
+import {
+  addProject,
+  removeProject,
+  addAward,
+  removeAward,
+  editProjectStartDate,
+  editProjectDescription,
+  editProjectName,
+  editProjectEndDate,
+  editAwardTitle,
+  editAwardDate,
+  editAwardSummary
+} from "../../action";
 import { useSelector, useDispatch } from "react-redux";
 
 const WorkExperienceSection = () => {
@@ -80,6 +92,12 @@ const WorkExperienceSection = () => {
     setProjectDescription(input.target.value);
   };
 
+  const projectNameEdit = (index) => (event) => {
+    const {value} = event.target;
+    console.log(index,value)
+    dispatch(editProjectName([index,value]));
+  }
+
   // award part :
 
   const awardTitleHandler = (input) => {
@@ -138,6 +156,8 @@ const WorkExperienceSection = () => {
     dispatch(removeAward(award));
   };
 
+
+
   return (
     <Card
       sx={{
@@ -155,7 +175,7 @@ const WorkExperienceSection = () => {
 
       {/* THE FOLLWING GRID IS TO LIST ALL USER'S AWARD AND EDIT, IT IS NOT FOR CREATING
        THREFORE NO 'ADD' BUTTON NEEDED, ONLY 'REMVOE' BUTTON REQUIRE */}
-       
+
       {projects
         ? projects.map((project, index) => (
             <Grid container spacing={4} mt={1} paddingRight={3} paddingLeft={3}>
@@ -166,6 +186,7 @@ const WorkExperienceSection = () => {
                   columnSpacing={{ xs: 1, sm: 2, md: 4 }}
                   paddingRight={3}
                   paddingLeft={3}
+                  key={index}
                 >
                   <Grid item md={8} xs={12}>
                     <TextField
@@ -175,6 +196,7 @@ const WorkExperienceSection = () => {
                       label="Project Name"
                       variant="outlined"
                       value={project.projectName}
+                      onChange={projectNameEdit(index)}
                     />
                   </Grid>
                   <Grid item md={2} xs={12}>
@@ -256,98 +278,98 @@ const WorkExperienceSection = () => {
 
       {/* THE CURRENT INPUT IS FOR USER'S INPUT, NOT FOR THE SHOW AND EDITING LIST */}
       {/* PROJECT PART */}
-      {projects.length < 4 ?
-      <Grid container spacing={4} mt={1} paddingRight={3} paddingLeft={3}>
-        <Grid item md={12} xs={12}>
-          <Grid
-            container
-            rowSpacing={7}
-            columnSpacing={{ xs: 1, sm: 2, md: 4 }}
-            paddingRight={3}
-            paddingLeft={3}
-          >
-            <Grid item md={8} xs={12}>
-              <TextField
-                sx={{ backgroundColor: "#ffffff" }}
-                required
-                fullWidth
-                label="Project Name"
-                variant="outlined"
-                onChange={ProjectNameHandler}
-                value={projectName}
-              />
-            </Grid>
-            <Grid item md={2} xs={12}>
-              <TextField
-                sx={{ backgroundColor: "#ffffff" }}
-                fullWidth
-                label="Link"
-                variant="outlined"
-                value={link}
-                onChange={linkHanlder}
-              />
-            </Grid>
-            <Grid item md={2} xs={6}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DesktopDatePicker
-                  label="Start date"
-                  inputFormat="MM/DD/YYYY"
-                  value={startDate}
-                  onChange={startDateHandler}
-                  renderInput={(params) => (
-                    <TextField
-                      sx={{ backgroundColor: "#ffffff" }}
-                      required
-                      fullWidth
-                      {...params}
-                    />
-                  )}
+      {projects.length < 4 ? (
+        <Grid container spacing={4} mt={1} paddingRight={3} paddingLeft={3}>
+          <Grid item md={12} xs={12}>
+            <Grid
+              container
+              rowSpacing={7}
+              columnSpacing={{ xs: 1, sm: 2, md: 4 }}
+              paddingRight={3}
+              paddingLeft={3}
+            >
+              <Grid item md={8} xs={12}>
+                <TextField
+                  sx={{ backgroundColor: "#ffffff" }}
+                  required
+                  fullWidth
+                  label="Project Name"
+                  variant="outlined"
+                  onChange={ProjectNameHandler}
+                  value={projectName}
                 />
-              </LocalizationProvider>
-            </Grid>
-            <Grid item md={2} xs={6}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DesktopDatePicker
-                  label="End date"
-                  inputFormat="MM/DD/YYYY"
-                  value={endDate}
-                  onChange={endDateHandler}
-                  renderInput={(params) => (
-                    <TextField
-                      sx={{ backgroundColor: "#ffffff" }}
-                      required
-                      fullWidth
-                      {...params}
-                    />
-                  )}
+              </Grid>
+              <Grid item md={2} xs={12}>
+                <TextField
+                  sx={{ backgroundColor: "#ffffff" }}
+                  fullWidth
+                  label="Link"
+                  variant="outlined"
+                  value={link}
+                  onChange={linkHanlder}
                 />
-              </LocalizationProvider>
-            </Grid>
-            <Grid item md={12} xs={12}>
-              <TextField
-                sx={{ backgroundColor: "#ffffff" }}
-                required
-                fullWidth
-                label="Project Description"
-                helperText="TIPS: ~3-4 bullet point, start w/ Action verbs, numbers if possible, highlight/emphasize skills"
-                variant="outlined"
-                multiline
-                rows={5}
-                value={projectDescrption}
-                onChange={projectDescrptionHandler}
-              />
+              </Grid>
+              <Grid item md={2} xs={6}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DesktopDatePicker
+                    label="Start date"
+                    inputFormat="MM/DD/YYYY"
+                    value={startDate}
+                    onChange={startDateHandler}
+                    renderInput={(params) => (
+                      <TextField
+                        sx={{ backgroundColor: "#ffffff" }}
+                        required
+                        fullWidth
+                        {...params}
+                      />
+                    )}
+                  />
+                </LocalizationProvider>
+              </Grid>
+              <Grid item md={2} xs={6}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DesktopDatePicker
+                    label="End date"
+                    inputFormat="MM/DD/YYYY"
+                    value={endDate}
+                    onChange={endDateHandler}
+                    renderInput={(params) => (
+                      <TextField
+                        sx={{ backgroundColor: "#ffffff" }}
+                        required
+                        fullWidth
+                        {...params}
+                      />
+                    )}
+                  />
+                </LocalizationProvider>
+              </Grid>
+              <Grid item md={12} xs={12}>
+                <TextField
+                  sx={{ backgroundColor: "#ffffff" }}
+                  required
+                  fullWidth
+                  label="Project Description"
+                  helperText="TIPS: ~3-4 bullet point, start w/ Action verbs, numbers if possible, highlight/emphasize skills"
+                  variant="outlined"
+                  multiline
+                  rows={5}
+                  value={projectDescrption}
+                  onChange={projectDescrptionHandler}
+                />
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
 
-        <Grid item md={12} xs={12} mt={0}>
-          <button className="add-btn" onClick={projectAddHandler}>
-            + Add
-          </button>
+          <Grid item md={12} xs={12} mt={0}>
+            <button className="add-btn" onClick={projectAddHandler}>
+              + Add
+            </button>
+          </Grid>
+          {/* )} */}
         </Grid>
-        {/* )} */}
-      </Grid>
-      : null }
+      ) : null}
 
       <CardHeader subheader="Awards/Certifications" />
 
@@ -405,79 +427,82 @@ const WorkExperienceSection = () => {
                   />
                 </Grid>
 
-                <button className="remove-btn"
-                onClick={(award)=>awardRemoveHandler(award)}>remove</button>
+                <button
+                  className="remove-btn"
+                  onClick={(award) => awardRemoveHandler(award)}
+                >
+                  remove
+                </button>
                 {/* } */}
               </Grid>
-              <Grid item md={12} xs={12} mt={0}>
-              </Grid>
+              <Grid item md={12} xs={12} mt={0}></Grid>
             </Grid>
           ))
         : null}
 
       {/* THE CURRENT INPUT IS FOR USE TO INPUT THEIR AWARD AND STORE IT INTO REDUX, NOT FOR SHOWING AND LISTING  */}
       {/* AWARD PART: */}
-      {awards.length < 4 ?
-      <Grid container spacing={4} mt={1} paddingRight={3} paddingLeft={3}>
-        <Grid
-          container
-          item
-          rowSpacing={5}
-          columnSpacing={{ xs: 1, sm: 2, md: 12 }}
-        >
-          <Grid item md={8.5} xs={12}>
-            <TextField
-              sx={{ backgroundColor: "#ffffff" }}
-              fullWidth
-              label="Award Title"
-              variant="outlined"
-              rows={1}
-              value={awardTitle}
-              onChange={awardTitleHandler}
-            />
-          </Grid>
-          <Grid item md={3.5} xs={12}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DesktopDatePicker
-                label="End date"
-                inputFormat="MM/DD/YYYY"
-                value={date}
-                onChange={dateHandler}
-                renderInput={(params) => (
-                  <TextField
-                    sx={{ backgroundColor: "#ffffff" }}
-                    required
-                    fullWidth
-                    {...params}
-                  />
-                )}
+      {awards.length < 4 ? (
+        <Grid container spacing={4} mt={1} paddingRight={3} paddingLeft={3}>
+          <Grid
+            container
+            item
+            rowSpacing={5}
+            columnSpacing={{ xs: 1, sm: 2, md: 12 }}
+          >
+            <Grid item md={8.5} xs={12}>
+              <TextField
+                sx={{ backgroundColor: "#ffffff" }}
+                fullWidth
+                label="Award Title"
+                variant="outlined"
+                rows={1}
+                value={awardTitle}
+                onChange={awardTitleHandler}
               />
-            </LocalizationProvider>
-          </Grid>
-          <Grid item md={12} xs={12}>
-            <TextField
-              sx={{ backgroundColor: "#ffffff" }}
-              required
-              fullWidth
-              label="Award Summary"
-              variant="outlined"
-              helperText="Emphasis on skill, what qualities/effort/skill did you use to achieve the Award "
-              multiline
-              value={awardSummary}
-              onChange={awardSummaryHandler}
-              rows={2}
-            />
-          </Grid>
+            </Grid>
+            <Grid item md={3.5} xs={12}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DesktopDatePicker
+                  label="End date"
+                  inputFormat="MM/DD/YYYY"
+                  value={date}
+                  onChange={dateHandler}
+                  renderInput={(params) => (
+                    <TextField
+                      sx={{ backgroundColor: "#ffffff" }}
+                      required
+                      fullWidth
+                      {...params}
+                    />
+                  )}
+                />
+              </LocalizationProvider>
+            </Grid>
+            <Grid item md={12} xs={12}>
+              <TextField
+                sx={{ backgroundColor: "#ffffff" }}
+                required
+                fullWidth
+                label="Award Summary"
+                variant="outlined"
+                helperText="Emphasis on skill, what qualities/effort/skill did you use to achieve the Award "
+                multiline
+                value={awardSummary}
+                onChange={awardSummaryHandler}
+                rows={2}
+              />
+            </Grid>
 
-          {/* } */}
+            {/* } */}
+          </Grid>
+          <Grid item md={12} xs={12} mt={0}>
+            <button className="add-btn" onClick={awardAddHandler}>
+              + Add
+            </button>
+          </Grid>
         </Grid>
-        <Grid item md={12} xs={12} mt={0}>
-          <button className="add-btn" onClick={awardAddHandler}>
-            + Add
-          </button>
-        </Grid>
-      </Grid>
-      : null}
+      ) : null}
 
       <br></br>
     </Card>

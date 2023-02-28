@@ -227,12 +227,18 @@ const projectSlice = createSlice({
       return state;
     },
     editProjectName(state, action) {
-      state[action.payload[0]].jobDescription = action.payload[1];
+      state[action.payload[0]].projectName = action.payload[1];
       return state;
     },
     editProjectDescription(state, action) {
-      state[action.payload[0]].jobDescription = action.payload[1];
+      state[action.payload[0]].projectDescrption = action.payload[1];
       return state;
+    },
+    editProjectStartDate(state, action) {
+      state[action.payload[0]].startDate = action.payload[1];
+    },
+    editProjectEndDate(state, action) {
+      state[action.payload[0]].endDate = action.payload[1];
     },
   },
 });
@@ -251,11 +257,15 @@ const awardSLcie = createSlice({
       return state;
     },
     editAwardTitle(state, action) {
-      state[action.payload[0]].jobDescription = action.payload[1];
+      state[action.payload[0]].awardTitle = action.payload[1];
       return state;
     },
     editAwardSummary(state, action) {
-      state[action.payload[0]].jobDescription = action.payload[1];
+      state[action.payload[0]].awardSummary = action.payload[1];
+      return state;
+    },
+    editAwardDate(state, action) {
+      state[action.payload[0]].date = action.payload[1];
       return state;
     },
   },
@@ -308,5 +318,5 @@ export const {
   editEndDate
 } = workexperienceSlcie.actions;
 
-export const { addAward, removeAward } = awardSLcie.actions;
-export const { addProject, removeProject } = projectSlice.actions;
+export const { addAward, removeAward, editAwardDate, editAwardSummary, editAwardTitle} = awardSLcie.actions;
+export const { addProject, removeProject, editProjectEndDate,editProjectStartDate,editProjectDescription,editProjectName } = projectSlice.actions;
