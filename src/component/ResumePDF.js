@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
 const ResumePDF = () => {
   const firstname = useSelector((state) => {
     return state.firstname;
@@ -187,8 +188,9 @@ const ResumePDF = () => {
         detailsArray.push(element);
       });
       */
+      let detailsArray = workexperiences[i].jobDescription.split("\n");
       experienceData.push({
-        ul: [{ ul: [{ text: workexperiences[i].jobDescription }] }],
+        ul: [{ ul: detailsArray }],
       });
       experienceData.push({ text: "\n" });
     }
