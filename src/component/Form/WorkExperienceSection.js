@@ -314,7 +314,7 @@ const WorkExperienceSection = () => {
               <TextField
                 sx={{ backgroundColor: "#ffffff" }}
                 fullWidth
-                label="Link"
+                label="Link (optional)"
                 variant="outlined"
                 value={link}
                 onChange={linkHanlder}
