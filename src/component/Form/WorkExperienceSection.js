@@ -252,11 +252,11 @@ const WorkExperienceSection = () => {
           ))
         : null}
 
-      <CardHeader subheader="Awards/Certifications" />
+      <CardHeader subheader="Projects" />
 
       {/* THE CURRENT INPUT IS FOR USER'S INPUT, NOT FOR THE SHOW AND EDITING LIST */}
       {/* PROJECT PART */}
-
+      {projects.length < 4 ?
       <Grid container spacing={4} mt={1} paddingRight={3} paddingLeft={3}>
         <Grid item md={12} xs={12}>
           <Grid
@@ -347,8 +347,7 @@ const WorkExperienceSection = () => {
         </Grid>
         {/* )} */}
       </Grid>
-
-      {/* ))} */}
+      : null }
 
       <CardHeader subheader="Awards/Certifications" />
 
@@ -418,7 +417,7 @@ const WorkExperienceSection = () => {
 
       {/* THE CURRENT INPUT IS FOR USE TO INPUT THEIR AWARD AND STORE IT INTO REDUX, NOT FOR SHOWING AND LISTING  */}
       {/* AWARD PART: */}
-
+      {awards.length < 4 ?
       <Grid container spacing={4} mt={1} paddingRight={3} paddingLeft={3}>
         <Grid
           container
@@ -470,7 +469,6 @@ const WorkExperienceSection = () => {
             />
           </Grid>
 
-          <button className="remove-btn">remove</button>
           {/* } */}
         </Grid>
         <Grid item md={12} xs={12} mt={0}>
@@ -479,6 +477,7 @@ const WorkExperienceSection = () => {
           </button>
         </Grid>
       </Grid>
+      : null}
 
       <br></br>
     </Card>

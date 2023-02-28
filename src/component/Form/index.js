@@ -233,7 +233,8 @@ const Form = () => {
                   <Button onClick={handleComplete} sx={{ mr: 1 }}>
                     Save and Next
                   </Button>
-                  {/*{activeStep !== steps.length &&
+
+                  {activeStep !== steps.length &&
                   (completed[activeStep] ? (
                     <Typography
                       variant="caption"
@@ -247,7 +248,8 @@ const Form = () => {
                         ? "Finish"
                         : "Complete Step"}
                     </Button>
-                      ))}*/}
+                      ))}
+                      
                 </Box>
               </React.Fragment>
             )}

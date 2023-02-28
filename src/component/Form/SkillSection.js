@@ -30,7 +30,7 @@ const SkillSection = () => {
   const dispatch = useDispatch();
 
   // usestate varibales:
-  const [ongoing,setOngoing] = useState('');
+  const [ongoing, setOngoing] = useState("");
   const [companyName, setComanyName] = useState("");
   const [jobTitle, setJobTitle] = useState("");
   const [startDate, setStartDate] = useState(
@@ -61,11 +61,20 @@ const SkillSection = () => {
   });
 
   const addskillhandle = (skill) => {
-    dispatch(addskill(skill));
+    //
+    if (skill.length > 5) {
+      alert("only maximum 5 skill inputs allow");
+    } else {
+      dispatch(addskill(skill));
+    }
   };
 
   const addcourseworkhandle = (coursework) => {
-    dispatch(addcoursework(coursework));
+    if(coursework.length > 5){
+      alert('only maximum 5 coursework inputs allow')
+    }else{
+      dispatch(addcoursework(coursework));
+    }
   };
 
   const handleCompanyName = (input) => {
@@ -122,7 +131,7 @@ const SkillSection = () => {
           current.getMonth() + 1
         }/${current.getDate()}/${current.getFullYear()}`
       );
-      setOngoing('');
+      setOngoing("");
       setJobTitle("");
       setBtnStatus(false);
     } else {
@@ -150,18 +159,18 @@ const SkillSection = () => {
     dispatch(editJobTitle([index, value]));
   };
 
-   const editJobDescription = (index) => (event) => {
-     const { value } = event.target;
-     console.log(value);
-     dispatch(editJobDescription([index, value]));
-   };
+  const editJobDescription = (index) => (event) => {
+    const { value } = event.target;
+    console.log(value);
+    dispatch(editJobDescription([index, value]));
+  };
 
   //status of the end date picker
 
   const handleCheckChange = () => {
     if (btnStatus === false) {
       setBtnStatus(true);
-      setOngoing('present')
+      setOngoing("present");
       // console.log(endDate);
     } else {
       setBtnStatus(false);
@@ -170,7 +179,7 @@ const SkillSection = () => {
           current.getMonth() + 1
         }/${current.getDate()}/${current.getFullYear()}`
       );
-      setOngoing('');
+      setOngoing("");
     }
   };
 
@@ -367,9 +376,8 @@ const SkillSection = () => {
             ))
           : null}
 
-        {/* DO NEW INPUT OF WORK EXPERIENCE AND STORE IT OVER HERE */}
-
-        {/* {workFields.map((singleWork, index) => ( */}
+        {(workexperiences.length < 4) ? 
+  
         <Grid container spacing={4} mt={0} paddingRight={3} paddingLeft={3}>
           <Grid item md={7} xs={7}>
             <Typography
@@ -467,14 +475,15 @@ const SkillSection = () => {
           </Grid>
           {/* {workFields.length - 1 === index && workFields.length < 3 && ( */}
           <Grid item md={12} xs={12} mt={0}>
+           
             <button className="add-btn" onClick={handleAddWorkExperience}>
               + Add
             </button>
+            
           </Grid>
-          {/* )} */}
-          <Grid item md={8} xs={12} mb={4}></Grid>
         </Grid>
-
+        : null }
+    
         <Grid container mb={10}></Grid>
       </Card>
     </form>
