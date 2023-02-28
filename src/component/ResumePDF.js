@@ -147,6 +147,15 @@ const ResumePDF = () => {
       ],
     };
   };
+  /*
+  let expData = {
+    jobTitle: "JOB TITLE",
+    jobDate: "JOB DATE",
+    jobOrg: "COMPANY",
+    jobLocation: "CITY, STATE",
+    jobDetails: ["BP 1", "BP 2", "BP 3"],
+  };
+*/
   let experienceData = [];
 
   const workExperienceText = () => {
@@ -173,6 +182,12 @@ const ResumePDF = () => {
           },
         ],
       });
+      /*
+      let detailsArray = [];
+      expData.jobDetails.forEach((element) => {
+        detailsArray.push(element);
+      });
+      */
       experienceData.push({
         ul: [{ ul: [{ text: workexperiences[i].jobDescription }] }],
       });
@@ -181,7 +196,35 @@ const ResumePDF = () => {
 
     return experienceData;
   };
+  /*
+  function addExperience(data) {
+    experienceData.push({
+      columns: [
+        {
+          text: data.jobTitle + "\n" + data.jobOrg + "\n",
+          width: "*",
+          alignment: "left",
+        },
+        {
+          text: data.jobDate + "\n" + data.jobLocation + "\n",
+          width: "*",
+          alignment: "right",
+        },
+      ],
+    });
 
+    var detailsArray = [];
+    data.jobDetails.forEach((element) => {
+      detailsArray.push(element);
+    });
+
+    experienceData.push({ ul: [{ ul: detailsArray }] });
+    experienceData.push({ text: "\n" });
+  }
+
+  addExperience(expData);
+  addExperience(expData);
+*/
   const docDefinition = {
     pageMargins: [28.8, 28.8, 28.8, 28.8],
     content: [
