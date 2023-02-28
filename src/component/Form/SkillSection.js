@@ -30,6 +30,7 @@ const SkillSection = () => {
   const dispatch = useDispatch();
 
   // usestate varibales:
+  const [ongoing,setOngoing] = useState('');
   const [companyName, setComanyName] = useState("");
   const [jobTitle, setJobTitle] = useState("");
   const [startDate, setStartDate] = useState(
@@ -90,15 +91,25 @@ const SkillSection = () => {
   const handleAddWorkExperience = (e) => {
     e.preventDefault();
     if (companyName && jobTitle && jobDescription && startDate && endDate) {
-      dispatch(
-        addWorkexperience({
-          companyName,
-          jobTitle,
-          jobDescription,
-          startDate,
-          endDate,
-        })
-      );
+      ongoing
+        ? dispatch(
+            addWorkexperience({
+              companyName,
+              jobTitle,
+              jobDescription,
+              startDate,
+              endDate: ongoing,
+            })
+          )
+        : dispatch(
+            addWorkexperience({
+              companyName,
+              jobTitle,
+              jobDescription,
+              startDate,
+              endDate,
+            })
+          );
       setComanyName("");
       setJobDescription("");
       setStartDate(
@@ -111,6 +122,7 @@ const SkillSection = () => {
           current.getMonth() + 1
         }/${current.getDate()}/${current.getFullYear()}`
       );
+      setOngoing('');
       setJobTitle("");
       setBtnStatus(false);
     } else {
@@ -149,7 +161,7 @@ const SkillSection = () => {
   const handleCheckChange = () => {
     if (btnStatus === false) {
       setBtnStatus(true);
-      setEndDate("present");
+      setOngoing('present')
       // console.log(endDate);
     } else {
       setBtnStatus(false);
@@ -158,6 +170,7 @@ const SkillSection = () => {
           current.getMonth() + 1
         }/${current.getDate()}/${current.getFullYear()}`
       );
+      setOngoing('');
     }
   };
 
