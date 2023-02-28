@@ -406,6 +406,7 @@ const WorkExperienceSection = () => {
               >
                 <Grid item md={8.5} xs={12}>
                   <TextField
+                    required
                     sx={{ backgroundColor: "#ffffff" }}
                     fullWidth
                     label="Award Title"
