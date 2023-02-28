@@ -183,7 +183,9 @@ const ResumePDF = () => {
             text:
               workexperiences[i].startDate +
               " - " +
-              workexperiences[i].endDate +
+              (workexperiences[i] !== ""
+                ? workexperiences[i].endDate
+                : "Present") +
               "\n",
             width: "*",
             alignment: "right",
