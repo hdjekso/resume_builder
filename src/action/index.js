@@ -219,6 +219,14 @@ const projectSlice = createSlice({
       state.splice(index, 1);
       return state;
     },
+    editProjectName(state, action) {
+      state[action.payload[0]].jobDescription = action.payload[1];
+      return state;
+    },
+    editProjectDescription(state, action) {
+      state[action.payload[0]].jobDescription = action.payload[1];
+      return state;
+    },
   },
 });
 
@@ -233,6 +241,14 @@ const awardSLcie = createSlice({
     removeAward(state, action) {
       const index = state.indexOf(action.payload);
       state.splice(index, 1);
+      return state;
+    },
+    editAwardTitle(state, action) {
+      state[action.payload[0]].jobDescription = action.payload[1];
+      return state;
+    },
+    editAwardSummary(state, action) {
+      state[action.payload[0]].jobDescription = action.payload[1];
       return state;
     },
   },
