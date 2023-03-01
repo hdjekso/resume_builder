@@ -100,12 +100,12 @@ const SkillSection = () => {
     //let correctBPFormat = true;
     //let index = desc.indexOf('-');
 
-    if (desc.length >= 1){
+    /*if (desc.length >= 1){
       firstCharIsBP = desc.charAt(0) === '-';
       setContainsBP(firstCharIsBP);
       console.log(containsBP);
     }
-    errorCheck();
+    errorCheck();*/
     setJobDescription(input.target.value);
     /*if (!error_){
       setJobDescription(input.target.value);

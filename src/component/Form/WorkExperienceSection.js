@@ -94,9 +94,9 @@ const WorkExperienceSection = () => {
 
   const projectDescriptionHandler = (input) => {
     const desc = input.target.value;
-    if (desc.length >= 1){
+    /*if (desc.length >= 1){
       setProjectContainsBP(desc.charAt(0) === '-');
-    }
+    }*/
     setProjectDescription(input.target.value);
     /*if (!error_){
       setProjectDescription(input.target.value);
@@ -115,9 +115,9 @@ const WorkExperienceSection = () => {
 
   const awardSummaryHandler = (input) => {
     const desc = input.target.value;
-    if (desc.length >= 1){
+    /*if (desc.length >= 1){
       setAwardContainsBP(desc.charAt(0) === '-');
-    }
+    }*/
     setAwardSummary(input.target.value);
     /*if (!error_){
       setAwardSummary(input.target.value);
