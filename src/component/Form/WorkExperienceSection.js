@@ -16,6 +16,9 @@ import dayjs from "dayjs";
 import { addProject, removeProject, addAward, removeAward } from "../../action";
 import { useSelector, useDispatch } from "react-redux";
 import Typography from "@mui/material/Typography";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 
 const WorkExperienceSection = () => {
   const dispatch = useDispatch();
@@ -51,6 +54,18 @@ const WorkExperienceSection = () => {
   const awards = useSelector((state) => {
     return state.awards;
   });
+
+  const [haveProjects, setHaveProjects] = useState(true);
+
+  const handleProjectChange = () => {
+    setHaveProjects((haveProjects + 1) % 2);
+  };
+
+  const [haveAwards, setHaveAwards] = useState(true);
+
+  const handleAwardChange = () => {
+    setHaveAwards((haveAwards + 1) % 2);
+  };
 
   // if (projects) {
   //   console.log(projects[0]);
@@ -188,8 +203,12 @@ const WorkExperienceSection = () => {
         sx={{ mb: 0.5, fontWeight: "bold", color: "#5484D7", ml:3, mb:-3}}
       >
         Projects
+        <FormGroup>
+            <FormControlLabel control={<Checkbox style={{padding: 5, marginLeft: 10}} defaultChecked />} label={<Typography variant="h7" color="textSecondary" sx={{ mb: 0.5, fontSize: 14, fontFamily: 'sans-serif'}}>I have projects</Typography>} 
+              onChange={handleProjectChange}/>
+          </FormGroup>
       </Typography>
-      {projects
+      {(projects && haveProjects)
         ? projects.map((project, index) => (
             <Grid container spacing={4} mt={1} mb={-6}>
               <Grid item md={12} xs={12}>
@@ -290,97 +309,100 @@ const WorkExperienceSection = () => {
       {/* THE CURRENT INPUT IS FOR USER'S INPUT, NOT FOR THE SHOW AND EDITING LIST */}
       {/* PROJECT PART */}
 
-      <Grid container spacing={4} mt={1} paddingRight={3} paddingLeft={3}>
-        <Grid item md={12} xs={12}>
-          <Grid
-            container
-            rowSpacing={7}
-            columnSpacing={{ xs: 1, sm: 2, md: 4 }}
-            // paddingRight={3}
-            // paddingLeft={3}
-          >
-            <Grid item md={8} xs={12}>
-              <TextField
-                sx={{ backgroundColor: "#ffffff" }}
-                required
-                fullWidth
-                label="Project Name"
-                variant="outlined"
-                onChange={ProjectNameHandler}
-                value={projectName}
-              />
-            </Grid>
-            <Grid item md={2} xs={12}>
-              <TextField
-                sx={{ backgroundColor: "#ffffff" }}
-                fullWidth
-                label="Link (optional)"
-                variant="outlined"
-                value={link}
-                onChange={linkHanlder}
-              />
-            </Grid>
-            <Grid item md={2} xs={6}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DesktopDatePicker
-                  label="Date"
-                  inputFormat="MM/YYYY"
-                  value={startDate}
-                  onChange={startDateHandler}
-                  renderInput={(params) => (
-                    <TextField
-                      sx={{ backgroundColor: "#ffffff" }}
-                      required
-                      fullWidth
-                      {...params}
-                    />
-                  )}
+      {haveProjects? 
+        <Grid container spacing={4} mt={1} paddingRight={3} paddingLeft={3}>
+          <Grid item md={12} xs={12}>
+            <Grid
+              container
+              rowSpacing={7}
+              columnSpacing={{ xs: 1, sm: 2, md: 4 }}
+              // paddingRight={3}
+              // paddingLeft={3}
+            >
+              <Grid item md={8} xs={12}>
+                <TextField
+                  sx={{ backgroundColor: "#ffffff" }}
+                  required
+                  fullWidth
+                  label="Project Name"
+                  variant="outlined"
+                  onChange={ProjectNameHandler}
+                  value={projectName}
                 />
-              </LocalizationProvider>
-            </Grid>
-            {/* <Grid item md={2} xs={6}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DesktopDatePicker
-                  label="End date"
-                  inputFormat="MM/DD/YYYY"
-                  value={endDate}
-                  onChange={endDateHandler}
-                  renderInput={(params) => (
-                    <TextField
-                      sx={{ backgroundColor: "#ffffff" }}
-                      required
-                      fullWidth
-                      {...params}
-                    />
-                  )}
+              </Grid>
+              <Grid item md={2} xs={12}>
+                <TextField
+                  sx={{ backgroundColor: "#ffffff" }}
+                  fullWidth
+                  label="Link (optional)"
+                  variant="outlined"
+                  value={link}
+                  onChange={linkHanlder}
                 />
-              </LocalizationProvider>
-            </Grid> */}
-            <Grid item md={12} xs={12}>
-              <TextField error
-                sx={{ backgroundColor: "#ffffff" }}
-                required
-                fullWidth
-                label="Project Description"
-                helperText={!projectContainsBP ? "Invalid input format: Please use bullet points (-) to describe your project, and start each bullet point on a new line": "Please describe your project in 3-4 bullet points, and start each bullet point on a new line. TIPS: start w/ Action verbs, use quantitative statements if possible, and highlight/emphasize skills"}
-                variant="outlined"
-                multiline
-                rows={5}
-                error={!projectContainsBP}
-                value={projectDescription}
-                onChange={projectDescriptionHandler}
-              />
+              </Grid>
+              <Grid item md={2} xs={6}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DesktopDatePicker
+                    label="Date"
+                    inputFormat="MM/YYYY"
+                    value={startDate}
+                    onChange={startDateHandler}
+                    renderInput={(params) => (
+                      <TextField
+                        sx={{ backgroundColor: "#ffffff" }}
+                        required
+                        fullWidth
+                        {...params}
+                      />
+                    )}
+                  />
+                </LocalizationProvider>
+              </Grid>
+              {/* <Grid item md={2} xs={6}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DesktopDatePicker
+                    label="End date"
+                    inputFormat="MM/DD/YYYY"
+                    value={endDate}
+                    onChange={endDateHandler}
+                    renderInput={(params) => (
+                      <TextField
+                        sx={{ backgroundColor: "#ffffff" }}
+                        required
+                        fullWidth
+                        {...params}
+                      />
+                    )}
+                  />
+                </LocalizationProvider>
+              </Grid> */}
+              <Grid item md={12} xs={12}>
+                <TextField error
+                  sx={{ backgroundColor: "#ffffff" }}
+                  required
+                  fullWidth
+                  label="Project Description"
+                  helperText={!projectContainsBP ? "Invalid input format: Please use bullet points (-) to describe your project, and start each bullet point on a new line": "Please describe your project in 3-4 bullet points, and start each bullet point on a new line. TIPS: start w/ Action verbs, use quantitative statements if possible, and highlight/emphasize skills"}
+                  variant="outlined"
+                  multiline
+                  rows={5}
+                  error={!projectContainsBP}
+                  value={projectDescription}
+                  onChange={projectDescriptionHandler}
+                />
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
 
-        <Grid item md={12} xs={12} mt={0}>
-          <button className="add-btn" onClick={projectAddHandler}>
-            + Add
-          </button>
+          <Grid item md={12} xs={12} mt={0}>
+            <button className="add-btn" onClick={projectAddHandler}>
+              + Add
+            </button>
+          </Grid>
+          {/* )} */}
         </Grid>
-        {/* )} */}
-      </Grid>
+      :""}
+      
 
       <br></br> 
       {/* ))} */}
@@ -392,10 +414,14 @@ const WorkExperienceSection = () => {
         sx={{ mb: 0.5, fontWeight: "bold", color: "#5484D7", ml:3, mt: 8, mb:-3}}
       >
         Awards & Certifications
+        <FormGroup>
+            <FormControlLabel control={<Checkbox style={{padding: 5, marginLeft: 10}} defaultChecked />} label={<Typography variant="h7" color="textSecondary" sx={{ mb: 0.5, fontSize: 14, fontFamily: 'sans-serif'}}>I have awards</Typography>} 
+              onChange={handleAwardChange}/>
+          </FormGroup>
       </Typography>
 
       {/* THE CURRENT GRID IS THE SHOW THE VALUE THAT WAS STORED INIDE THE AWARD LIST */}
-      {awards
+      {(awards && haveAwards)
         ? awards.map((award, index) => (
             <Grid container spacing={4} mt={1} paddingRight={3} paddingLeft={3}>
               <Grid
@@ -460,69 +486,71 @@ const WorkExperienceSection = () => {
 
       {/* THE CURRENT INPUT IS FOR USE TO INPUT THEIR AWARD AND STORE IT INTO REDUX, NOT FOR SHOWING AND LISTING  */}
       {/* AWARD PART: */}
-
-      <Grid container spacing={4} mt={1} mb={5} paddingRight={3} paddingLeft={3}>
-        <Grid
-          container
-          item
-          rowSpacing={5}
-          columnSpacing={{ xs: 1, sm: 2, md: 12 }}
-        >
-          <Grid item md={8.5} xs={12}>
-            <TextField
-              sx={{ backgroundColor: "#ffffff" }}
-              fullWidth
-              required
-              label="Award Title"
-              variant="outlined"
-              rows={1}
-              value={awardTitle}
-              onChange={awardTitleHandler}
-            />
-          </Grid>
-          <Grid item md={3.5} xs={12}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DesktopDatePicker
-                label="End date"
-                inputFormat="MM/YYYY"
-                value={date}
-                onChange={dateHandler}
-                renderInput={(params) => (
-                  <TextField
-                    sx={{ backgroundColor: "#ffffff" }}
-                    required
-                    fullWidth
-                    {...params}
-                  />
-                )}
+      {haveAwards ? 
+        <Grid container spacing={4} mt={1} mb={5} paddingRight={3} paddingLeft={3}>
+          <Grid
+            container
+            item
+            rowSpacing={5}
+            columnSpacing={{ xs: 1, sm: 2, md: 12 }}
+          >
+            <Grid item md={8.5} xs={12}>
+              <TextField
+                sx={{ backgroundColor: "#ffffff" }}
+                fullWidth
+                required
+                label="Award Title"
+                variant="outlined"
+                rows={1}
+                value={awardTitle}
+                onChange={awardTitleHandler}
               />
-            </LocalizationProvider>
-          </Grid>
-          <Grid item md={12} xs={12}>
-            <TextField error
-              error = {!awardContainsBP}
-              sx={{ backgroundColor: "#ffffff" }}
-              required
-              fullWidth
-              label="Award Summary"
-              variant="outlined"
-              helperText={!awardContainsBP ? "Invalid input format: Please use bullet points (-) to describe your project, and start each bullet point on a new line": "Using 2-3 bullet points, please describe your the nature of your award, and the skills/ effort involved in attaining. Start each bullet point on a new line."}
-              multiline
-              value={awardSummary}
-              onChange={awardSummaryHandler}
-              rows={3}
-            />
-          </Grid>
+            </Grid>
+            <Grid item md={3.5} xs={12}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DesktopDatePicker
+                  label="End date"
+                  inputFormat="MM/YYYY"
+                  value={date}
+                  onChange={dateHandler}
+                  renderInput={(params) => (
+                    <TextField
+                      sx={{ backgroundColor: "#ffffff" }}
+                      required
+                      fullWidth
+                      {...params}
+                    />
+                  )}
+                />
+              </LocalizationProvider>
+            </Grid>
+            <Grid item md={12} xs={12}>
+              <TextField error
+                error = {!awardContainsBP}
+                sx={{ backgroundColor: "#ffffff" }}
+                required
+                fullWidth
+                label="Award Summary"
+                variant="outlined"
+                helperText={!awardContainsBP ? "Invalid input format: Please use bullet points (-) to describe your project, and start each bullet point on a new line": "Using 2-3 bullet points, please describe your the nature of your award, and the skills/ effort involved in attaining. Start each bullet point on a new line."}
+                multiline
+                value={awardSummary}
+                onChange={awardSummaryHandler}
+                rows={3}
+              />
+            </Grid>
 
-          <button className="remove-btn">remove</button>
-          {/* } */}
+            <button className="remove-btn">remove</button>
+            {/* } */}
+          </Grid>
+          <Grid item md={12} xs={12} mt={-4}>
+            <button className="add-btn" onClick={awardAddHandler}>
+              + Add
+            </button>
+          </Grid>
         </Grid>
-        <Grid item md={12} xs={12} mt={-4}>
-          <button className="add-btn" onClick={awardAddHandler}>
-            + Add
-          </button>
-        </Grid>
-      </Grid>
+      : ''}
+      
 
       <br></br>
     </Card>

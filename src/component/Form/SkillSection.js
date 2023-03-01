@@ -268,7 +268,7 @@ const SkillSection = () => {
           Work Experience
           {/* this is the work experience listing part  */}
           <FormGroup>
-            <FormControlLabel control={<Checkbox style={{padding: 5, marginLeft: 10}} defaultChecked />} label={<Typography variant="h7" color="textSecondary" sx={{ mb: 0.5, fontSize: 14, fontFamily: 'Serif'}}>I have work experience</Typography>} 
+            <FormControlLabel control={<Checkbox style={{padding: 5, marginLeft: 10}} defaultChecked />} label={<Typography variant="h7" color="textSecondary" sx={{ mb: 0.5, fontSize: 14, fontFamily: 'sans-serif'}}>I have work experience</Typography>} 
               onChange={handleWorkExperienceChange}/>
           </FormGroup>
         </Typography>
