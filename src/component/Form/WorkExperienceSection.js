@@ -472,14 +472,14 @@ const WorkExperienceSection = () => {
                     onChange={awardSummaryEdit(index)}
                     rows={2}
                   />
-                </Grid>
-
-                <button
+                  <button
                   className="remove-btn"
                   onClick={(award) => awardRemoveHandler(award)}
                 >
                   remove
                 </button>
+                </Grid>
+                
                 {/* } */}
               </Grid>
               <Grid item md={12} xs={12} mt={0}></Grid>
