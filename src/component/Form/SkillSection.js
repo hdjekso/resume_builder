@@ -14,9 +14,7 @@ import Checkbox from "@mui/material/Checkbox";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addskill,
-  removeskill,
   addcoursework,
-  removecoursework,
   addWorkexperience,
   removeWorkExperience,
   editCompanyName,
