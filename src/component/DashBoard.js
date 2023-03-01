@@ -21,8 +21,8 @@ function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link color="inherit" href="https://github.com/hdjekso/resume_builder">
+        Github
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -85,8 +85,8 @@ export default function Dashboard() {
               spacing={2}
               justifyContent="center"
             >
-              <Button variant="contained" onClick={handleClick}>start</Button>
-              <Button variant="outlined">sign in</Button>
+              <Button variant="contained" sx={{maxWidth: '100px', maxHeight: '50px', minWidth: '100px', minHeight: '50px', fontSize:"20px"}}onClick={handleClick}>start</Button>
+              {/* <Button variant="outlined">sign in</Button> */}
             </Stack>
           </Container>
         </Box>
@@ -94,7 +94,7 @@ export default function Dashboard() {
       {/* Footer */}
       <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
         <Typography variant="h6" align="center" gutterBottom>
-          Footer
+          Presented By: Team Moonlight of GDSC
         </Typography>
         <Typography
           variant="subtitle1"
@@ -102,7 +102,7 @@ export default function Dashboard() {
           color="text.secondary"
           component="p"
         >
-          Something here to give the footer a purpose!
+          Team Members: Jay, Russel, Steven, Ray, Martin
         </Typography>
         <Copyright />
       </Box>
