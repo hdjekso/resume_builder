@@ -92,7 +92,7 @@ export default function Dashboard() {
         </Box>
       </main>
       {/* Footer */}
-      <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
+      <Box sx={{ bgcolor: "background.paper", p: 6 ,position: "fixed",bottom:0, width:"100vw"}}  component="footer">
         <Typography variant="h6" align="center" gutterBottom>
           Presented By: Team Moonlight of GDSC
         </Typography>
