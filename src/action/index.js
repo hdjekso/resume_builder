@@ -180,12 +180,12 @@ const workexperienceSlcie = createSlice({
       state.splice(index, 1);
       return state;
     },
-    editWorkExperience(state, action) {
+    editCompanyName(state, action) {
       //  console.log(action.payload);
       state[action.payload[0]].companyName = action.payload[1];
       return state;
     },
-    eidtJobTitle(state, action) {
+    editJobTitle(state, action) {
       state[action.payload[0]].jobTitle = action.payload[1];
       return state;
     },
@@ -193,7 +193,18 @@ const workexperienceSlcie = createSlice({
       state[action.payload[0]].jobDescription = action.payload[1];
       return state;
     },
-
+    editbutton(state, action) {
+      state[action.payload].btnStatus = !state[action.payload].btnStatus;
+      return state;
+    },
+    editStartDate(state,action){
+      state[action.payload[0]].startDate = action.payload[1]; 
+      return state;
+    },
+    editEndDate(state,action){
+      state[action.payload[0]].endDate = action.payload[1]; 
+      return state;
+    }
     // changevarible(state,action){
     //   const index = state.indexOf(action.payload);
     //   state[index] =
@@ -215,6 +226,20 @@ const projectSlice = createSlice({
       state.splice(index, 1);
       return state;
     },
+    editProjectName(state, action) {
+      state[action.payload[0]].projectName = action.payload[1];
+      return state;
+    },
+    editProjectDescription(state, action) {
+      state[action.payload[0]].projectDescrption = action.payload[1];
+      return state;
+    },
+    editProjectStartDate(state, action) {
+      state[action.payload[0]].startDate = action.payload[1];
+    },
+    editProjectEndDate(state, action) {
+      state[action.payload[0]].endDate = action.payload[1];
+    },
   },
 });
 
@@ -229,6 +254,18 @@ const awardSLcie = createSlice({
     removeAward(state, action) {
       const index = state.indexOf(action.payload);
       state.splice(index, 1);
+      return state;
+    },
+    editAwardTitle(state, action) {
+      state[action.payload[0]].awardTitle = action.payload[1];
+      return state;
+    },
+    editAwardSummary(state, action) {
+      state[action.payload[0]].awardSummary = action.payload[1];
+      return state;
+    },
+    editAwardDate(state, action) {
+       state[action.payload[0]].awardDate = action.payload[1];
       return state;
     },
   },
@@ -270,8 +307,16 @@ export const { changedate } = dateSlice.actions;
 
 export const { addskill, removeskill } = skillSlice.actions;
 export const { addcoursework, removecoursework } = courseWorkSlice.actions;
-export const { addWorkexperience, removeWorkExperience, editWorkExperience ,eidtJobTitle, editJobDescription} =
-  workexperienceSlcie.actions;
+export const {
+  addWorkexperience,
+  removeWorkExperience,
+  editCompanyName,
+  editJobTitle,
+  editJobDescription,
+  editbutton,
+  editStartDate,
+  editEndDate
+} = workexperienceSlcie.actions;
 
-export const { addAward, removeAward } = awardSLcie.actions;
-export const { addProject, removeProject } = projectSlice.actions;
+export const { addAward, removeAward, editAwardDate, editAwardSummary, editAwardTitle} = awardSLcie.actions;
+export const { addProject, removeProject, editProjectEndDate,editProjectStartDate,editProjectDescription,editProjectName } = projectSlice.actions;
