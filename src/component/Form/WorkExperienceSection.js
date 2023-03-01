@@ -81,6 +81,7 @@ const WorkExperienceSection = () => {
   const handleAwardChange = () => {
     setHaveAwards((haveAwards + 1) % 2);
   };
+  console.log(awards);
 
   // if (projects) {
   //   console.log(projects[0]);
@@ -100,7 +101,8 @@ const WorkExperienceSection = () => {
   };
 
   const startDateHandler = (newDate) => {
-    setStartDate(`${newDate.$M + 1}/${newDate.$D}/${newDate.$y}`);
+    //setStartDate(`${newDate.$M + 1}/${newDate.$D}/${newDate.$y}`);
+    setStartDate(`${newDate.$M + 1}/${newDate.$y}`);
   };
 
   const endDateHandler = (newDate) => {
@@ -182,7 +184,8 @@ const WorkExperienceSection = () => {
       dispatch(
         editAwardDate([
           index,
-          `${newDate.$M + 1}/${newDate.$D}/${newDate.$y}`,
+          `${newDate.$M + 1}/${newDate.$y}`,
+          //`${newDate.$M + 1}/${newDate.$D}/${newDate.$y}`,
         ])
       );
     };
@@ -191,7 +194,7 @@ const WorkExperienceSection = () => {
 
   const projectAddHandler = (e) => {
     e.preventDefault();
-    if (projectDescription && projectName && link && startDate && endDate && projectContainsBP) {
+    if (projectDescription && projectName && startDate && endDate && projectContainsBP) {
       dispatch(
         addProject({ projectDescription, projectName, link, startDate, endDate })
       );
@@ -211,15 +214,15 @@ const WorkExperienceSection = () => {
 
   const awardAddHandler = (e) => {
     e.preventDefault();
-    if (awardTitle && awardSummary && date  && awardContainsBP) {
-      dispatch(addAward({ awardTitle, awardSummary, date }));
+    if (awardTitle && awardSummary && awardDate  && awardContainsBP) {
+      dispatch(addAward({ awardTitle, awardSummary, awardDate }));
       setAwardSummary("");
       setAwardTitle("");
-      setDate(
+      /*setAwardDate(
         `${
           current.getMonth() + 1
         }/${current.getDate()}/${current.getFullYear()}`
-      );
+      );*/
     } else if (awardContainsBP){
       alert(
         "At least one of the requried input values in your award/ certification is empty. Please fill in the required inputs before adding another award/certification."
@@ -350,8 +353,7 @@ const WorkExperienceSection = () => {
                       multiline
                       rows={5}
                       value={project.projectDescription}
-                      //onChange={projectDescrptionHandler}
-                      //onChange={projectDescriptionEdit(index)}
+                      onChange={projectDescriptionEdit(index)}
                     />
                     <button
                       className="remove-btn"
@@ -370,7 +372,7 @@ const WorkExperienceSection = () => {
               {/* )} */}
             </Grid>
           ))
-        : null}
+      : null}
 
       {/* THE CURRENT INPUT IS FOR USER'S INPUT, NOT FOR THE SHOW AND EDITING LIST */}
       {/* PROJECT PART */}
@@ -512,12 +514,9 @@ const WorkExperienceSection = () => {
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DesktopDatePicker
                       label="End date"
-                      inputFormat="MM/YYYY"
-                      value={award.date}
-                      // onChange={dateHandler}
-                      /*inputFormat="MM/DD/YYYY"
+                      inputFormat="MM/DD/YYYY"
                       value={award.awardDate}
-                      onChange={awardDateEdit(index)}*/
+                      onChange={awardDateEdit(index)}
                       renderInput={(params) => (
                         <TextField
                           sx={{ backgroundColor: "#ffffff" }}
@@ -538,14 +537,14 @@ const WorkExperienceSection = () => {
                     variant="outlined"
                     multiline
                     value={award.awardSummary}
-                    // onChange={awardSummaryHandler}
+                    onChange={awardSummaryEdit(index)}
                     rows={3}
                   />
                   <button
                   className="remove-btn"
                   onClick={(award) => awardRemoveHandler(award)}
                 >
-                  remove
+                  REMOVE
                 </button>
                 </Grid>
 
@@ -556,7 +555,7 @@ const WorkExperienceSection = () => {
               <Grid item md={12} xs={12} mt={0}></Grid>
             </Grid>
           ))
-        : null}
+      : null}
 
       {/* THE CURRENT INPUT IS FOR USE TO INPUT THEIR AWARD AND STORE IT INTO REDUX, NOT FOR SHOWING AND LISTING  */}
       {/* AWARD PART: */}
@@ -584,9 +583,8 @@ const WorkExperienceSection = () => {
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DesktopDatePicker
                   label="End date"
-                  inputFormat="MM/YYYY"
-                  value={date}
-                  //value={awardDate}
+                  inputFormat="MM/DD/YYYY"
+                  value={awardDate}
                   onChange={dateHandler}
                   renderInput={(params) => (
                     <TextField

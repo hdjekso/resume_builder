@@ -14,9 +14,7 @@ import "./SkillSection.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addskill,
-  removeskill,
   addcoursework,
-  removecoursework,
   addWorkexperience,
   removeWorkExperience,
   editCompanyName,
@@ -154,7 +152,7 @@ const SkillSection = () => {
       );
 
       setJobTitle("");
-      setBtnStatus(true);
+      //setBtnStatus(true);
     } else if (containsBP){
       alert(
         "At least one of the requried input values in your work experience is empty.Please fill in the required inputs before adding another work experience."
@@ -202,7 +200,7 @@ const SkillSection = () => {
 
   const [haveExperience, setHaveExperience] = useState(true);
 
-  const handleCheckChange = () => {
+  const handleCheckChange = (value) => {
     if (btnStatus === false) {
       setBtnStatus(true);
       // console.log(endDate);
@@ -218,6 +216,7 @@ const SkillSection = () => {
 
   const handleWorkExperienceChange = () => {
     setHaveExperience((haveExperience + 1) % 2);
+  }  
   
   const handleCheckChangeEdit = (index) => (event) => {
     // const { value } = event.target;
@@ -382,9 +381,9 @@ const SkillSection = () => {
                     />
                   </LocalizationProvider>
                   <FormGroup>
-                    <FormControlLabel
+                    <FormControlLabel 
                       control={
-                        <Checkbox onChange={handleCheckChangeEdit(index)} />
+                        <Checkbox checked={work.btnStatus} onChange={handleCheckChangeEdit(index)} />
                       }
                       label="This is an ongoing job"
                     />
@@ -542,6 +541,6 @@ const SkillSection = () => {
       </Card>
     </form>
   );
-}};
+};
 
 export default SkillSection;
