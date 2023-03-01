@@ -36,6 +36,9 @@ const WorkExperienceSection = () => {
   const [projectName, setProjectName] = useState("");
   const [link, setLink] = useState("");
 
+
+
+
   const [startDate, setStartDate] = useState(
     `${current.getMonth() + 1}/${current.getDate()}/${current.getFullYear()}`
   );
@@ -48,7 +51,7 @@ const WorkExperienceSection = () => {
 
   // for the award section:
   const [awardTitle, setAwardTitle] = useState("");
-  const [date, setDate] = useState(
+  const [awardDate, setAwardDate] = useState(
     `${current.getMonth() + 1}/${current.getDate()}/${current.getFullYear()}`
   );
   const [awardSummary, setAwardSummary] = useState("");
@@ -62,6 +65,8 @@ const WorkExperienceSection = () => {
   const awards = useSelector((state) => {
     return state.awards;
   });
+
+  console.log(awards);
 
   // if (projects) {
   //   console.log(projects[0]);
@@ -94,9 +99,34 @@ const WorkExperienceSection = () => {
 
   const projectNameEdit = (index) => (event) => {
     const {value} = event.target;
-    console.log(index,value)
+    // console.log(index,value)
     dispatch(editProjectName([index,value]));
-  }
+  };
+
+  const projectDescriptionEdit = (index) => (event) => {
+    const { value } = event.target;
+    // console.log(index, value);
+    dispatch(editProjectDescription([index, value]));
+  };
+
+  const projectStartDateEdit = (index) => (newDate) => {
+    // const { value } = event.target;
+    // console.log(index, value);
+    dispatch(
+      editProjectStartDate([
+        index,
+        `${newDate.$M + 1}/${newDate.$D}/${newDate.$y}`,
+      ])
+    );
+  };
+
+  const projectEndDateEdit = (index) => (newDate) => {
+    // const { value } = event.target;
+    // console.log(index, value);
+    dispatch(editProjectEndDate([index, `${newDate.$M + 1}/${newDate.$D}/${newDate.$y}`]));
+  };
+
+
 
   // award part :
 
@@ -105,12 +135,29 @@ const WorkExperienceSection = () => {
   };
 
   const dateHandler = (newDate) => {
-    setDate(`${newDate.$M + 1}/${newDate.$D}/${newDate.$y}`);
+    setAwardDate(`${newDate.$M + 1}/${newDate.$D}/${newDate.$y}`);
   };
 
   const awardSummaryHandler = (input) => {
     setAwardSummary(input.target.value);
   };
+
+  const awardTitleEdit = (index) => (event) => {
+    const {value} = event.target;
+    dispatch(editAwardTitle([index,value]))
+  };
+   const awardSummaryEdit = (index) => (event) => {
+     const { value } = event.target;
+     dispatch(editAwardSummary([index, value]));
+   };
+    const awardDateEdit = (index) => (newDate) => {
+      dispatch(
+        editAwardDate([
+          index,
+          `${newDate.$M + 1}/${newDate.$D}/${newDate.$y}`,
+        ])
+      );
+    };
 
   // setup add button to use dispatch in order to add to the storage:
 
@@ -136,15 +183,15 @@ const WorkExperienceSection = () => {
 
   const awardAddHandler = (e) => {
     e.preventDefault();
-    if (awardTitle && awardSummary && date) {
-      dispatch(addAward({ awardTitle, awardSummary, date }));
+    if (awardTitle && awardSummary && awardDate) {
+      dispatch(addAward({ awardTitle, awardSummary, awardDate }));
       setAwardSummary("");
       setAwardTitle("");
-      setDate(
-        `${
-          current.getMonth() + 1
-        }/${current.getDate()}/${current.getFullYear()}`
-      );
+      // setAwardDate(
+      //   `${
+      //     current.getMonth() + 1
+      //   }/${current.getDate()}/${current.getFullYear()}`
+      // );
     } else {
       alert(
         "at least one of the input value is empty, please fill in thg input value before adding new award"
@@ -215,7 +262,7 @@ const WorkExperienceSection = () => {
                         label="Start date"
                         inputFormat="MM/DD/YYYY"
                         value={project.startDate}
-                        // onChange={startDateHandler}
+                        onChange={projectStartDateEdit(index)}
                         renderInput={(params) => (
                           <TextField
                             sx={{ backgroundColor: "#ffffff" }}
@@ -233,7 +280,7 @@ const WorkExperienceSection = () => {
                         label="End date"
                         inputFormat="MM/DD/YYYY"
                         value={project.endDate}
-                        // onChange={endDateHandler}
+                        onChange={projectEndDateEdit(index)}
                         renderInput={(params) => (
                           <TextField
                             sx={{ backgroundColor: "#ffffff" }}
@@ -256,7 +303,7 @@ const WorkExperienceSection = () => {
                       multiline
                       rows={5}
                       value={project.projectDescrption}
-                      // onChange={projectDescrptionHandler}
+                      onChange={projectDescriptionEdit(index)}
                     />
                   </Grid>
                   <button
@@ -391,7 +438,7 @@ const WorkExperienceSection = () => {
                     variant="outlined"
                     rows={1}
                     value={award.awardTitle}
-                    // onChange={awardTitleHandler}
+                    onChange={awardTitleEdit(index)}
                   />
                 </Grid>
                 <Grid item md={3.5} xs={12}>
@@ -399,8 +446,8 @@ const WorkExperienceSection = () => {
                     <DesktopDatePicker
                       label="End date"
                       inputFormat="MM/DD/YYYY"
-                      value={award.date}
-                      // onChange={dateHandler}
+                      value={award.awardDate}
+                      onChange={awardDateEdit(index)}
                       renderInput={(params) => (
                         <TextField
                           sx={{ backgroundColor: "#ffffff" }}
@@ -422,7 +469,7 @@ const WorkExperienceSection = () => {
                     helperText="Emphasis on skill, what qualities/effort/skill did you use to achieve the Award "
                     multiline
                     value={award.awardSummary}
-                    // onChange={awardSummaryHandler}
+                    onChange={awardSummaryEdit(index)}
                     rows={2}
                   />
                 </Grid>
@@ -466,7 +513,7 @@ const WorkExperienceSection = () => {
                 <DesktopDatePicker
                   label="End date"
                   inputFormat="MM/DD/YYYY"
-                  value={date}
+                  value={awardDate}
                   onChange={dateHandler}
                   renderInput={(params) => (
                     <TextField

@@ -265,7 +265,7 @@ const awardSLcie = createSlice({
       return state;
     },
     editAwardDate(state, action) {
-      state[action.payload[0]].date = action.payload[1];
+       state[action.payload[0]].awardDate = action.payload[1];
       return state;
     },
   },
