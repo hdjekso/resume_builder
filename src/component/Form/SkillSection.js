@@ -216,7 +216,8 @@ const SkillSection = () => {
 
   const handleWorkExperienceChange = () => {
     setHaveExperience((haveExperience + 1) % 2);
-
+  }  
+  
   const handleCheckChangeEdit = (index) => (event) => {
     // const { value } = event.target;
     dispatch(editbutton(index));

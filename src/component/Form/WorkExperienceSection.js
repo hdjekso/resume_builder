@@ -70,7 +70,6 @@ const WorkExperienceSection = () => {
     return state.awards;
   });
 
-<<<<<<< HEAD
   const [haveProjects, setHaveProjects] = useState(true);
 
   const handleProjectChange = () => {
@@ -82,9 +81,7 @@ const WorkExperienceSection = () => {
   const handleAwardChange = () => {
     setHaveAwards((haveAwards + 1) % 2);
   };
-=======
   console.log(awards);
->>>>>>> fixed_backend
 
   // if (projects) {
   //   console.log(projects[0]);
@@ -218,7 +215,7 @@ const WorkExperienceSection = () => {
   const awardAddHandler = (e) => {
     e.preventDefault();
     if (awardTitle && awardSummary && awardDate  && awardContainsBP) {
-      dispatch(addAward({ awardTitle, awardSummary, date }));
+      dispatch(addAward({ awardTitle, awardSummary, awardDate }));
       setAwardSummary("");
       setAwardTitle("");
       /*setAwardDate(
@@ -375,7 +372,7 @@ const WorkExperienceSection = () => {
               {/* )} */}
             </Grid>
           ))
-        : null}
+      : null}
 
       {/* THE CURRENT INPUT IS FOR USER'S INPUT, NOT FOR THE SHOW AND EDITING LIST */}
       {/* PROJECT PART */}
@@ -558,7 +555,7 @@ const WorkExperienceSection = () => {
               <Grid item md={12} xs={12} mt={0}></Grid>
             </Grid>
           ))
-        : null}
+      : null}
 
       {/* THE CURRENT INPUT IS FOR USE TO INPUT THEIR AWARD AND STORE IT INTO REDUX, NOT FOR SHOWING AND LISTING  */}
       {/* AWARD PART: */}
