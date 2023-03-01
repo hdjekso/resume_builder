@@ -236,6 +236,125 @@ const ResumePDF = () => {
   addExperience(expData);
   addExperience(expData);
 */
+  
+  const projectsText = () => {
+    
+    var projectData = [];
+
+    for(let i = 0; i < projects.length; i++){
+
+      projectData.push({
+        columns: [
+          {
+            text: projects[i].projectName + "\n", bold: true ,
+            width: "*",
+            alignment: "left",
+          },
+          {
+            text: projects[i].startDate,
+            width: "*",
+            alignment: "right",
+          },
+        ],
+      });
+
+
+      projectData.push({
+        columns: [
+          {
+            text: [ 
+              //{ text: projects[i].projectName + " ", bold: true, style: "body"}, 
+              { text: projects[i].projectDescription + ". ", style: "body" }, 
+              { text: "Visit " + projects[i].projectName, link: projects[i].link, decoration: 'underline', style: "link" },
+            ],
+          },
+        ],
+  
+      });
+
+    }
+
+    return projectData;
+  }
+
+  
+  
+  const awardsText = () => {
+    var awardData = [];
+
+    for(let i = 0; i < awards.length; i++){
+
+      awardData.push({
+        columns: [
+          {
+            text: awards[i].awardTitle + "\n", bold: true ,
+            width: "*",
+            alignment: "left",
+          },
+          {
+            text: awards[i].awardDate,
+            width: "*",
+            alignment: "right",
+          },
+        ],
+      });
+
+      let detailsArray = awards[i].awardSummary.split("\n");
+      awardData.push({
+        ul: [{ ul: detailsArray }],
+      });
+      awardData.push({ text: "\n" });
+
+    }
+
+    return awardData;
+  }
+
+  /*
+  var projectObj = {
+    projectName: "Project Name. ",
+    projectDesc: "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit. ",
+    projectHasLink: true, 
+    projectLink: "https://www.google.com/",
+  };
+  var projectData = [];
+
+  function addProjects(projectObj) {
+    projectData.push({
+
+      columns: [
+        {
+          text: [ { text: projectObj.projectName, bold: true, style: "body"}, { text: projectObj.projectDesc, style: "body" }, { text: "Link", link: projectObj.projectLink, decoration: 'underline', style: "link" } ]
+        },
+
+      ],
+
+    });
+  }
+
+  addProjects(projectObj);
+  addProjects(projectObj);
+
+  var awardObj = {
+    awardsBullets: ["BP 1", "BP 2", "BP 3"],
+  };
+  var awardData = [];
+
+  function addAwards(awardObj) {
+
+    var detailsArray = [];
+    
+    awardObj.awardsBullets.forEach((element) => {
+      detailsArray.push(element);
+    });
+
+    awardData.push({ ul: [{ ul: detailsArray }] });
+    awardData.push({ text: "\n" });
+  }
+
+  addAwards(awardObj)
+  */
+
   const docDefinition = {
     pageMargins: [28.8, 28.8, 28.8, 28.8],
     content: [
@@ -288,6 +407,19 @@ const ResumePDF = () => {
       separator(),
 
       workExperienceText(),
+
+      { text: "\nPROJECTS", style: "header" },
+
+      separator(),
+
+      projectsText(),
+
+      //AWARDS
+      { text: "\nAWARDS", style: "header" },
+
+      separator(),
+
+      awardsText(),
     ],
     styles: {
       name: {
@@ -301,6 +433,10 @@ const ResumePDF = () => {
       },
       body: {
         fontSize: 12,
+      },
+      link: {
+        fontSize: 12,
+        color: "blue",
       },
     },
   };
