@@ -54,8 +54,6 @@ const Form = () => {
     return state.email;
   });
 
-  console.log(firstname);
-
   // FROM THE WORK EXPERIENCE SECTION:
   const skills = useSelector((state) => {
     return state.skills;
@@ -138,15 +136,15 @@ const Form = () => {
     } else if (action === "Skills, Coursework, and Work Experience") {
       // console.log('work experience page')
       flag = ValidateWorkExperience();
-      //   } else if (action == "Projects and Awards") {
-      //     flag = validateProjectDetails();
+    } else if (action == "Projects and Awards") {
+      flag = validateProjectDetails();
     }
 
     if (flag) {
       const newCompleted = completed;
       newCompleted[activeStep] = true;
       setCompleted(newCompleted);
-      console.log('yes')
+      console.log("yes");
       handleNext();
     }
   };
@@ -178,10 +176,28 @@ const Form = () => {
     if (skills.length === 0 || courseworks.length === 0) {
       alert("at least one input is empty for the work experience section");
       return false;
-    };
+    }
     console.log(firstname);
     return true;
   };
+
+  const validateProjectDetails = () => {
+    if (awards.length == 0 && projects.length == 0) {
+      alert("please have at least one award and at least one project");
+      return false;
+    } else if (awards.length == 0) {
+      alert("please fill in the input for award name and award description");
+      return false;
+    } else if (projects.length == 0) {
+      alert(
+        "please fill in the project name, startdate, enddate, and project description for the project section"
+      );
+      return false;
+    }
+    return true;
+  };
+
+  // const validateProjectDetails
 
   const handleReset = () => {
     setActiveStep(0);
@@ -230,10 +246,18 @@ const Form = () => {
                     Back
                   </Button>
                   <Box sx={{ flex: "1 1 auto" }} />
-                  <Button onClick={handleComplete} sx={{ mr: 1 }}>
-                    Save and Next
-                  </Button>
-                  {/*{activeStep !== steps.length &&
+                  {/*  */}
+                  {completedSteps() === totalSteps() - 1 &&
+                  projects.length > 0 &&
+                  awards.length > 0 ? (
+                    <ResumePDF />
+                  ) : (
+                    <Button onClick={handleComplete} sx={{ mr: 1 }}>
+                      Save and Next
+                    </Button>
+                  )}
+
+                  {/* {activeStep !== steps.length &&
                   (completed[activeStep] ? (
                     <Typography
                       variant="caption"
@@ -247,14 +271,15 @@ const Form = () => {
                         ? "Finish"
                         : "Complete Step"}
                     </Button>
-                      ))}*/}
+                      ))} */}
                 </Box>
               </React.Fragment>
             )}
           </div>
         </Box>
       </Container>
-      <ResumePDF />
+
+      {/* this is the download button */}
     </React.Fragment>
   );
 };

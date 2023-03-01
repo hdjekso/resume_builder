@@ -14,13 +14,15 @@ import "./SkillSection.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addskill,
-  removeskill,
   addcoursework,
-  removecoursework,
   addWorkexperience,
   removeWorkExperience,
-  editWorkExperience,
+  editCompanyName,
   editJobTitle,
+  editbutton,
+  editJobDescription,
+  editStartDate,
+  editEndDate,
 } from "../../action";
 
 // skill section:
@@ -30,6 +32,7 @@ const SkillSection = () => {
   const dispatch = useDispatch();
 
   // usestate varibales:
+
   const [companyName, setComanyName] = useState("");
   const [jobTitle, setJobTitle] = useState("");
   const [startDate, setStartDate] = useState(
@@ -71,11 +74,20 @@ const SkillSection = () => {
   });
 
   const addskillhandle = (skill) => {
-    dispatch(addskill(skill));
+    //
+    if (skill.length > 5) {
+      alert("only maximum 5 skill inputs allow");
+    } else {
+      dispatch(addskill(skill));
+    }
   };
 
   const addcourseworkhandle = (coursework) => {
-    dispatch(addcoursework(coursework));
+    if (coursework.length > 5) {
+      alert("only maximum 5 coursework inputs allow");
+    } else {
+      dispatch(addcoursework(coursework));
+    }
   };
 
   const handleCompanyName = (input) => {
@@ -122,6 +134,7 @@ const SkillSection = () => {
           jobDescription,
           startDate,
           endDate,
+          btnStatus,
         })
       );
       console.log(jobDescription);
@@ -137,6 +150,7 @@ const SkillSection = () => {
           current.getMonth() + 1
         }/${current.getDate()}/${current.getFullYear()}`
       );
+
       setJobTitle("");
       setBtnStatus(true);
     } else if (containsBP){
@@ -152,32 +166,43 @@ const SkillSection = () => {
 
   // EDIT WORK EXPERIENCE SECTION:
 
-  const editCompanyName = (index) => (event) => {
+  const companyNameEdit = (index) => (event) => {
     const { value } = event.target;
     console.log(value);
-    dispatch(editWorkExperience([index, value]));
+    dispatch(editCompanyName([index, value]));
   };
 
-  const editJobTitle = (index) => (event) => {
+  const jobTitleEdit = (index) => (event) => {
     const { value } = event.target;
     console.log(value);
     dispatch(editJobTitle([index, value]));
   };
 
-   const editJobDescription = (index) => (event) => {
-     const { value } = event.target;
-     console.log(value);
-     dispatch(editJobDescription([index, value]));
-   };
+  const jobDescriptionEdit = (index) => (event) => {
+    const { value } = event.target;
+    console.log(value);
+    dispatch(editJobDescription([index, value]));
+  };
 
+  const startDateEdit = (index) => (newDate) => {
+    console.log(index,newDate);
+    dispatch(
+      editStartDate([index, `${newDate.$M + 1}/${newDate.$D}/${newDate.$y}`])
+    );
+  };
+
+  const endDateEdit = (index) => (newDate) => {
+    dispatch(
+      editEndDate([index, `${newDate.$M + 1}/${newDate.$D}/${newDate.$y}`])
+    );
+  };
   //status of the end date picker
 
   const [haveExperience, setHaveExperience] = useState(true);
 
-  const handleCheckChange = () => {
+  const handleCheckChange = (value) => {
     if (btnStatus === false) {
       setBtnStatus(true);
-      setEndDate("present");
       // console.log(endDate);
     } else {
       setBtnStatus(false);
@@ -191,6 +216,10 @@ const SkillSection = () => {
 
   const handleWorkExperienceChange = () => {
     setHaveExperience((haveExperience + 1) % 2);
+
+  const handleCheckChangeEdit = (index) => (event) => {
+    // const { value } = event.target;
+    dispatch(editbutton(index));
   };
 
   return (
@@ -317,7 +346,7 @@ const SkillSection = () => {
                     required
                     label="Company name"
                     variant="outlined"
-                    onChange={editCompanyName(index)}
+                    onChange={companyNameEdit(index)}
                     value={work.companyName}
                     key={work}
                   />
@@ -329,7 +358,7 @@ const SkillSection = () => {
                     required
                     label="Job title"
                     variant="outlined"
-                    onChange={editJobTitle(index)}
+                    onChange={jobTitleEdit(index)}
                     value={work.jobTitle}
                   />
                 </Grid>
@@ -339,7 +368,7 @@ const SkillSection = () => {
                       label="Start date"
                       inputFormat="MM/DD/YYYY"
                       value={work.startDate}
-                      // onChange={handleStartDateChange}
+                      onChange={startDateEdit(index)}
                       renderInput={(params) => (
                         <TextField
                           sx={{ backgroundColor: "#ffffff" }}
@@ -352,7 +381,9 @@ const SkillSection = () => {
                   </LocalizationProvider>
                   <FormGroup>
                     <FormControlLabel
-                      control={<Checkbox onChange={handleCheckChange} />}
+                      control={
+                        <Checkbox onChange={handleCheckChangeEdit(index)} />
+                      }
                       label="This is an ongoing job"
                     />
                   </FormGroup>
@@ -360,11 +391,11 @@ const SkillSection = () => {
                 <Grid item md={3} xs={12}>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DesktopDatePicker
-                      disabled={btnStatus}
+                      disabled={work.btnStatus}
                       label="End date"
                       inputFormat="MM/DD/YYYY"
                       value={work.endDate}
-                      // onChange={handleEndDateChange}
+                      onChange={endDateEdit(index)}
                       renderInput={(params) => (
                         <TextField
                           sx={{ backgroundColor: "#ffffff" }}
@@ -385,7 +416,7 @@ const SkillSection = () => {
                     variant="outlined"
                     multiline
                     rows={4}
-                    // onChange={handleJobDescription}
+                    onChange={jobDescriptionEdit(index)}
                     value={work.jobDescription}
                   />
                 </Grid>
@@ -396,7 +427,7 @@ const SkillSection = () => {
 
         {/* DO NEW INPUT OF WORK EXPERIENCE AND STORE IT OVER HERE */}
 
-        {haveExperience ? 
+        {(haveExperience && workexperiences.length < 4)? 
           <Grid container spacing={4} mt={0} paddingRight={3} paddingLeft={3}>
             <Grid item md={7} xs={7}>
               <Typography
