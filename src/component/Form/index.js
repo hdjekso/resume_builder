@@ -136,8 +136,8 @@ const Form = () => {
     } else if (action == "Skills, Coursework, and Work Experience") {
       // console.log('work experience page')
       flag = ValidateWorkExperience();
-      //   } else if (action == "Projects and Awards") {
-      //     flag = validateProjectDetails();
+    } else if (action == "Projects and Awards") {
+      flag = validateProjectDetails();
     }
 
     if (flag) {
@@ -178,6 +178,22 @@ const Form = () => {
       return false;
     }
     console.log(firstname);
+    return true;
+  };
+
+  const validateProjectDetails = () => {
+    if (awards.length == 0 && projects.length == 0) {
+      alert("please have at least one award and at least one project");
+      return false;
+    } else if (awards.length == 0) {
+      alert("please fill in the input for award name and award description");
+      return false;
+    } else if (projects.length == 0) {
+      alert(
+        "please fill in the project name, startdate, enddate, and project description for the project section"
+      );
+      return false;
+    }
     return true;
   };
 
@@ -231,7 +247,9 @@ const Form = () => {
                   </Button>
                   <Box sx={{ flex: "1 1 auto" }} />
                   {/*  */}
-                  {completedSteps() === totalSteps() - 1 && projects.length > 0 && awards.length > 0 ? (
+                  {completedSteps() === totalSteps() - 1 &&
+                  projects.length > 0 &&
+                  awards.length > 0 ? (
                     <ResumePDF />
                   ) : (
                     <Button onClick={handleComplete} sx={{ mr: 1 }}>
