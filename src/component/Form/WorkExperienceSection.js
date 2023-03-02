@@ -79,7 +79,9 @@ const WorkExperienceSection = () => {
 
   const handleProjectChange = () => {
     setHaveProjects(!haveProjects);
+    console.log(haveProjects)
     dispatch(changeproject(haveProjects));
+    console.log(bool)
   };
  
 
