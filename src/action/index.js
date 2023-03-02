@@ -1,3 +1,4 @@
+import { create } from "@mui/material/styles/createTransitions";
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 
 const firstnameSlice = createSlice({
@@ -270,6 +271,24 @@ const awardSLcie = createSlice({
     },
   },
 });
+  const optionalSlice = createSlice({
+    name:'option',
+    initialState:{workexperience:true,award:true,project:true},
+    reducers:{
+      changeWorkexperience(state,action){
+        state.workexperience = action.payload;
+        return state;
+      },
+      changeaward(state,action){
+        state.action = action.payload;
+        return state;
+      },
+      changeproject(state,action){
+        state.action = action.payload
+        return state;
+      }
+    }
+  })
 
 const store = configureStore({
   reducer: {
@@ -289,6 +308,7 @@ const store = configureStore({
     workexperiences: workexperienceSlcie.reducer,
     projects: projectSlice.reducer,
     awards: awardSLcie.reducer,
+    option:optionalSlice.reducer,
   },
 });
 
@@ -320,3 +340,6 @@ export const {
 
 export const { addAward, removeAward, editAwardDate, editAwardSummary, editAwardTitle} = awardSLcie.actions;
 export const { addProject, removeProject, editProjectEndDate,editProjectStartDate,editProjectDescription,editProjectName } = projectSlice.actions;
+
+export const { changeWorkexperience, changeaward, changeproject } =
+  optionalSlice.actions;

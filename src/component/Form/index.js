@@ -72,6 +72,9 @@ const Form = () => {
   const awards = useSelector((state) => {
     return state.awards;
   });
+  const option = useSelector((state) => {
+    return state.option;
+  });
 
   const steps = [
     "Profile",
@@ -182,17 +185,20 @@ const Form = () => {
   };
 
   const validateProjectDetails = () => {
-    if (awards.length == 0 && projects.length == 0) {
-      alert("please have at least one award and at least one project");
-      return false;
-    } else if (awards.length == 0) {
-      alert("please fill in the input for award name and award description");
-      return false;
-    } else if (projects.length == 0) {
-      alert(
-        "please fill in the project name, startdate, enddate, and project description for the project section"
-      );
-      return false;
+    console.log(option)
+    if (option.award && option.project) {
+      if (awards.length == 0 && projects.length == 0) {
+        alert("please have at least one award and at least one project");
+        return false;
+      } else if (awards.length == 0) {
+        alert("please fill in the input for award name and award description");
+        return false;
+      } else if (projects.length == 0) {
+        alert(
+          "please fill in the project name, startdate, enddate, and project description for the project section"
+        );
+        return false;
+      }
     }
     return true;
   };

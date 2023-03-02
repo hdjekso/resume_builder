@@ -23,6 +23,7 @@ import {
   editJobDescription,
   editStartDate,
   editEndDate,
+
 } from "../../action";
 
 // skill section:
@@ -144,7 +145,7 @@ const SkillSection = () => {
           btnStatus,
         })
       );
-      console.log(jobDescription);
+      // console.log(jobDescription);
       setComanyName("");
       setJobDescription("");
       setStartDate(
@@ -175,24 +176,26 @@ const SkillSection = () => {
 
   const companyNameEdit = (index) => (event) => {
     const { value } = event.target;
-    console.log(value);
+    // console.log(value);
     dispatch(editCompanyName([index, value]));
   };
 
   const jobTitleEdit = (index) => (event) => {
     const { value } = event.target;
-    console.log(value);
+    // console.log(value);
     dispatch(editJobTitle([index, value]));
   };
 
+  console.log(workexperiences);
+
   const jobDescriptionEdit = (index) => (event) => {
     const { value } = event.target;
-    console.log(value);
+    // console.log(value);
     dispatch(editJobDescription([index, value]));
   };
 
   const startDateEdit = (index) => (newDate) => {
-    console.log(index, newDate);
+    // console.log(index, newDate);
     dispatch(
       editStartDate([index, `${newDate.$M + 1}/${newDate.$D}/${newDate.$y}`])
     );
