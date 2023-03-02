@@ -541,5 +541,5 @@ const SkillSection = () => {
     </form>
   );
 };
-
+}
 export default SkillSection;

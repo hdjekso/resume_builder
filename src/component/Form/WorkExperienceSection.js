@@ -70,7 +70,6 @@ const WorkExperienceSection = () => {
     return state.awards;
   });
 
-<<<<<<< HEAD
   const [haveProjects, setHaveProjects] = useState(true);
 
   const handleProjectChange = () => {
@@ -82,9 +81,6 @@ const WorkExperienceSection = () => {
   const handleAwardChange = () => {
     setHaveAwards((haveAwards + 1) % 2);
   };
-=======
-  console.log(awards);
->>>>>>> fixed_backend
 
   // if (projects) {
   //   console.log(projects[0]);
