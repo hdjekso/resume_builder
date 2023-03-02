@@ -246,7 +246,10 @@ const ResumePDF = () => {
       projectData.push({
         columns: [
           {
-            text: projects[i].projectName + "\n", bold: true ,
+            text: [
+              { text: projects[i].projectName + "\n", bold: true },
+              { text: "Visit " + projects[i].projectName, link: projects[i].link, decoration: 'underline', style: "link" },
+            ],
             width: "*",
             alignment: "left",
           },
@@ -258,19 +261,11 @@ const ResumePDF = () => {
         ],
       });
 
-
+      let detailsArray = projects[i].projectDescription.split("\n");
       projectData.push({
-        columns: [
-          {
-            text: [ 
-              //{ text: projects[i].projectName + " ", bold: true, style: "body"}, 
-              { text: projects[i].projectDescription + ". ", style: "body" }, 
-              { text: "Visit " + projects[i].projectName, link: projects[i].link, decoration: 'underline', style: "link" },
-            ],
-          },
-        ],
-  
+        ul: [{ ul: detailsArray }],
       });
+      projectData.push({ text: "\n" });
 
     }
 
@@ -354,6 +349,13 @@ const ResumePDF = () => {
 
   addAwards(awardObj)
   */
+  
+  /*
+  pdfMake.fonts = {
+    Raleway: {
+      normal: 'Raleway-Black.ttf',
+    }
+  };*/
 
   const docDefinition = {
     pageMargins: [28.8, 28.8, 28.8, 28.8],
@@ -439,6 +441,10 @@ const ResumePDF = () => {
         color: "blue",
       },
     },
+    /*
+    defaultStyle: {
+      font: 'Raleway',
+    },*/
   };
 
   const handleDownloadResume = () => {
