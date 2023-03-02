@@ -156,12 +156,12 @@ const Form = () => {
       !lastname ||
       !address ||
       !email ||
-      !gpa ||
+      //!gpa ||
       !degree ||
       !major ||
       !college
     ) {
-      alert("at least one input is empty for the profile section");
+      alert("Please fill in all required inputs");
       return false;
     }
     if (!email.includes("@")) {
@@ -174,7 +174,7 @@ const Form = () => {
   const ValidateWorkExperience = () => {
     // REDO CODE:
     if (skills.length === 0 || courseworks.length === 0) {
-      alert("at least one input is empty for the work experience section");
+      alert("Please fill in all required inputs");
       return false;
     }
     console.log(firstname);
@@ -183,14 +183,14 @@ const Form = () => {
 
   const validateProjectDetails = () => {
     if (awards.length === 0 && projects.length === 0) {
-      alert("please have at least one award and at least one project");
+      alert("Please add at least one project and one award");
       return false;
     } else if (awards.length === 0) {
-      alert("please fill in the input for award name and award description");
+      alert("Please fill in all required inputs before adding an award.");
       return false;
     } else if (projects.length === 0) {
       alert(
-        "please fill in the project name, startdate, enddate, and project description for the project section"
+        "Please fill in all required inputs before adding a project."
       );
       return false;
     }
@@ -253,7 +253,7 @@ const Form = () => {
                     <ResumePDF />
                   ) : (
                     <Button onClick={handleComplete} sx={{ mr: 1 }}>
-                      Save and Next
+                      Save and Continue
                     </Button>
                   )}
 

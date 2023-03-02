@@ -298,7 +298,7 @@ const ProfileSection = () => {
                 >{link}</Typography>
             </Grid>
             <Grid item md={4} xs={12}>
-              <Button onClick={(link) => handleRemoveLink(link)}>removeAAAAAAAAAA</Button>
+              <Button onClick={(link) => handleRemoveLink(link)}>remove</Button>
             </Grid>
           </Grid>
         ))}
