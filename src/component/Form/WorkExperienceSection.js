@@ -311,7 +311,7 @@ const WorkExperienceSection = () => {
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DesktopDatePicker
                         label="Date"
-                        inputFormat="MM/YYYY"
+                        inputFormat="MM/DD/YYYY"
                         value={project.startDate}
                         onChange={projectStartDateEdit(index)}
                         renderInput={(params) => (
@@ -412,7 +412,7 @@ const WorkExperienceSection = () => {
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DesktopDatePicker
                     label="Date"
-                    inputFormat="MM/YYYY"
+                    inputFormat="MM/DD/YYYY"
                     value={startDate}
                     onChange={startDateHandler}
                     renderInput={(params) => (
