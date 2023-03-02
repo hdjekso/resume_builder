@@ -184,26 +184,45 @@ const Form = () => {
   };
 
   const validateProjectDetails = () => {
-    if(!option.award && !option.project){
-      console.log('both work')
-      return false;
-    }else{
-      console.log(option);
-      return false;
-    }
-    // if (awards.length == 0 && projects.length == 0) {
-    //   alert("please have at least one award and at least one project");
+    // if(!option.award && !option.project){
+    //   console.log('both work')
     //   return false;
-    // } else if (awards.length == 0) {
-    //   alert("please fill in the input for award name and award description");
-    //   return false;
-    // } else if (projects.length == 0) {
-    //   alert(
-    //     "please fill in the project name, startdate, enddate, and project description for the project section"
-    //   );
+    // }else{
+    //   console.log(option);
     //   return false;
     // }
-
+    if (!option.award && !option.project) {
+      if (awards.length == 0 && projects.length == 0) {
+        alert(
+          "if you don't have award or project, you can unclick the checkbox for the award and project section"
+        );
+        return false;
+      } else if (awards.length == 0) {
+        alert(
+          "if you don't have award, you can unclick the checkbox for the award section"
+        );
+        return false;
+      } else if (projects.length == 0) {
+        alert(
+          "if you don't have project, you can unclick the checkbox for the project section"
+        );
+        return false;
+      }
+    } else if (!option.award) {
+      if (awards.length == 0) {
+        alert(
+          "if you don't have award, you can unclick the checkbox for the award section"
+        );
+        return false;
+      }
+    } else if (!option.project) {
+      if (projects.length == 0) {
+        alert(
+          "if you don't have project, you can unclick the checkbox for the project section"
+        );
+        return false;
+      };
+    };
     return true;
   };
 
