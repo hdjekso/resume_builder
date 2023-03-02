@@ -155,15 +155,7 @@ const ResumePDF = () => {
       ],
     };
   };
-  /*
-  let expData = {
-    jobTitle: "JOB TITLE",
-    jobDate: "JOB DATE",
-    jobOrg: "COMPANY",
-    jobLocation: "CITY, STATE",
-    jobDetails: ["BP 1", "BP 2", "BP 3"],
-  };
-*/
+
   let experienceData = [];
 
   const workExperienceText = () => {
@@ -198,12 +190,7 @@ const ResumePDF = () => {
           },
         ],
       });
-      /*
-      let detailsArray = [];
-      expData.jobDetails.forEach((element) => {
-        detailsArray.push(element);
-      });
-      */
+
       let detailsArray = workexperiences[i].jobDescription.split("\n");
       experienceData.push({
         ul: [{ ul: detailsArray }],
@@ -213,35 +200,88 @@ const ResumePDF = () => {
 
     return experienceData;
   };
-  /*
-  function addExperience(data) {
-    experienceData.push({
-      columns: [
-        {
-          text: data.jobTitle + "\n" + data.jobOrg + "\n",
-          width: "*",
-          alignment: "left",
-        },
-        {
-          text: data.jobDate + "\n" + data.jobLocation + "\n",
-          width: "*",
-          alignment: "right",
-        },
-      ],
-    });
 
-    var detailsArray = [];
-    data.jobDetails.forEach((element) => {
-      detailsArray.push(element);
-    });
+  const projectsText = () => {
+    var projectData = [];
 
-    experienceData.push({ ul: [{ ul: detailsArray }] });
-    experienceData.push({ text: "\n" });
-  }
+    for (let i = 0; i < projects.length; i++) {
+      if (i === 0) {
+        projectData.push({
+          text: "\nPROJECTS",
+          style: "header",
+        });
+        projectData.push(separator());
+      }
+      projectData.push({
+        columns: [
+          {
+            text: [
+              { text: projects[i].projectName + "\n", bold: true },
+              {
+                text: projects[i].projectName,
+                link: projects[i].link,
+                decoration: "underline",
+                style: "link",
+              },
+            ],
+            width: "*",
+            alignment: "left",
+          },
+          {
+            text: projects[i].startDate,
+            width: "*",
+            alignment: "right",
+          },
+        ],
+      });
 
-  addExperience(expData);
-  addExperience(expData);
-*/
+      let detailsArray = projects[i].projectDescription.split("\n");
+      projectData.push({
+        ul: [{ ul: detailsArray }],
+      });
+      projectData.push({ text: "\n" });
+    }
+
+    return projectData;
+  };
+
+  const awardsText = () => {
+    var awardData = [];
+
+    for (let i = 0; i < awards.length; i++) {
+      if (i === 0) {
+        awardData.push({
+          text: "\nAWARDS",
+          style: "header",
+        });
+        awardData.push(separator());
+      }
+      awardData.push({
+        columns: [
+          {
+            text: awards[i].awardTitle + "\n",
+            bold: true,
+            width: "*",
+            alignment: "left",
+          },
+          {
+            text: awards[i].awardDate,
+            width: "*",
+            alignment: "right",
+          },
+        ],
+      });
+
+      let detailsArray = awards[i].awardSummary.split("\n");
+      awardData.push({
+        ul: [{ ul: detailsArray }],
+      });
+      awardData.push({ text: "\n" });
+    }
+
+    return awardData;
+  };
+
   const docDefinition = {
     pageMargins: [28.8, 28.8, 28.8, 28.8],
     content: [
@@ -288,6 +328,8 @@ const ResumePDF = () => {
       },
 
       workExperienceText(),
+      projectsText(),
+      awardsText(),
     ],
     styles: {
       name: {
