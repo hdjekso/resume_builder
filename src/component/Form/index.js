@@ -147,7 +147,6 @@ const Form = () => {
       const newCompleted = completed;
       newCompleted[activeStep] = true;
       setCompleted(newCompleted);
-      console.log("yes");
       handleNext();
     }
   };
@@ -185,16 +184,11 @@ const Form = () => {
   };
 
   const validateProjectDetails = () => {
-    if (awards.length === 0 && projects.length === 0) {
-      alert("please have at least one award and at least one project");
+    if(!option.award && !option.project){
+      console.log('both work')
       return false;
-    } else if (awards.length === 0) {
-      alert("please fill in the input for award name and award description");
-      return false;
-    } else if (projects.length === 0) {
-      alert(
-        "please fill in the project name, startdate, enddate, and project description for the project section"
-      );
+    }else{
+      console.log(option);
       return false;
     }
     // if (awards.length == 0 && projects.length == 0) {

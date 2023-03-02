@@ -74,17 +74,21 @@ const WorkExperienceSection = () => {
   const [haveProjects, setHaveProjects] = useState(true);
 
   const handleProjectChange = () => {
+    dispatch(changeproject(!haveProjects));
     setHaveProjects(!haveProjects);
-    console.log(haveProjects)
-    dispatch(changeproject(haveProjects));
   };
+
+  const option = useSelector((state)=>{
+    return state.option;
+  })
  
+  console.log(option);
 
   const [haveAwards, setHaveAwards] = useState(true);
 
   const handleAwardChange = () => {
+    dispatch(changeaward(!haveAwards));
     setHaveAwards(!haveAwards);
-    dispatch(changeaward(haveAwards));
   };
 
   const ProjectNameHandler = (input) => {

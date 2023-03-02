@@ -284,7 +284,7 @@ const awardSLcie = createSlice({
         return state;
       },
       changeproject(state,action){
-        state.project = !action.payload
+        state.project = action.payload
         return state;
       }
     }
