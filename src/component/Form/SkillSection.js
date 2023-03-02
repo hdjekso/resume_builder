@@ -409,12 +409,9 @@ const SkillSection = () => {
                     />
                   </LocalizationProvider>
                   <FormGroup>
-                    <FormControlLabel
+                    <FormControlLabel 
                       control={
-                        <Checkbox
-                          checked={work.btnStatus}
-                          onChange={handleCheckChangeEdit(index)}
-                        />
+                        <Checkbox checked={work.btnStatus} onChange={handleCheckChangeEdit(index)} />
                       }
                       label="This is an ongoing job"
                     />

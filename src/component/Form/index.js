@@ -139,7 +139,7 @@ const Form = () => {
     } else if (action === "Skills, Coursework, and Work Experience") {
       // console.log('work experience page')
       flag = ValidateWorkExperience();
-    } else if (action == "Projects and Awards") {
+    } else if (action === "Projects and Awards") {
       flag = validateProjectDetails();
     }
 
@@ -185,11 +185,17 @@ const Form = () => {
   };
 
   const validateProjectDetails = () => {
-    if (option.award && option.project) {
-      return true;
-    }else{
-      console.log(option.award,option.project)
-      return true;
+    if (awards.length === 0 && projects.length === 0) {
+      alert("please have at least one award and at least one project");
+      return false;
+    } else if (awards.length === 0) {
+      alert("please fill in the input for award name and award description");
+      return false;
+    } else if (projects.length === 0) {
+      alert(
+        "please fill in the project name, startdate, enddate, and project description for the project section"
+      );
+      return false;
     }
     // if (awards.length == 0 && projects.length == 0) {
     //   alert("please have at least one award and at least one project");

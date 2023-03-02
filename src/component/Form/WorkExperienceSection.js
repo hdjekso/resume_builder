@@ -71,17 +71,12 @@ const WorkExperienceSection = () => {
     return state.awards;
   });
 
-  const bool = useSelector((state)=>{
-    return state.option;
-  });
-
   const [haveProjects, setHaveProjects] = useState(true);
 
   const handleProjectChange = () => {
     setHaveProjects(!haveProjects);
     console.log(haveProjects)
     dispatch(changeproject(haveProjects));
-    console.log(bool)
   };
  
 
@@ -189,7 +184,7 @@ const WorkExperienceSection = () => {
 
   const projectAddHandler = (e) => {
     e.preventDefault();
-    if (projectDescription && projectName && link && startDate && endDate) {
+    if (projectDescription && projectName && startDate && endDate && projectContainsBP) {
       dispatch(
         addProject({
           projectDescription,
@@ -215,7 +210,7 @@ const WorkExperienceSection = () => {
 
   const awardAddHandler = (e) => {
     e.preventDefault();
-    if (awardTitle && awardSummary && awardDate) {
+    if (awardTitle && awardSummary && awardDate  && awardContainsBP) {
       dispatch(addAward({ awardTitle, awardSummary, awardDate }));
       setAwardSummary("");
       setAwardTitle("");
@@ -325,7 +320,7 @@ const WorkExperienceSection = () => {
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DesktopDatePicker
                         label="Date"
-                        inputFormat="MM/YYYY"
+                        inputFormat="MM/DD/YYYY"
                         value={project.startDate}
                         onChange={projectStartDateEdit(index)}
                         renderInput={(params) => (
@@ -384,7 +379,7 @@ const WorkExperienceSection = () => {
               {/* )} */}
             </Grid>
           ))
-        : null}
+      : null}
 
       {/* THE CURRENT INPUT IS FOR USER'S INPUT, NOT FOR THE SHOW AND EDITING LIST */}
       {/* PROJECT PART */}
@@ -424,7 +419,7 @@ const WorkExperienceSection = () => {
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DesktopDatePicker
                     label="Date"
-                    inputFormat="MM/YYYY"
+                    inputFormat="MM/DD/YYYY"
                     value={startDate}
                     onChange={startDateHandler}
                     renderInput={(params) => (
@@ -551,7 +546,7 @@ const WorkExperienceSection = () => {
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DesktopDatePicker
                       label="End date"
-                      inputFormat="MM/YYYY"
+                      inputFormat="MM/DD/YYYY"
                       value={award.awardDate}
                       onChange={awardDateEdit(index)}
                       renderInput={(params) => (
@@ -590,14 +585,14 @@ const WorkExperienceSection = () => {
                   sx={{ ml: 10 }}
                   onClick={(award) => awardRemoveHandler(award)}
                 >
-                  remove
+                  REMOVE
                 </button>
                 {/* } */}
               </Grid>
               <Grid item md={12} xs={12} mt={0}></Grid>
             </Grid>
           ))
-        : null}
+      : null}
 
       {/* THE CURRENT INPUT IS FOR USE TO INPUT THEIR AWARD AND STORE IT INTO REDUX, NOT FOR SHOWING AND LISTING  */}
       {/* AWARD PART: */}
