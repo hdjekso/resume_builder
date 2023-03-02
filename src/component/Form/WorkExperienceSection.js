@@ -1,3 +1,252 @@
+// import React, { useState, useEffect } from "react";
+// import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+// import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+// import {
+//   Box,
+//   Button,
+//   Card,
+//   CardContent,
+//   CardHeader,
+//   Divider,
+//   Grid,
+//   TextField,
+// } from "@mui/material";
+// import dayjs from "dayjs";
+// import {
+//   addProject,
+//   removeProject,
+//   addAward,
+//   removeAward,
+//   editProjectStartDate,
+//   editProjectDescription,
+//   editProjectName,
+//   editProjectEndDate,
+//   editAwardTitle,
+//   editAwardDate,
+//   editAwardSummary
+// } from "../../action";
+// import { useSelector, useDispatch } from "react-redux";
+// import Typography from "@mui/material/Typography";
+// import FormGroup from "@mui/material/FormGroup";
+// import FormControlLabel from "@mui/material/FormControlLabel";
+// import Checkbox from "@mui/material/Checkbox";
+
+// const WorkExperienceSection = () => {
+//   const dispatch = useDispatch();
+//   const current = new Date();
+//   // create useState for each section:
+//   // for the project section:
+//   const [projectName, setProjectName] = useState("");
+//   const [link, setLink] = useState("");
+
+
+
+
+//   const [startDate, setStartDate] = useState(
+//     `${current.getMonth() + 1}/${current.getDate()}/${current.getFullYear()}`
+//   );
+
+//   const [endDate, setEndDate] = useState(
+//     `${current.getMonth() + 1}/${current.getDate()}/${current.getFullYear()}`
+//   );
+
+//   const [projectDescription, setProjectDescription] = useState("");
+
+//   // for the award section:
+//   const [awardTitle, setAwardTitle] = useState("");
+//   const [awardDate, setAwardDate] = useState(
+//     `${current.getMonth() + 1}/${current.getDate()}/${current.getFullYear()}`
+//   );
+//   const [awardSummary, setAwardSummary] = useState("");
+
+//   // use useSector first:
+
+//   const projects = useSelector((state) => {
+//     return state.projects;
+//   });
+
+//   const awards = useSelector((state) => {
+//     return state.awards;
+//   });
+
+//   const [haveProjects, setHaveProjects] = useState(true);
+
+//   const handleProjectChange = () => {
+//     setHaveProjects((haveProjects + 1) % 2);
+//   };
+
+//   const [haveAwards, setHaveAwards] = useState(true);
+
+//   const handleAwardChange = () => {
+//     setHaveAwards((haveAwards + 1) % 2);
+//   };
+
+//   // if (projects) {
+//   //   console.log(projects[0]);
+//   // }
+//   // if (awards) {
+//   //   console.log(awards[0]);
+//   // }
+
+//   // start creating handlers for each hook:
+
+//   const ProjectNameHandler = (input) => {
+//     setProjectName(input.target.value);
+//   };
+
+//   const linkHanlder = (input) => {
+//     setLink(input.target.value);
+//   };
+
+//   const startDateHandler = (newDate) => {
+//     //setStartDate(`${newDate.$M + 1}/${newDate.$D}/${newDate.$y}`);
+//     setStartDate(`${newDate.$M + 1}/${newDate.$y}`);
+//   };
+
+//   const endDateHandler = (newDate) => {
+//     setEndDate(`${newDate.$M + 1}/${newDate.$D}/${newDate.$y}`);
+//   };
+
+//   const projectDescriptionHandler = (input) => {
+//     const desc = input.target.value;
+//     /*if (desc.length >= 1){
+//       setProjectContainsBP(desc.charAt(0) === '-');
+//     }*/
+//     setProjectDescription(input.target.value);
+//     /*if (!error_){
+//       setProjectDescription(input.target.value);
+//     }*/
+//   };
+
+//   const projectNameEdit = (index) => (event) => {
+//     const {value} = event.target;
+//     // console.log(index,value)
+//     dispatch(editProjectName([index,value]));
+//   };
+
+//   const projectDescriptionEdit = (index) => (event) => {
+//     const { value } = event.target;
+//     // console.log(index, value);
+//     dispatch(editProjectDescription([index, value]));
+//   };
+
+//   const projectStartDateEdit = (index) => (newDate) => {
+//     // const { value } = event.target;
+//     // console.log(index, value);
+//     dispatch(
+//       editProjectStartDate([
+//         index,
+//         `${newDate.$M + 1}/${newDate.$D}/${newDate.$y}`,
+//       ])
+//     );
+//   };
+
+//   const projectEndDateEdit = (index) => (newDate) => {
+//     // const { value } = event.target;
+//     // console.log(index, value);
+//     dispatch(editProjectEndDate([index, `${newDate.$M + 1}/${newDate.$D}/${newDate.$y}`]));
+//   };
+
+
+
+//   // award part :
+
+//   const awardTitleHandler = (input) => {
+//     setAwardTitle(input.target.value);
+//   };
+
+//   const dateHandler = (newDate) => {
+//     setAwardDate(`${newDate.$M + 1}/${newDate.$D}/${newDate.$y}`);
+//   };
+
+//   const awardSummaryHandler = (input) => {
+//     const desc = input.target.value;
+//     /*if (desc.length >= 1){
+//       setAwardContainsBP(desc.charAt(0) === '-');
+//     }*/
+//     setAwardSummary(input.target.value);
+//     /*if (!error_){
+//       setAwardSummary(input.target.value);
+//     }*/
+//   };
+
+//   const awardTitleEdit = (index) => (event) => {
+//     const {value} = event.target;
+//     dispatch(editAwardTitle([index,value]))
+//   };
+//    const awardSummaryEdit = (index) => (event) => {
+//      const { value } = event.target;
+//      dispatch(editAwardSummary([index, value]));
+//    };
+//     const awardDateEdit = (index) => (newDate) => {
+//       dispatch(
+//         editAwardDate([
+//           index,
+//           `${newDate.$M + 1}/${newDate.$y}`,
+//           //`${newDate.$M + 1}/${newDate.$D}/${newDate.$y}`,
+//         ])
+//       );
+//     };
+
+//   // setup add button to use dispatch in order to add to the storage:
+
+//   const projectAddHandler = (e) => {
+//     e.preventDefault();
+//     if (projectDescription && projectName && link && startDate && endDate && projectContainsBP) {
+//       dispatch(
+//         addProject({ projectDescription, projectName, link, startDate, endDate })
+//       );
+//       setProjectName("");
+//       setProjectDescription("");
+//       setLink("");
+//     } else if (projectContainsBP){
+//       alert(
+//         "At least one of the requried input values in your project is empty. Please fill in the required inputs before adding another project."
+//       );
+//     }
+//   };
+
+//   const projectRemoveHandler = (project) => {
+//     dispatch(removeProject(project));
+//   };
+
+//   const awardAddHandler = (e) => {
+//     e.preventDefault();
+//     if (awardTitle && awardSummary && awardDate  && awardContainsBP) {
+//       dispatch(addAward({ awardTitle, awardSummary, date }));
+//       setAwardSummary("");
+//       setAwardTitle("");
+//       /*setAwardDate(
+//         `${
+//           current.getMonth() + 1
+//         }/${current.getDate()}/${current.getFullYear()}`
+//       );*/
+//     } else if (awardContainsBP){
+//       alert(
+//         "At least one of the requried input values in your award/ certification is empty. Please fill in the required inputs before adding another award/certification."
+//       );
+//     }
+//   };
+
+//   const awardRemoveHandler = (award) => {
+//     dispatch(removeAward(award));
+//   };
+
+//   //description error checking
+//   const [projectContainsBP, setProjectContainsBP] = useState(true);
+//   const [awardContainsBP, setAwardContainsBP] = useState(true);
+//   const [error_, setError] = useState(false);
+//   //const projectHelperTxt = "Please describe your project in 3-4 bullet points, and start each bullet point on a new line\nTIPS: start w/ Action verbs, use quantitative statements if possible, and highlight/emphasize skills";
+
+//   //checks if all descs have BPs
+//   const errorCheck = () => {
+//     const inputValid = projectContainsBP && awardContainsBP;
+//     setError(!inputValid);
+//   }
+
+
+
 import React, { useState, useEffect } from "react";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -11,6 +260,10 @@ import {
   Divider,
   Grid,
   TextField,
+  Typography,
+  Checkbox,
+  FormGroup,
+  FormControlLabel,
 } from "@mui/material";
 import dayjs from "dayjs";
 import {
@@ -24,13 +277,9 @@ import {
   editProjectEndDate,
   editAwardTitle,
   editAwardDate,
-  editAwardSummary
+  editAwardSummary,
 } from "../../action";
 import { useSelector, useDispatch } from "react-redux";
-import Typography from "@mui/material/Typography";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 
 const WorkExperienceSection = () => {
   const dispatch = useDispatch();
@@ -39,9 +288,6 @@ const WorkExperienceSection = () => {
   // for the project section:
   const [projectName, setProjectName] = useState("");
   const [link, setLink] = useState("");
-
-
-
 
   const [startDate, setStartDate] = useState(
     `${current.getMonth() + 1}/${current.getDate()}/${current.getFullYear()}`
@@ -70,6 +316,8 @@ const WorkExperienceSection = () => {
     return state.awards;
   });
 
+  console.log(awards);
+
   const [haveProjects, setHaveProjects] = useState(true);
 
   const handleProjectChange = () => {
@@ -82,15 +330,6 @@ const WorkExperienceSection = () => {
     setHaveAwards((haveAwards + 1) % 2);
   };
 
-  // if (projects) {
-  //   console.log(projects[0]);
-  // }
-  // if (awards) {
-  //   console.log(awards[0]);
-  // }
-
-  // start creating handlers for each hook:
-
   const ProjectNameHandler = (input) => {
     setProjectName(input.target.value);
   };
@@ -100,29 +339,21 @@ const WorkExperienceSection = () => {
   };
 
   const startDateHandler = (newDate) => {
-    //setStartDate(`${newDate.$M + 1}/${newDate.$D}/${newDate.$y}`);
-    setStartDate(`${newDate.$M + 1}/${newDate.$y}`);
+    setStartDate(`${newDate.$M + 1}/${newDate.$D}/${newDate.$y}`);
   };
 
   const endDateHandler = (newDate) => {
     setEndDate(`${newDate.$M + 1}/${newDate.$D}/${newDate.$y}`);
   };
 
-  const projectDescriptionHandler = (input) => {
-    const desc = input.target.value;
-    /*if (desc.length >= 1){
-      setProjectContainsBP(desc.charAt(0) === '-');
-    }*/
+  const projectDescrptionHandler = (input) => {
     setProjectDescription(input.target.value);
-    /*if (!error_){
-      setProjectDescription(input.target.value);
-    }*/
   };
 
   const projectNameEdit = (index) => (event) => {
-    const {value} = event.target;
+    const { value } = event.target;
     // console.log(index,value)
-    dispatch(editProjectName([index,value]));
+    dispatch(editProjectName([index, value]));
   };
 
   const projectDescriptionEdit = (index) => (event) => {
@@ -145,10 +376,24 @@ const WorkExperienceSection = () => {
   const projectEndDateEdit = (index) => (newDate) => {
     // const { value } = event.target;
     // console.log(index, value);
-    dispatch(editProjectEndDate([index, `${newDate.$M + 1}/${newDate.$D}/${newDate.$y}`]));
+    dispatch(
+      editProjectEndDate([
+        index,
+        `${newDate.$M + 1}/${newDate.$D}/${newDate.$y}`,
+      ])
+    );
   };
 
-
+    const projectDescriptionHandler = (input) => {
+      const desc = input.target.value;
+      if (desc.length >= 1){
+        setProjectContainsBP(desc.charAt(0) === '-');
+      }
+      setProjectDescription(input.target.value);
+      if (!error_){
+        setProjectDescription(input.target.value);
+      }
+    };
 
   // award part :
 
@@ -161,48 +406,43 @@ const WorkExperienceSection = () => {
   };
 
   const awardSummaryHandler = (input) => {
-    const desc = input.target.value;
-    /*if (desc.length >= 1){
-      setAwardContainsBP(desc.charAt(0) === '-');
-    }*/
     setAwardSummary(input.target.value);
-    /*if (!error_){
-      setAwardSummary(input.target.value);
-    }*/
   };
 
   const awardTitleEdit = (index) => (event) => {
-    const {value} = event.target;
-    dispatch(editAwardTitle([index,value]))
+    const { value } = event.target;
+    dispatch(editAwardTitle([index, value]));
   };
-   const awardSummaryEdit = (index) => (event) => {
-     const { value } = event.target;
-     dispatch(editAwardSummary([index, value]));
-   };
-    const awardDateEdit = (index) => (newDate) => {
-      dispatch(
-        editAwardDate([
-          index,
-          `${newDate.$M + 1}/${newDate.$y}`,
-          //`${newDate.$M + 1}/${newDate.$D}/${newDate.$y}`,
-        ])
-      );
-    };
+  const awardSummaryEdit = (index) => (event) => {
+    const { value } = event.target;
+    dispatch(editAwardSummary([index, value]));
+  };
+  const awardDateEdit = (index) => (newDate) => {
+    dispatch(
+      editAwardDate([index, `${newDate.$M + 1}/${newDate.$D}/${newDate.$y}`])
+    );
+  };
 
   // setup add button to use dispatch in order to add to the storage:
 
   const projectAddHandler = (e) => {
     e.preventDefault();
-    if (projectDescription && projectName && link && startDate && endDate && projectContainsBP) {
+    if (projectDescription && projectName && link && startDate && endDate) {
       dispatch(
-        addProject({ projectDescription, projectName, link, startDate, endDate })
+        addProject({
+          projectDescription,
+          projectName,
+          link,
+          startDate,
+          endDate,
+        })
       );
       setProjectName("");
       setProjectDescription("");
       setLink("");
-    } else if (projectContainsBP){
+    } else {
       alert(
-        "At least one of the requried input values in your project is empty. Please fill in the required inputs before adding another project."
+        "at least one of the input value is empty, please fill in thg input value before adding new project"
       );
     }
   };
@@ -213,18 +453,18 @@ const WorkExperienceSection = () => {
 
   const awardAddHandler = (e) => {
     e.preventDefault();
-    if (awardTitle && awardSummary && awardDate  && awardContainsBP) {
-      dispatch(addAward({ awardTitle, awardSummary, date }));
+    if (awardTitle && awardSummary && awardDate) {
+      dispatch(addAward({ awardTitle, awardSummary, awardDate }));
       setAwardSummary("");
       setAwardTitle("");
-      /*setAwardDate(
-        `${
-          current.getMonth() + 1
-        }/${current.getDate()}/${current.getFullYear()}`
-      );*/
-    } else if (awardContainsBP){
+      // setAwardDate(
+      //   `${
+      //     current.getMonth() + 1
+      //   }/${current.getDate()}/${current.getFullYear()}`
+      // );
+    } else {
       alert(
-        "At least one of the requried input values in your award/ certification is empty. Please fill in the required inputs before adding another award/certification."
+        "at least one of the input value is empty, please fill in thg input value before adding new award"
       );
     }
   };
@@ -243,7 +483,7 @@ const WorkExperienceSection = () => {
   const errorCheck = () => {
     const inputValid = projectContainsBP && awardContainsBP;
     setError(!inputValid);
-  }
+  };
 
   return (
     <Card
@@ -265,15 +505,28 @@ const WorkExperienceSection = () => {
       <Typography
         variant="h5"
         component="div"
-        sx={{ mb: 0.5, fontWeight: "bold", color: "#5484D7", ml:3, mb:-3}}
+        sx={{ mb: 0.5, fontWeight: "bold", color: "#5484D7", ml: 3, mb: -3 }}
       >
         Projects
         <FormGroup>
-            <FormControlLabel control={<Checkbox style={{padding: 5, marginLeft: 10}} defaultChecked />} label={<Typography variant="h7" color="textSecondary" sx={{ mb: 0.5, fontSize: 14, fontFamily: 'sans-serif'}}>I have projects</Typography>} 
-              onChange={handleProjectChange}/>
-          </FormGroup>
+          <FormControlLabel
+            control={
+              <Checkbox style={{ padding: 5, marginLeft: 10 }} defaultChecked />
+            }
+            label={
+              <Typography
+                variant="h7"
+                color="textSecondary"
+                sx={{ mb: 0.5, fontSize: 14, fontFamily: "sans-serif" }}
+              >
+                I have projects
+              </Typography>
+            }
+            onChange={handleProjectChange}
+          />
+        </FormGroup>
       </Typography>
-      {(projects && haveProjects)
+      {projects && haveProjects
         ? projects.map((project, index) => (
             <Grid container spacing={4} mt={1} mb={-6}>
               <Grid item md={12} xs={12}>
@@ -347,7 +600,7 @@ const WorkExperienceSection = () => {
                       sx={{ backgroundColor: "#ffffff" }}
                       required
                       fullWidth
-                      label="Project Description"                      
+                      label="Project Description"
                       variant="outlined"
                       multiline
                       rows={5}
@@ -361,9 +614,7 @@ const WorkExperienceSection = () => {
                       REMOVE
                     </button>
                   </Grid>
-                  <Grid item>
-                    
-                  </Grid>
+                  <Grid item></Grid>
                 </Grid>
               </Grid>
 
@@ -376,7 +627,7 @@ const WorkExperienceSection = () => {
       {/* THE CURRENT INPUT IS FOR USER'S INPUT, NOT FOR THE SHOW AND EDITING LIST */}
       {/* PROJECT PART */}
 
-      {(haveProjects && projects.length < 4)? 
+      {haveProjects && projects.length < 4 ? (
         <Grid container spacing={4} mt={1} paddingRight={3} paddingLeft={3}>
           <Grid item md={12} xs={12}>
             <Grid
@@ -444,12 +695,17 @@ const WorkExperienceSection = () => {
                 </LocalizationProvider>
               </Grid> */}
               <Grid item md={12} xs={12}>
-                <TextField error
+                <TextField
+                  error
                   sx={{ backgroundColor: "#ffffff" }}
                   required
                   fullWidth
                   label="Project Description"
-                  helperText={!projectContainsBP ? "Invalid input format: Please use bullet points (-) to describe your project, and start each bullet point on a new line": "Please describe your project in 3-4 bullet points, and start each bullet point on a new line. TIPS: start w/ Action verbs, use quantitative statements if possible, and highlight/emphasize skills"}
+                  helperText={
+                    !projectContainsBP
+                      ? "Invalid input format: Please use bullet points (-) to describe your project, and start each bullet point on a new line"
+                      : "Please describe your project in 3-4 bullet points, and start each bullet point on a new line. TIPS: start w/ Action verbs, use quantitative statements if possible, and highlight/emphasize skills"
+                  }
                   variant="outlined"
                   multiline
                   rows={5}
@@ -468,27 +724,47 @@ const WorkExperienceSection = () => {
           </Grid>
           {/* )} */}
         </Grid>
-      :""}
-      
+      ) : (
+        ""
+      )}
 
-      <br></br> 
+      <br></br>
       {/* ))} */}
-      
 
       <Typography
         variant="h5"
         component="div"
-        sx={{ mb: 0.5, fontWeight: "bold", color: "#5484D7", ml:3, mt: 8, mb:-3}}
+        sx={{
+          mb: 0.5,
+          fontWeight: "bold",
+          color: "#5484D7",
+          ml: 3,
+          mt: 8,
+          mb: -3,
+        }}
       >
         Awards & Certifications
         <FormGroup>
-            <FormControlLabel control={<Checkbox style={{padding: 5, marginLeft: 10}} defaultChecked />} label={<Typography variant="h7" color="textSecondary" sx={{ mb: 0.5, fontSize: 14, fontFamily: 'sans-serif'}}>I have awards</Typography>} 
-              onChange={handleAwardChange}/>
-          </FormGroup>
+          <FormControlLabel
+            control={
+              <Checkbox style={{ padding: 5, marginLeft: 10 }} defaultChecked />
+            }
+            label={
+              <Typography
+                variant="h7"
+                color="textSecondary"
+                sx={{ mb: 0.5, fontSize: 14, fontFamily: "sans-serif" }}
+              >
+                I have awards
+              </Typography>
+            }
+            onChange={handleAwardChange}
+          />
+        </FormGroup>
       </Typography>
 
       {/* THE CURRENT GRID IS THE SHOW THE VALUE THAT WAS STORED INIDE THE AWARD LIST */}
-      {(awards && haveAwards)
+      {awards && haveAwards
         ? awards.map((award, index) => (
             <Grid container spacing={4} mt={1} paddingRight={3} paddingLeft={3}>
               <Grid
@@ -540,15 +816,20 @@ const WorkExperienceSection = () => {
                     rows={3}
                   />
                   <button
+                    className="remove-btn"
+                    onClick={(award) => awardRemoveHandler(award)}
+                  >
+                    remove
+                  </button>
+                </Grid>
+
+                <button
                   className="remove-btn"
+                  sx={{ ml: 10 }}
                   onClick={(award) => awardRemoveHandler(award)}
                 >
                   remove
                 </button>
-                </Grid>
-
-                <button className="remove-btn" sx={{ml: 10}}
-                onClick={(award)=>awardRemoveHandler(award)}>remove</button>
                 {/* } */}
               </Grid>
               <Grid item md={12} xs={12} mt={0}></Grid>
@@ -558,8 +839,15 @@ const WorkExperienceSection = () => {
 
       {/* THE CURRENT INPUT IS FOR USE TO INPUT THEIR AWARD AND STORE IT INTO REDUX, NOT FOR SHOWING AND LISTING  */}
       {/* AWARD PART: */}
-      {(haveAwards && awards.length < 4)? 
-        <Grid container spacing={4} mt={1} mb={5} paddingRight={3} paddingLeft={3}>
+      {haveAwards && awards.length < 4 ? (
+        <Grid
+          container
+          spacing={4}
+          mt={1}
+          mb={5}
+          paddingRight={3}
+          paddingLeft={3}
+        >
           <Grid
             container
             item
@@ -597,14 +885,19 @@ const WorkExperienceSection = () => {
               </LocalizationProvider>
             </Grid>
             <Grid item md={12} xs={12}>
-              <TextField error
-                error = {!awardContainsBP}
+              <TextField
+                error
+                error={!awardContainsBP}
                 sx={{ backgroundColor: "#ffffff" }}
                 required
                 fullWidth
                 label="Award Summary"
                 variant="outlined"
-                helperText={!awardContainsBP ? "Invalid input format: Please use bullet points (-) to describe your project, and start each bullet point on a new line": "Using 2-3 bullet points, please describe your the nature of your award, and the skills/ effort involved in attaining. Start each bullet point on a new line."}
+                helperText={
+                  !awardContainsBP
+                    ? "Invalid input format: Please use bullet points (-) to describe your project, and start each bullet point on a new line"
+                    : "Using 2-3 bullet points, please describe your the nature of your award, and the skills/ effort involved in attaining. Start each bullet point on a new line."
+                }
                 multiline
                 value={awardSummary}
                 onChange={awardSummaryHandler}
@@ -621,8 +914,9 @@ const WorkExperienceSection = () => {
             </button>
           </Grid>
         </Grid>
-      : ''}
-      
+      ) : (
+        ""
+      )}
 
       <br></br>
     </Card>

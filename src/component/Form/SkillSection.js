@@ -54,7 +54,7 @@ const SkillSection = () => {
   const errorCheck = () => {
     const inputValid = containsBP && skillsFilled && cwkFilled;
     setError(!inputValid);
-  }
+  };
 
   // skill section:
 
@@ -107,7 +107,7 @@ const SkillSection = () => {
   };
 
   const handleJobDescription = (input) => {
-    const desc = input.target.value
+    const desc = input.target.value;
     let firstCharIsBP = false;
     //let correctBPFormat = true;
     //let index = desc.indexOf('-');
@@ -126,7 +126,14 @@ const SkillSection = () => {
 
   const handleAddWorkExperience = (e) => {
     e.preventDefault();
-    if (companyName && jobTitle && jobDescription && startDate && endDate && containsBP) {
+    if (
+      companyName &&
+      jobTitle &&
+      jobDescription &&
+      startDate &&
+      endDate &&
+      containsBP
+    ) {
       dispatch(
         addWorkexperience({
           companyName,
@@ -152,8 +159,8 @@ const SkillSection = () => {
       );
 
       setJobTitle("");
-      setBtnStatus(true);
-    } else if (containsBP){
+      //setBtnStatus(true);
+    } else if (containsBP) {
       alert(
         "At least one of the requried input values in your work experience is empty.Please fill in the required inputs before adding another work experience."
       );
@@ -185,7 +192,7 @@ const SkillSection = () => {
   };
 
   const startDateEdit = (index) => (newDate) => {
-    console.log(index,newDate);
+    console.log(index, newDate);
     dispatch(
       editStartDate([index, `${newDate.$M + 1}/${newDate.$D}/${newDate.$y}`])
     );
@@ -216,6 +223,7 @@ const SkillSection = () => {
 
   const handleWorkExperienceChange = () => {
     setHaveExperience((haveExperience + 1) % 2);
+  };
 
   const handleCheckChangeEdit = (index) => (event) => {
     // const { value } = event.target;
@@ -252,13 +260,14 @@ const SkillSection = () => {
             >
               Skills
             </Typography>
-            <MuiChipsInput error
+            <MuiChipsInput
+              error
               value={skills}
               onChange={addskillhandle}
               sx={{ width: "66%", backgroundColor: "#ffffff" }}
               required
               error={!skillsFilled}
-              helperText={!skillsFilled ? "Input Required" : ''}
+              helperText={!skillsFilled ? "Input Required" : ""}
             />
           </Grid>
 
@@ -270,13 +279,14 @@ const SkillSection = () => {
             >
               Coursework
             </Typography>
-            <MuiChipsInput error
+            <MuiChipsInput
+              error
               value={courseworks}
               onChange={addcourseworkhandle}
               sx={{ width: "66%", backgroundColor: "#ffffff" }}
               required
               error={!cwkFilled}
-              helperText={!cwkFilled ? "Input Required" : ''}
+              helperText={!cwkFilled ? "Input Required" : ""}
             />
           </Grid>
         </Grid>
@@ -297,12 +307,28 @@ const SkillSection = () => {
           Work Experience
           {/* this is the work experience listing part  */}
           <FormGroup>
-            <FormControlLabel control={<Checkbox style={{padding: 5, marginLeft: 10}} defaultChecked />} label={<Typography variant="h7" color="textSecondary" sx={{ mb: 0.5, fontSize: 14, fontFamily: 'sans-serif'}}>I have work experience</Typography>} 
-              onChange={handleWorkExperienceChange}/>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  style={{ padding: 5, marginLeft: 10 }}
+                  defaultChecked
+                />
+              }
+              label={
+                <Typography
+                  variant="h7"
+                  color="textSecondary"
+                  sx={{ mb: 0.5, fontSize: 14, fontFamily: "sans-serif" }}
+                >
+                  I have work experience
+                </Typography>
+              }
+              onChange={handleWorkExperienceChange}
+            />
           </FormGroup>
         </Typography>
 
-        {(haveExperience && workexperiences)
+        {haveExperience && workexperiences
           ? workexperiences.map((work, index) => (
               <Grid
                 container
@@ -382,7 +408,10 @@ const SkillSection = () => {
                   <FormGroup>
                     <FormControlLabel
                       control={
-                        <Checkbox onChange={handleCheckChangeEdit(index)} />
+                        <Checkbox
+                          checked={work.btnStatus}
+                          onChange={handleCheckChangeEdit(index)}
+                        />
                       }
                       label="This is an ongoing job"
                     />
@@ -423,11 +452,11 @@ const SkillSection = () => {
                 <Grid item md={8} xs={12} mb={4}></Grid>
               </Grid>
             ))
-          : null}
+          : ""}
 
         {/* DO NEW INPUT OF WORK EXPERIENCE AND STORE IT OVER HERE */}
 
-        {(haveExperience && workexperiences.length < 4)? 
+        {haveExperience && workexperiences.length < 4 ? (
           <Grid container spacing={4} mt={0} paddingRight={3} paddingLeft={3}>
             <Grid item md={7} xs={7}>
               <Typography
@@ -511,7 +540,8 @@ const SkillSection = () => {
               </LocalizationProvider>
             </Grid>
             <Grid item md={8} xs={12}>
-              <TextField error
+              <TextField
+                error
                 sx={{ backgroundColor: "#ffffff" }}
                 required
                 fullWidth
@@ -522,8 +552,11 @@ const SkillSection = () => {
                 onChange={handleJobDescription}
                 value={jobDescription}
                 error={!containsBP}
-                helperText={!containsBP ? "Invalid input format: Please use bullet points (-) to describe your job, and start each bullet point on a new line": "Please describe your job in 3-4 bullet points, and start each bullet point on a new line"}
-
+                helperText={
+                  !containsBP
+                    ? "Invalid input format: Please use bullet points (-) to describe your job, and start each bullet point on a new line"
+                    : "Please describe your job in 3-4 bullet points, and start each bullet point on a new line"
+                }
               />
             </Grid>
             {/* {workFields.length - 1 === index && workFields.length < 3 && ( */}
@@ -535,11 +568,13 @@ const SkillSection = () => {
             {/* )} */}
             <Grid item md={8} xs={12} mb={4}></Grid>
           </Grid>
-        : ''}
+        ) : (
+          ""
+        )}
         <Grid container mb={10}></Grid>
       </Card>
     </form>
   );
 };
-}
+
 export default SkillSection;
