@@ -99,7 +99,7 @@ const ResumePDF = () => {
         text: [
           { text: degree + ", " },
           { text: major, bold: true },
-          { text: ",\n" },
+          { text: "\n" },
           { text: college },
         ],
         width: "*",
@@ -218,10 +218,12 @@ const ResumePDF = () => {
             text: [
               { text: projects[i].projectName + "\n", bold: true },
               {
-                text: projects[i].projectName,
+                text: projects[i].link,
                 link: projects[i].link,
-                decoration: "underline",
+                //decoration: "underline",
+                italics: true,
                 style: "link",
+                fontSize: 10,
               },
             ],
             width: "*",
@@ -338,7 +340,7 @@ const ResumePDF = () => {
         alignment: "center",
       },
       header: {
-        fontsize: 14,
+        fontsize: 16,
         bold: true,
       },
       body: {
