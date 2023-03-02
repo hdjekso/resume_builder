@@ -248,7 +248,7 @@ const ResumePDF = () => {
           {
             text: [
               { text: projects[i].projectName + "\n", bold: true },
-              { text: "Visit " + projects[i].projectName, link: projects[i].link, decoration: 'underline', style: "link" },
+              { text: projects[i].projectName, link: projects[i].link, decoration: 'underline', style: "link" },
             ],
             width: "*",
             alignment: "left",
