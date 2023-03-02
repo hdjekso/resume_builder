@@ -168,7 +168,13 @@ const ResumePDF = () => {
 
   const workExperienceText = () => {
     for (let i = 0; i < workexperiences.length; i++) {
-      console.log("Hello!");
+      if (i === 0) {
+        experienceData.push({
+          text: "\nEXPERIENCE",
+          style: "header",
+        });
+        experienceData.push(separator());
+      }
       experienceData.push({
         columns: [
           {
@@ -280,12 +286,6 @@ const ResumePDF = () => {
         columns: skillsText(),
         style: "body",
       },
-      {
-        text: "\nEXPERIENCE",
-        style: "header",
-      },
-
-      separator(),
 
       workExperienceText(),
     ],
